@@ -24,7 +24,7 @@ remote_directory File.join(node.sensu.directory, "handlers") do
 end
 
 service "sensu-server" do
-  provider node['platform'] =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
+  provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   action [:enable, :start]
   subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json")), :delayed
 end

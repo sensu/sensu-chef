@@ -20,7 +20,7 @@
 node.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
 node.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
 
-case node['platform']
+case node.platform
 when "ubuntu", "debian"
   include_recipe "apt"
 
