@@ -23,29 +23,8 @@ remote_directory File.join(node.sensu.directory, "handlers") do
   files_mode 0755
 end
 
-case node[:platform]
-when "ubuntu", "debian"
-  template "/etc/init/sensu-server.conf" do
-    source "init/sensu-service.conf.erb"
-    variables :service => "server", :options => "-l #{node.sensu.log.directory}/sensu.log"
-    mode 0644
-  end
-
-  service "sensu-server" do
-    provider Chef::Provider::Service::Upstart
-    action [:enable, :start]
-    subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json"), :execute => "gem_update"), :delayed
-  end
-when "centos", "redhat"
-  template "/etc/init.d/sensu-server" do
-    source "init/sensu-service.erb"
-    variables :service => "server"
-    mode 0755
-  end
-
-  service "sensu-server" do
-    action [:enable, :start]
-    supports :restart => true
-    subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json"), :execute => "gem_update"), :delayed
-  end
+service "sensu-server" do
+  Chef::Provider::Service::Init
+  action [:enable, :start]
+  subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json")), :delayed
 end

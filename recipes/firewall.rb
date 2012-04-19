@@ -19,7 +19,5 @@
 
 include_recipe "iptables"
 
-#iptables_rule "port_rabbitmq"
-#iptables_rule "port_redis"
 #iptables_rule "port_sensu-api"
 #iptables_rule "port_sensu-dashboard"

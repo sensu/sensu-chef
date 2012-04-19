@@ -6,7 +6,7 @@ default.sensu.plugin.version = "0.1.3"
 default.sensu.directory = "/etc/sensu"
 default.sensu.log.directory = "/var/log/sensu"
 default.sensu.sudoers = false
-default.sensu.iptables = false
+default.sensu.firewall = false
 
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"

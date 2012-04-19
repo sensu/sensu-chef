@@ -1,6 +1,6 @@
 module Sensu
   def self.generate_config(node, databag)
-    config = node.sensu.to_hash.reject { |key, value| %w[installation sandbox plugin user directory log].include?(key) }
+    config = node.sensu.to_hash.reject { |key, value| %w[plugin directory log sudoers firewall].include?(key) }
     address = node.attribute?(:cloud) ? node.cloud.public_ipv4 : node.ipaddress
     config['client'].merge!(
       :name => node.name,

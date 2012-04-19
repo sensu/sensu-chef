@@ -19,29 +19,14 @@
 
 include_recipe "sensu::default"
 
-case node[:platform]
-when "ubuntu", "debian"
-  template "/etc/init/sensu-api.conf" do
-    source "init/sensu-service.conf.erb"
-    variables :service => "api", :options => "-l #{node.sensu.log.directory}/sensu.log"
-    mode 0644
-  end
+service "sensu-api" do
+  Chef::Provider::Service::Init
+  action [:enable, :start]
+  subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json")), :delayed
+end
 
-  service "sensu-api" do
-    provider Chef::Provider::Service::Upstart
-    action [:enable, :start]
-    subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json"), :execute => "gem_update"), :delayed
-  end
-when "centos", "redhat"
-  template "/etc/init.d/sensu-api" do
-    source "init/sensu-service.erb"
-    variables :service => "api"
-    mode 0755
-  end
+if node.sensu.firewall
+  include_recipe "iptables"
 
-  service "sensu-api" do
-    action [:enable, :start]
-    supports :restart => true
-    subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json"), :execute => "gem_update"), :delayed
-  end
+  iptables_rule "port_sensu-api"
 end

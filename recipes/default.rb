@@ -40,7 +40,6 @@ end
 
 package "sensu" do
   version node.sensu.version
-  action :install
 end
 
 gem_package "sensu-plugin" do
