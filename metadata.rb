@@ -17,9 +17,6 @@ depends "apt"
 # available @ http://community.opscode.com/cookbooks/iptables
 #depends "iptables" # optional
 
-# available @ http://community.opscode.com/cookbooks/git
-depends "git"
-
 %w{ubuntu debian redhat centos}.each do |os|
   supports os
 end

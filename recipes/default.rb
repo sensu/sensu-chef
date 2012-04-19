@@ -24,71 +24,45 @@ case node['platform']
 when "debian", "ubuntu"
   include_recipe "apt"
 
-  %w[
-    libssl-dev
-    build-essential
-    daemontools
-  ].each do |pkg|
-    package pkg
+  apt_repository "sensu" do
+    uri "http://repos.sensuapp.org/apt"
+    components ["main"]
+    action :add
   end
 when "centos", "redhat"
-  %w[
-    openssl-devel
-    gcc
-    gcc-c++
-    kernel-devel
-  ].each do |pkg|
-    package pkg
+  include_recipe "yum"
+
+  yum_repository "sensu" do
+    url "http://repos.sensuapp.org/yum"
+    action :add
   end
 end
 
-unless node['platform'] == 'windows'
-  template "/etc/sudoers.d/sensu" do
-    source "sudoers.erb"
-    mode 0440
-  end
-end
-
-execute "gem_update" do
-  action :nothing
-  command "true"
-end
-
-case node.sensu.installation
-when "rubygems"
-  gem_package "sensu" do
-    version node.sensu.version
-    notifies :run, 'execute[gem_update]', :immediate
-  end
-  ruby_block "set_bin_path" do
-    block do
-      node.set.sensu.bin_path = Sensu.find_bin_path
-    end
-  end
-when "sandbox"
-  include_recipe "sensu::sandbox"
+package "sensu" do
+  version node.sensu.version
+  action :install
 end
 
 gem_package "sensu-plugin" do
   version node.sensu.plugin.version
 end
 
-directory File.join(node.sensu.directory, 'conf.d') do
-  recursive true
+if node.sensu.sudoers
+  template "/etc/sudoers.d/sensu" do
+    source "sudoers.erb"
+    mode 0440
+  end
 end
 
-user node.sensu.user do
-  comment "monitoring user"
-  system true
-  home node.sensu.directory
+directory File.join(node.sensu.directory, 'conf.d') do
+  recursive true
 end
 
 include_recipe "sensu::dependencies"
 
 directory node.sensu.log.directory do
   recursive true
-  owner node.sensu.user if node['platform'] != 'windows'
-  group node.sensu.group if node.sensu.has_key?(:group)
+  owner "sensu"
   mode 0755
 end
 
