@@ -14,7 +14,7 @@ depends "redis"
 # available @ http://community.opscode.com/cookbooks/apt
 depends "apt"
 
-# available @ http://community.opscode.com/cookbooks/apt
+# available @ http://community.opscode.com/cookbooks/yum
 depends "yum"
 
 # available @ http://community.opscode.com/cookbooks/iptables
