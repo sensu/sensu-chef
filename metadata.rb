@@ -5,18 +5,26 @@ description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.7"
 
+# available @ http://community.opscode.com/cookbooks/apt
+depends "apt"
+
+# available @ http://community.opscode.com/cookbooks/yum
+depends "yum"
+
 # available @ http://community.opscode.com/cookbooks/rabbitmq
 depends "rabbitmq"
 
 # available @ http://community.opscode.com/cookbooks/redis-package
 depends "redis"
 
-# available @ http://community.opscode.com/cookbooks/apt
-depends "apt"
-
 # available @ http://community.opscode.com/cookbooks/iptables
-#depends "iptables" # optional
+depends "iptables"
 
-%w{ubuntu debian redhat centos}.each do |os|
+%w[
+  ubuntu
+  debian
+  redhat
+  centos
+].each do |os|
   supports os
 end
