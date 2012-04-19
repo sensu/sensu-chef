@@ -14,8 +14,11 @@ depends "redis"
 # available @ http://community.opscode.com/cookbooks/apt
 depends "apt"
 
+# available @ http://community.opscode.com/cookbooks/apt
+depends "yum"
+
 # available @ http://community.opscode.com/cookbooks/iptables
-#depends "iptables" # optional
+depends "iptables"
 
 %w{ubuntu debian redhat centos}.each do |os|
   supports os
