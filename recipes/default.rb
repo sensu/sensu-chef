@@ -20,8 +20,8 @@
 node.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
 node.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
 
-case node['platform']
-when "debian", "ubuntu"
+case node.platform
+when "ubuntu", "debian"
   include_recipe "apt"
 
   apt_repository "sensu" do
@@ -41,6 +41,7 @@ end
 
 package "sensu" do
   version node.sensu.version
+  options "--force-yes"
 end
 
 gem_package "sensu-plugin" do

@@ -17,12 +17,32 @@
 # limitations under the License.
 #
 
-include_recipe "erlang"
-include_recipe "rabbitmq"
+ssl_directory = "/etc/rabbitmq/ssl"
 
-directory "/etc/rabbitmq/ssl"
+directory ssl_directory do
+  recursive true
+end
+
+node.set.rabbitmq.ssl = true
+node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port
 
 ssl = data_bag_item("sensu", "ssl")
+
+%w[
+  cacert
+  cert
+  key
+].each do |item|
+  path = File.join(ssl_directory, "#{item}.pem")
+  file path do
+    content ssl["server"][item]
+    mode 0644
+  end
+  node.set.rabbitmq["ssl_#{item}"] = path
+end
+
+include_recipe "erlang"
+include_recipe "rabbitmq"
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
   action :add
@@ -37,22 +57,6 @@ rabbitmq_user node.sensu.rabbitmq.user do
   vhost node.sensu.rabbitmq.vhost
   permissions "\".*\" \".*\" \".*\""
   action :set_permissions
-end
-
-%w[
-  cacert
-  cert
-  key
-].each do |file|
-  file "/etc/rabbitmq/ssl/#{file}.pem" do
-    content ssl["server"][file]
-    mode 0644
-  end
-end
-
-template "/etc/rabbitmq/rabbitmq.config" do
-  mode 0644
-  notifies :restart, 'service[rabbitmq-server]', :immediately
 end
 
 if node.sensu.firewall
