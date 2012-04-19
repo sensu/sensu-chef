@@ -3,3 +3,4 @@ Gemfile.lock
 Cheffile.lock
 examples/cookbooks
 examples/tmp
+.vagrant
