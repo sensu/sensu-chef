@@ -21,3 +21,9 @@ node.set.redis.listen_addr = "0.0.0.0"
 node.set.redis.listen_port = node.sensu.redis.port
 
 include_recipe "redis::server"
+
+if node.sensu.firewall
+  include_recipe "iptables"
+
+  iptables_rule "port_redis"
+end
