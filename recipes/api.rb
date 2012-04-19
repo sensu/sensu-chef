@@ -20,7 +20,7 @@
 include_recipe "sensu::default"
 
 service "sensu-api" do
-  provider Chef::Provider::Service::Init
+  provider node['platform'] =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   action [:enable, :start]
   subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json")), :delayed
 end
