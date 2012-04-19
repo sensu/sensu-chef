@@ -26,6 +26,7 @@ when "debian", "ubuntu"
 
   apt_repository "sensu" do
     uri "http://repos.sensuapp.org/apt"
+    distribution "sensu"
     components ["main"]
     action :add
   end
