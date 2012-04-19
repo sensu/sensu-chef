@@ -19,7 +19,9 @@
 
 ssl_directory = "/etc/rabbitmq/ssl"
 
-directory ssl_directory
+directory ssl_directory do
+  recursive true
+end
 
 node.set.rabbitmq.ssl = true
 node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port

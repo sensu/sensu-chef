@@ -41,6 +41,7 @@ end
 
 package "sensu" do
   version node.sensu.version
+  options "--force-yes"
 end
 
 gem_package "sensu-plugin" do
