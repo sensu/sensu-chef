@@ -1,0 +1,11 @@
+site "http://community.opscode.com/api/v1"
+
+cookbook "apt"
+cookbook "yum"
+cookbook "rabbitmq"
+cookbook "redis-package",
+  :git => "https://github.com/AtariTech/cookbooks.git",
+  :path => "redis"
+cookbook "iptables"
+cookbook "sensu",
+  :git => "https://github.com/sensu/sensu-chef"
