@@ -19,29 +19,8 @@
 
 include_recipe "sensu::default"
 
-case node[:platform]
-when "ubuntu", "debian"
-  template "/etc/init/sensu-client.conf" do
-    source "init/sensu-service.conf.erb"
-    variables :service => "client", :options => "-l #{node.sensu.log.directory}/sensu.log"
-    mode 0644
-  end
-
-  service "sensu-client" do
-    provider Chef::Provider::Service::Upstart
-    action [:enable, :start]
-    subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json"), :execute => "gem_update"), :delayed
-  end
-when "centos", "redhat"
-  template "/etc/init.d/sensu-client" do
-    source "init/sensu-service.erb"
-    variables :service => "client"
-    mode 0755
-  end
-
-  service "sensu-client" do
-    action [:enable, :start]
-    supports :restart => true
-    subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json"), :execute => "gem_update"), :delayed
-  end
+service "sensu-client" do
+  Chef::Provider::Service::Init
+  action [:enable, :start]
+  subscribes :restart, resources(:file => File.join(node.sensu.directory, "config.json")), :delayed
 end

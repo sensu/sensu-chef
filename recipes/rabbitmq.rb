@@ -54,3 +54,9 @@ template "/etc/rabbitmq/rabbitmq.config" do
   mode 0644
   notifies :restart, 'service[rabbitmq-server]', :immediately
 end
+
+if node.sensu.firewall
+  include_recipe "iptables"
+
+  iptables_rule "port_rabbitmq"
+end
