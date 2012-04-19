@@ -1,0 +1,2 @@
+* Sensu Chef Resources
+Hello World.
