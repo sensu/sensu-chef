@@ -27,3 +27,6 @@ default.sensu.dashboard.host = "localhost"
 default.sensu.dashboard.port = 8080
 default.sensu.dashboard.user = "admin"
 default.sensu.dashboard.password = "secret"
+
+# client
+default.sensu.client = Hash.new
