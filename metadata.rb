@@ -14,7 +14,7 @@ depends "yum"
 # available @ http://community.opscode.com/cookbooks/rabbitmq
 depends "rabbitmq"
 
-# available @ http://community.opscode.com/cookbooks/redis-package
+# available @ https://github.com/CXInc/chef-redis
 depends "redis"
 
 # available @ http://community.opscode.com/cookbooks/iptables
