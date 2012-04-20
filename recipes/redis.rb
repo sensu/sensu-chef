@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-node.set.redis.listen_addr = "0.0.0.0"
-node.set.redis.listen_port = node.sensu.redis.port
+node.set.redis.config.listen_addr = "0.0.0.0"
+node.set.redis.config.listen_port = node.sensu.redis.port
 
-include_recipe "redis::server"
+include_recipe "redis::server_package"
 
 if node.sensu.firewall
   include_recipe "iptables"
