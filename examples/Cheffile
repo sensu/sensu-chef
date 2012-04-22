@@ -2,9 +2,12 @@ site "http://community.opscode.com/api/v1"
 
 cookbook "apt"
 cookbook "yum"
-cookbook "rabbitmq"
+cookbook "rabbitmq",
+  :git => "https://github.com/portertech/rabbitmq",
+  :ref => "COOK-1219"
 cookbook "redis",
-  :git => "https://github.com/CXInc/chef-redis"
+  :git => "https://github.com/portertech/chef-redis",
+  :ref => "config"
 cookbook "iptables"
 cookbook "sensu",
   :git => "https://github.com/sensu/sensu-chef"
