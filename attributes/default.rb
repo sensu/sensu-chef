@@ -32,3 +32,6 @@ default.sensu.dashboard.password = "secret"
 
 # client
 default.sensu.client = Hash.new
+
+# config
+default.sensu.install_orderedhash = false

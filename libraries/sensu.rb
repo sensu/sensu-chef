@@ -18,7 +18,7 @@ module Sensu
         %w(id chef_type data_bag).include?(key)
       }
     )
-    JSON.pretty_generate(
+    config = hash_sorter(
       Chef::Mixin::DeepMerge.merge(
         Chef::Mixin::DeepMerge.merge(
           node_config, client_config
@@ -26,5 +26,18 @@ module Sensu
         databag_config
       )
     )
+    JSON.pretty_generate(config)
+  end
+
+  def self.hash_sorter(hash)
+    if(hash.is_a?(Hash))
+      new_hash = defined?(OrderedHash) ? OrderedHash.new : Hash.new
+      hash.keys.sort.each do |key|
+        new_hash[key] = hash[key].is_a?(Hash) ? hash_sorter(hash[key]) : hash[key]
+      end
+      new_hash
+    else
+      hash
+    end
   end
 end
