@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "sensu::default"
+include_recipe "sensu-chef::default"
 
 remote_directory File.join(node.sensu.directory, "handlers") do
   files_mode 0755
