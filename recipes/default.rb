@@ -94,10 +94,10 @@ else
 end
 
 if RUBY_VERSION < "1.9.0"
-  g = gem_package('orderedhash') do
+  gem = gem_package "orderedhash" do
     action :nothing
   end
-  g.run_action(:install)
+  gem.run_action(:install)
   Gem.clear_paths
   require 'orderedhash'
 end
