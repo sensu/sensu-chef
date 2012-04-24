@@ -99,7 +99,7 @@ if RUBY_VERSION < "1.9.0"
   end
   gem.run_action(:install)
   Gem.clear_paths
-  require 'orderedhash'
+  require "orderedhash"
 end
 
 file File.join(node.sensu.directory, "config.json") do
