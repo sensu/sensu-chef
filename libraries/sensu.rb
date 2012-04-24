@@ -1,7 +1,7 @@
 module Sensu
   def self.generate_config(node, databag)
     attributes_config = node.sensu.to_hash.reject do |key, value|
-      %w[plugin directory log sudoers firewall].include?(key)
+      %w[plugin directory log ssl sudoers firewall].include?(key)
     end
     databag_config = databag.reject do |key, value|
       %w[id chef_type data_bag].include?(key)

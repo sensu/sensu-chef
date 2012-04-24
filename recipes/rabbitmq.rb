@@ -17,28 +17,30 @@
 # limitations under the License.
 #
 
-ssl_directory = "/etc/rabbitmq/ssl"
+if node.sensu.ssl
+  node.set.rabbitmq.ssl = true
+  node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port
 
-directory ssl_directory do
-  recursive true
-end
+  ssl_directory = "/etc/rabbitmq/ssl"
 
-node.set.rabbitmq.ssl = true
-node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port
-
-ssl = data_bag_item("sensu", "ssl")
-
-%w[
-  cacert
-  cert
-  key
-].each do |item|
-  path = File.join(ssl_directory, "#{item}.pem")
-  file path do
-    content ssl["server"][item]
-    mode 0644
+  directory ssl_directory do
+    recursive true
   end
-  node.set.rabbitmq["ssl_#{item}"] = path
+
+  ssl = data_bag_item("sensu", "ssl")
+
+  %w[
+    cacert
+    cert
+    key
+  ].each do |item|
+    path = File.join(ssl_directory, "#{item}.pem")
+    file path do
+      content ssl["server"][item]
+      mode 0644
+    end
+    node.set.rabbitmq["ssl_#{item}"] = path
+  end
 end
 
 include_recipe "erlang"
