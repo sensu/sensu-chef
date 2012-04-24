@@ -85,6 +85,15 @@ file node.sensu.rabbitmq.ssl.private_key_file do
   mode 0644
 end
 
+if(RUBY_VERSION < '1.9.0')
+  g = gem_package('orderedhash')do
+    action :nothing
+  end
+  g.run_action(:install)
+  Gem.clear_paths
+  require 'orderedhash'
+end
+
 file File.join(node.sensu.directory, "config.json") do
   content Sensu.generate_config(node, data_bag_item("sensu", "config"))
   mode 0644
