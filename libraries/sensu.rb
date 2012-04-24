@@ -16,10 +16,10 @@ module Sensu
     }
     config = Chef::Mixin::DeepMerge.merge(
       Chef::Mixin::DeepMerge.merge(
-        Mash.new(attributes_config),
-        Mash.new(databag_config)
+        attributes_config,
+        databag_config
       ),
-      Mash.new(client_config)
+      client_config
     )
     JSON.pretty_generate(sort_hash(config))
   end
