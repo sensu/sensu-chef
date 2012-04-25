@@ -106,3 +106,8 @@ file File.join(node.sensu.directory, "config.json") do
   content Sensu.generate_config(node, data_bag_item("sensu", "config"))
   mode 0644
 end
+
+file File.join("#{node.sensu.directory}/conf.d", "client.json") do
+  content Sensu.generate_client_config(node)
+  mode 0644
+end
