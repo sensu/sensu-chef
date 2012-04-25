@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+package_options = ''
+
 case node.platform
 when "ubuntu", "debian"
   package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
@@ -30,16 +32,12 @@ when "ubuntu", "debian"
     action :add
   end
 when "centos", "redhat"
-  package_options = ''
-
   include_recipe "yum"
 
   yum_repository "sensu" do
     url "http://repos.sensuapp.org/yum/el/$releasever/$basearch/"
     action :add
   end
-else
-  package_options = ''
 end
 
 package "sensu" do
