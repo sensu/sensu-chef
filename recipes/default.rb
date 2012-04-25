@@ -17,8 +17,12 @@
 # limitations under the License.
 #
 
+package_options = ''
+
 case node.platform
 when "ubuntu", "debian"
+  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+
   include_recipe "apt"
 
   apt_repository "sensu" do
@@ -31,14 +35,14 @@ when "centos", "redhat"
   include_recipe "yum"
 
   yum_repository "sensu" do
-    url "http://repos.sensuapp.org/yum"
+    url "http://repos.sensuapp.org/yum/el/$releasever/$basearch/"
     action :add
   end
 end
 
 package "sensu" do
   version node.sensu.version
-  options "--force-yes"
+  options package_options
 end
 
 gem_package "sensu-plugin" do
