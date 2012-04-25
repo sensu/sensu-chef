@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "sensu-chef::default"
+include_recipe "sensu::default"
 
 service "sensu-client" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
