@@ -1,11 +1,20 @@
 module Sensu
   def self.generate_config(node, databag)
     attributes_config = node.sensu.to_hash.reject do |key, value|
-      %w[plugin directory log ssl sudoers firewall].include?(key)
+      %w[plugin directory log ssl sudoers firewall client].include?(key)
     end
     databag_config = databag.reject do |key, value|
       %w[id chef_type data_bag].include?(key)
     end
+    config = Chef::Mixin::DeepMerge.merge(
+      attributes_config,
+      databag_config
+    )
+    JSON.pretty_generate(sort_hash(config))
+  end
+
+  def self.generate_client_config(node)
+    attributes_client_config = node.sensu.client.to_hash
     address = node.has_key?(:cloud) ? node.cloud.public_ipv4 : node.ipaddress
     client_config = {
       :client => {
@@ -15,12 +24,10 @@ module Sensu
       }
     }
     config = Chef::Mixin::DeepMerge.merge(
-      Chef::Mixin::DeepMerge.merge(
-        attributes_config,
-        databag_config
-      ),
+      attributes_client_config,
       client_config
     )
+    puts "DEBUG: #{config}"
     JSON.pretty_generate(sort_hash(config))
   end
 
