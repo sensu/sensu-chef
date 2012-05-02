@@ -12,6 +12,9 @@ action :create do
       :subscriptions => @new_resource.subscriptions.sort,
     }
   }
+  config = [attributes_config, databag_config, client_config].reduce do |a, b|
+    Chef::Mixin::DeepMerge.merge(a, b)
+  end
   config_resource = @new_resource
   json_file ::File.join(node.sensu.directory, "config.json") do
     content config
