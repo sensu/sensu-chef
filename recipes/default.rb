@@ -97,16 +97,7 @@ else
   end
 end
 
-if RUBY_VERSION < "1.9.0"
-  gem = gem_package "orderedhash" do
-    action :nothing
-  end
-  gem.run_action(:install)
-  Gem.clear_paths
-  require "orderedhash"
-end
-
-file File.join(node.sensu.directory, "config.json") do
-  content Sensu.generate_config(node, data_bag_item("sensu", "config"))
-  mode 0644
+sensu_config node.name do
+  address(node.has_key?(:cloud) ? node.cloud.public_ipv4 : node.ipaddress)
+  subscriptions(node.roles)
 end
