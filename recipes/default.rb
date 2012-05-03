@@ -27,6 +27,7 @@ when "ubuntu", "debian"
 
   apt_repository "sensu" do
     uri "http://repos.sensuapp.org/apt"
+    key "http://repos.sensuapp.org/apt/pubkey.gpg"
     distribution "sensu"
     components ["main"]
     action :add
