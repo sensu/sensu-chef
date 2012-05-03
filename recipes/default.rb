@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-package_options = ''
+package_options = ""
 
 case node.platform
 when "ubuntu", "debian"
@@ -57,7 +57,7 @@ if node.sensu.sudoers
   end
 end
 
-directory File.join(node.sensu.directory, 'conf.d') do
+directory File.join(node.sensu.directory, "conf.d") do
   recursive true
 end
 
