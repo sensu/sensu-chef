@@ -2,17 +2,17 @@ action :create do
   attributes_config = node.sensu.to_hash.reject do |key, value|
     %w[plugin directory log ssl sudoers firewall].include?(key)
   end
-  databag_config = databag.reject do |key, value|
+  data_bag_config = @new_resource.data_bag.reject do |key, value|
     %w[id chef_type data_bag].include?(key)
   end
   client_config = {
     :client => {
       :name => @new_resource.name,
       :address => @new_resource.address,
-      :subscriptions => @new_resource.subscriptions.sort,
+      :subscriptions => @new_resource.subscriptions.sort
     }
   }
-  config = [attributes_config, databag_config, client_config].reduce do |a, b|
+  config = [attributes_config, data_bag_config, client_config].reduce do |a, b|
     Chef::Mixin::DeepMerge.merge(a, b)
   end
   config_resource = @new_resource
