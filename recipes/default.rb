@@ -29,7 +29,7 @@ when "ubuntu", "debian"
     uri "http://repos.sensuapp.org/apt"
     key "http://repos.sensuapp.org/apt/pubkey.gpg"
     distribution "sensu"
-    components ["main"]
+    components node.sensu.package.unstable == true ? ["unstable"] : ["main"]
     action :add
   end
 when "centos", "redhat"
