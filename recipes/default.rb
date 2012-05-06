@@ -36,7 +36,8 @@ when "centos", "redhat"
   include_recipe "yum"
 
   yum_repository "sensu" do
-    url "http://repos.sensuapp.org/yum/el/$releasever/$basearch/"
+    repo = node.sensu.package.unstable == true ? ["yum-unstable"] : ["yum"]
+    url "http://repos.sensuapp.org/#{repo}/el/$releasever/$basearch/"
     action :add
   end
 end
