@@ -43,7 +43,7 @@ when "centos", "redhat"
 end
 
 package "sensu" do
-  version node.sensu.version
+  version node.sensu.version unless node.sensu.version.nil? || node.sensu.version.empty?
   options package_options
 end
 
