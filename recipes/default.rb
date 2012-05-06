@@ -29,20 +29,21 @@ when "ubuntu", "debian"
     uri "http://repos.sensuapp.org/apt"
     key "http://repos.sensuapp.org/apt/pubkey.gpg"
     distribution "sensu"
-    components ["main"]
+    components node.sensu.package.unstable == true ? ["unstable"] : ["main"]
     action :add
   end
 when "centos", "redhat"
   include_recipe "yum"
 
   yum_repository "sensu" do
-    url "http://repos.sensuapp.org/yum/el/$releasever/$basearch/"
+    repo = node.sensu.package.unstable == true ? ["yum-unstable"] : ["yum"]
+    url "http://repos.sensuapp.org/#{repo}/el/$releasever/$basearch/"
     action :add
   end
 end
 
 package "sensu" do
-  version node.sensu.version
+  version node.sensu.version unless node.sensu.version.nil? || node.sensu.version.empty?
   options package_options
 end
 
