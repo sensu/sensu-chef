@@ -8,6 +8,7 @@ default.sensu.log.directory = "/var/log/sensu"
 default.sensu.ssl = true
 default.sensu.sudoers = false
 default.sensu.firewall = false
+default.sensu.package.unstable = false
 
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
