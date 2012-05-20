@@ -1,3 +1,4 @@
+name             "sensu"
 maintainer       "Sonian, Inc."
 maintainer_email "chefs@sonian.net"
 license          "Apache 2.0"
