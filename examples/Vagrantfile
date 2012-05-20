@@ -1,8 +1,6 @@
 Vagrant::Config.run do |config|
-  # vagrant baseboxes maintained by @portertech (recommended)
-  # `vagrant box add ubuntu-11.10-server-i386 http://h4x.s3.amazonaws.com/vagrant/ubuntu-11.10-server-i386.box`
-  config.vm.box = "ubuntu-11.10-server-i386"
-  config.vm.box_url = "http://h4x.s3.amazonaws.com/vagrant/ubuntu-11.10-server-i386.box"
+  config.vm.box = "ubuntu-1204-i386"
+  config.vm.box_url = "http://vagrant.sensuapp.org/ubuntu-1204-i386.box"
 
   config.vm.customize [
     "modifyvm", :id,
