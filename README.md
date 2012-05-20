@@ -18,7 +18,7 @@ REQUIREMENTS
 
 SSL Configuration
 ---
-A databag with SSL configuration for RabbitMQ is required, details on creating the data bag can be found at https://github.com/sensu/sensu-chef/tree/master/examples/ssl
+A data bag with SSL configuration for RabbitMQ is required, details on creating the data bag can be found at https://github.com/sensu/sensu-chef/tree/master/examples/ssl
 
 
 RECIPES:
