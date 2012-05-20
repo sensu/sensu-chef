@@ -34,7 +34,7 @@ Configures and enables the sensu-server service.
 
 sensu::client
 ---
-Configures and enables the sensu-server service.
+Configures and enables the sensu-client service.
 
 sensu::api
 ---
