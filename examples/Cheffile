@@ -12,4 +12,5 @@ cookbook "redis",
   :ref => "1.0.2"
 cookbook "iptables"
 cookbook "sensu",
-  :git => "https://github.com/sensu/sensu-chef"
+  :git => "https://github.com/sensu/sensu-chef",
+  :ref => "0.0.8"
