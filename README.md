@@ -1,4 +1,4 @@
-DESCRIPTION:
+DESCRIPTION
 ============
 Installs and configures the Sensu server, client, API and dashboard components, installs and configures RabbitMQ and Redis for Sensu.
 Sensu is a monitoring framework that aims to be simple, malleable, and scalable (https://github.com/sensu/sensu).
@@ -21,7 +21,7 @@ SSL Configuration
 A data bag with SSL configuration for RabbitMQ is required, details on creating the data bag can be found at https://github.com/sensu/sensu-chef/tree/master/examples/ssl
 
 
-RECIPES:
+RECIPES
 ========
 
 sensu::default
