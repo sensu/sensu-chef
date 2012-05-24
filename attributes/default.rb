@@ -17,6 +17,7 @@ default.sensu.rabbitmq.ssl = Mash.new
 default.sensu.rabbitmq.vhost = "/sensu"
 default.sensu.rabbitmq.user = "sensu"
 default.sensu.rabbitmq.password = "password"
+default.sensu.rabbitmq.heartbeat = 20
 
 # redis
 default.sensu.redis.host = "localhost"
