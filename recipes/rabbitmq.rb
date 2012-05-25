@@ -43,8 +43,7 @@ if node.sensu.ssl
   end
 end
 
-case node[:platform]
-when "ubuntu", "debian"
+if node.platform == "ubuntu" && %w[10.04 11.04].include?(node.lsb.release)
   include_recipe "apt"
 
   apt_repository "esl" do
@@ -56,7 +55,7 @@ when "ubuntu", "debian"
   end
 
   package "esl-erlang"
-when "centos", "redhat"
+else
   include_recipe "erlang"
 end
 
