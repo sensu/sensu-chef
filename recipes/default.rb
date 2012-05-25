@@ -29,22 +29,28 @@ when "ubuntu", "debian"
     uri "http://repos.sensuapp.org/apt"
     key "http://repos.sensuapp.org/apt/pubkey.gpg"
     distribution "sensu"
-    components node.sensu.package.unstable == true ? ["unstable"] : ["main"]
+    components node.sensu.package.unstable ? ["unstable"] : ["main"]
     action :add
   end
 when "centos", "redhat"
   include_recipe "yum"
 
   yum_repository "sensu" do
-    repo = node.sensu.package.unstable == true ? ["yum-unstable"] : ["yum"]
+    repo = node.sensu.package.unstable ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/$releasever/$basearch/"
     action :add
   end
 end
 
-package "sensu" do
-  version node.sensu.version unless node.sensu.version.nil? || node.sensu.version.empty?
-  options package_options
+unless node.platform == "windows"
+  package "sensu" do
+    version node.sensu.version
+    options package_options
+  end
+else
+  gem_package "sensu" do
+    version node.sensu.version.split("-").first
+  end
 end
 
 gem_package "sensu-plugin" do
