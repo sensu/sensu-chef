@@ -43,7 +43,23 @@ if node.sensu.ssl
   end
 end
 
-include_recipe "erlang"
+case node[:platform]
+when "ubuntu", "debian"
+  include_recipe "apt"
+
+  apt_repository "esl" do
+    uri "http://binaries.erlang-solutions.com/debian"
+    distribution node.lsb.codename
+    components ["contrib"]
+    key "http://binaries.erlang-solutions.com/debian/erlang_solutions.asc"
+    action :add
+  end
+
+  package "esl-erlang"
+when "centos", "redhat"
+  include_recipe "erlang"
+end
+
 include_recipe "rabbitmq"
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
