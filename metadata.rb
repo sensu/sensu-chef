@@ -26,6 +26,7 @@ depends "iptables"
   debian
   redhat
   centos
+  windows
 ].each do |os|
   supports os
 end
