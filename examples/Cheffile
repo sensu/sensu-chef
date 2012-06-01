@@ -2,13 +2,11 @@ site "http://community.opscode.com/api/v1"
 
 cookbook "apt"
 cookbook "yum",
-  :git => "https://github.com/joemiller/yum.git",
-  :ref => "flush_internal_yum_cache"
+  :git => "https://github.com/opscode-cookbooks/yum"
 cookbook "rabbitmq",
-  :git => "https://github.com/portertech/rabbitmq",
-  :ref => "COOK-1219"
+  :git => "https://github.com/opscode-cookbooks/rabbitmq"
 cookbook "redis",
-  :git => "https://github.com/CXInc/chef-redis",
+  :git => "https://github.com/miah/chef-redis",
   :ref => "1.0.2"
 cookbook "iptables"
 cookbook "sensu",
