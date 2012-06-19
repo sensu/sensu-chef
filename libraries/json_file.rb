@@ -8,7 +8,11 @@ class Chef::Provider::JsonFile < Chef::Provider::File
   end
 
   def compare_content
-    load_json(@current_resource.path) == @new_resource.content
+    begin
+      load_json(@current_resource.path) == @new_resource.content
+    rescue
+      false
+    end
   end
 
   def set_content
@@ -21,10 +25,17 @@ class Chef::Provider::JsonFile < Chef::Provider::File
   end
 
   def action_create
+    assert_enclosing_directory_exists!
     set_content unless @new_resource.content.nil?
-    set_owner unless @new_resource.owner.nil?
-    set_group unless @new_resource.group.nil?
-    set_mode unless @new_resource.mode.nil?
+    if respond_to?('enforce_ownership_and_permissions')
+      updated = @new_resource.updated_by_last_action? # Work around bug in Chef 0.10.10
+      enforce_ownership_and_permissions
+      @new_resource.updated_by_last_action(true) if updated
+    else
+      set_owner unless @new_resource.owner.nil?
+      set_group unless @new_resource.group.nil?
+      set_mode unless @new_resource.mode.nil?
+    end
   end
 end
 
@@ -34,5 +45,6 @@ class Chef::Resource::JsonFile < Chef::Resource::File
   def initialize(name, run_context=nil)
     super
     @resource_name = :json_file
+    @provider = Chef::Provider::JsonFile
   end
 end
