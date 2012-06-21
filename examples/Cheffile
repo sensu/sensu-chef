@@ -7,8 +7,8 @@ cookbook "rabbitmq",
   :git => "https://github.com/opscode-cookbooks/rabbitmq"
 cookbook "redis",
   :git => "https://github.com/miah/chef-redis",
-  :ref => "1.0.2"
+  :ref => "1.0.3"
 cookbook "iptables"
 cookbook "sensu",
   :git => "https://github.com/sensu/sensu-chef",
-  :ref => "0.0.9"
+  :ref => "0.1.0"
