@@ -8,11 +8,7 @@ class Chef::Provider::JsonFile < Chef::Provider::File
   end
 
   def compare_content
-    begin
-      load_json(@current_resource.path) == @new_resource.content
-    rescue
-      false
-    end
+    load_json(@current_resource.path) == @new_resource.content
   end
 
   def set_content
