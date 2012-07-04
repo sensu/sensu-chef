@@ -28,7 +28,7 @@ end
 include_recipe "iptables"
 
 redirect_command = "iptables -t nat -A PREROUTING -p tcp -j REDIRECT"
-redirect_command << " --dport 80 --to-ports <%= node.sensu.dashboard.port %>"
+redirect_command << " --dport 80 --to-ports #{node.sensu.dashboard.port}"
 redirect_command << " -m comment --comment 'Sensu Dashboard Redirect'"
 
 execute "redirect_port_80_to_8080" do
