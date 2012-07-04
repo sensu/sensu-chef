@@ -25,17 +25,23 @@ service "sensu-dashboard" do
   subscribes :restart, resources(:sensu_config => node.name), :delayed
 end
 
-include_recipe "iptables"
+if node.sensu.dashboard.redirect_port_80
+  include_recipe "iptables"
 
-redirect_command = "iptables -t nat -A PREROUTING -p tcp -j REDIRECT"
-redirect_command << " --dport 80 --to-ports #{node.sensu.dashboard.port}"
-redirect_command << " -m comment --comment 'Sensu Dashboard Redirect'"
+  redirect_command = "iptables -t nat -A PREROUTING -p tcp -j REDIRECT"
+  redirect_command << " --dport 80 --to-ports #{node.sensu.dashboard.port}"
+  redirect_command << " -m comment --comment 'Sensu Dashboard Redirect'"
 
-execute "redirect_port_80_to_8080" do
-  command redirect_command
-  not_if "iptables -L -t nat | grep 'Sensu Dashboard Redirect'"
+  execute "redirect_port_80_to_#{node.sensu.dashboard.port}" do
+    command redirect_command
+    not_if "iptables -L -t nat | grep 'Sensu Dashboard Redirect'"
+  end
 end
 
 if node.sensu.firewall
-  iptables_rule "port_sensu-dashboard"
+  include_recipe "iptables"
+
+  iptables_rule "port_sensu-dashboard" do
+    variables :port => node.sensu.dashboard.redirect_port_80 ? 80 : node.sensu.dashboard.port
+  end
 end
