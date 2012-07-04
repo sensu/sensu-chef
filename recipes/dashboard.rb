@@ -27,7 +27,10 @@ end
 
 include_recipe "iptables"
 
-iptables_rule "redirect_sensu-dashboard"
+execute "redirect_port_80_to_8080" do
+  command "iptables -t nat -A PREROUTING -p tcp -j REDIRECT --dport 80 --to-ports <%= node.sensu.dashboard.port %>"
+  not_if "iptables -L -t nat | grep REDIRECT"
+end
 
 if node.sensu.firewall
   iptables_rule "port_sensu-dashboard"
