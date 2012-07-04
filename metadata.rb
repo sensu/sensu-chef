@@ -12,20 +12,20 @@ depends "apt"
 # available @ http://community.opscode.com/cookbooks/yum
 depends "yum"
 
+# available @ http://community.opscode.com/cookbooks/iptables
+depends "iptables"
+
 # available @ http://community.opscode.com/cookbooks/rabbitmq
 depends "rabbitmq"
 
-# available @ https://github.com/CXInc/chef-redis
+# available @ https://github.com/miah/chef-redis
 depends "redis"
-
-# available @ http://community.opscode.com/cookbooks/iptables
-depends "iptables"
 
 %w[
   ubuntu
   debian
-  redhat
   centos
+  redhat
   windows
 ].each do |os|
   supports os

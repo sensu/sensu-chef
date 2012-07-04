@@ -25,8 +25,10 @@ service "sensu-dashboard" do
   subscribes :restart, resources(:sensu_config => node.name), :delayed
 end
 
-if node.sensu.firewall
-  include_recipe "iptables"
+include_recipe "iptables"
 
+iptables_rule "redirect_sensu-dashboard"
+
+if node.sensu.firewall
   iptables_rule "port_sensu-dashboard"
 end
