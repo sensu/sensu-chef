@@ -53,7 +53,7 @@ else
   end
 end
 
-gem_package "sensu-plugin" do
+sensu_gem "sensu-plugin" do
   version node.sensu.plugin.version
 end
 
