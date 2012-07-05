@@ -9,7 +9,7 @@ COOKBOOK DEPENDENCIES
 * apt (available @ http://community.opscode.com/cookbooks/apt)
 * yum (available @ http://community.opscode.com/cookbooks/yum)
 * rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
-* redis (available @ https://github.com/CXInc/chef-redis)
+* redis (available @ https://github.com/miah/chef-redis)
 * iptables - If using firewall options (available @ http://community.opscode.com/cookbooks/iptables)
 
 
