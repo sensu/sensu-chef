@@ -1,8 +1,8 @@
 ## most of these values can be replaced with your method of discovery
 
 # installation
-default.sensu.version = "0.9.5-36"
-default.sensu.plugin.version = "0.1.3"
+default.sensu.version = "0.9.6-1"
+default.sensu.plugin.version = "0.1.4"
 default.sensu.directory = "/etc/sensu"
 default.sensu.log.directory = "/var/log/sensu"
 default.sensu.ssl = true
