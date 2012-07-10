@@ -63,8 +63,8 @@ ATTRIBUTES
 
 default
 -------
-* `default.sensu.version` - Version of Sensu to install (defaults to "0.9.5-36")
-* `default.sensu.plugin.version` - Version of Sensu plugins gem to install (defaults to "0.1.3")
+* `default.sensu.version` - Version of Sensu to install
+* `default.sensu.plugin.version` - Version of Sensu Plugin gem to install
 * `default.sensu.directory` - Directory to store Sensu configs (defaults to "/etc/sensu")
 * `default.sensu.log.directory` - Directory to store Sensu logs (defaults to "/var/log/sensu")
 * `default.sensu.ssl` - If true, Sensu and RabbitMQ will use SSL encryption (defaults to true)
