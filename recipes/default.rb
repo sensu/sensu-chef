@@ -48,7 +48,7 @@ unless node.platform == "windows"
     options package_options
   end
 else
-  gem_package "sensu" do
+  sensu_gem "sensu" do
     version node.sensu.version.split("-").first
   end
 end
