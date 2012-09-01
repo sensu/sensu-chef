@@ -102,7 +102,11 @@ else
 end
 
 sensu_config node.name do
-  address node.has_key?(:cloud) ? node.cloud.public_ipv4 : node.ipaddress
+  if node.has_key?(:cloud)
+    address node.cloud.public_ipv4 || node.ipaddress
+  else
+    address node.ipaddress
+  end
   subscriptions node.roles
   data_bag data_bag_item("sensu", "config")
 end
