@@ -21,6 +21,8 @@ include_recipe "sensu::default"
 
 remote_directory File.join(node.sensu.directory, "handlers") do
   files_mode 0755
+  files_backup false
+  purge true
 end
 
 service "sensu-server" do
