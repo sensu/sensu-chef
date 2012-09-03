@@ -74,6 +74,8 @@ include_recipe "sensu::dependencies"
 
 remote_directory File.join(node.sensu.directory, "plugins") do
   files_mode 0755
+  files_backup false
+  purge true
 end
 
 if node.sensu.ssl
