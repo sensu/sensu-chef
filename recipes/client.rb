@@ -25,3 +25,8 @@ service "sensu-client" do
   action [:enable, :start]
   subscribes :restart, resources(:sensu_config => node.name), :delayed
 end
+
+node.sensu.gems.each do |gem|
+  sensu_gem gem do
+  end
+end
