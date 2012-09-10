@@ -21,7 +21,12 @@ class Chef::Provider::JsonFile < Chef::Provider::File
   end
 
   def action_create
-    assert_enclosing_directory_exists!
+    if respond_to?(:define_resource_requirements)
+      # chef >= 10.14.0
+      define_resource_requirements
+    else
+      assert_enclosing_directory_exists!
+    end
     set_content unless @new_resource.content.nil?
     if respond_to?('enforce_ownership_and_permissions')
       updated = @new_resource.updated_by_last_action? # Work around bug in Chef 0.10.10
