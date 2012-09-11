@@ -28,8 +28,9 @@ class Chef::Provider::JsonFile < Chef::Provider::File
       assert_enclosing_directory_exists!
     end
     set_content unless @new_resource.content.nil?
-    if respond_to?('enforce_ownership_and_permissions')
-      updated = @new_resource.updated_by_last_action? # Work around bug in Chef 0.10.10
+    if respond_to?(:enforce_ownership_and_permissions)
+      # chef == 0.10.10
+      updated = @new_resource.updated_by_last_action?
       enforce_ownership_and_permissions
       @new_resource.updated_by_last_action(true) if updated
     else
