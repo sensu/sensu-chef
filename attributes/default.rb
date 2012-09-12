@@ -35,3 +35,4 @@ default.sensu.dashboard.password = "secret"
 
 # client
 default.sensu.client = Hash.new
+default.sensu.gems = ["sensu-plugin"]

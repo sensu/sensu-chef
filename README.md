@@ -57,6 +57,33 @@ EXAMPLES
 =====
 Example roles are provided within the examples directory and provide a good overview of a standard Sensu setup. A vagrantfile is also provided for setting up a local test instance using this cookbook. A Cheffile example is also provided for use with Librarian-chef.
 
+CONFIGURING CHECKS
+=====
+
+You can run your checks from the sensu install path, for example /opt/sensu.
+
+For example if you have the memcached checks:
+
+1. Make sure you memcached role include the censu-client role.
+2. Add this to your memcache role
+
+    ```ruby
+    default_attributes(
+        :sensu => {
+                :gems => ['memcached']
+            }
+     )
+    ```
+
+3. configure your check to use the following command:
+
+    ```/opt/sensu/embedded/bin/ruby /etc/sensu/plugins/memcached/check-memcached-stats.rb --port 11211```
+
+Doing so you don't have to change the original memcached recipe or create a new one to add the dependencies for checks.
+
+Caveat: Only the gems are installed, if the gem compiles native libraries that have package dependencies you have to install these another way.
+
+
 
 ATTRIBUTES
 ==========
