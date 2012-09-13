@@ -52,6 +52,10 @@ sensu::redis
 ---
 Installs and configures Redis and optionally configures local firewall rules if the firewall attribute is set.
 
+sensu::proxy_nxing
+---
+Installs and configures an nginx vhost
+
 
 EXAMPLES
 =====
@@ -96,6 +100,14 @@ dashboard
 * `default.sensu.dashboard.port` - Port for Sensu Dashboard to listen on (defaults to 8080)
 * `default.sensu.dashboard.user` - User for Sensu Dashboard HTTP basic authentication (defaults to "admin")
 * `default.sensu.dashboard.password` - Password for Sensu Dashboard HTTP basic authentication (defaults to "secret")
+
+proxy
+---------
+* `default.sensu.proxy.port` - Port the proxy is listening to (defaults to 80)
+* `default.sensu.proxy.server_names` - The named vhost the proxy is listening to (default to empty, you need to put this in your role/environment)
+* `default.sensu.proxy.ssl` - Use ssl for the proxy (defaults to false). If true the SSL certs/keys are looked into the sensu/proxy data bag
+* `default.sensu.proxy.ssl_port` - Port the SSL proxy is listening to (defaults to 443)
+* `default.sensu.proxy.root` - The root for static files. Has to be set in your role/env. For a package install on ruby 1.9 it's /opt/sensu/embedded/lib/ruby/gems/1.9.1/gems/sensu-dashboard-#{version}/lib/sensu-dashboard/public/
 
 
 SUPPORT

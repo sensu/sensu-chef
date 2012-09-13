@@ -21,6 +21,8 @@ depends "redis"
 # available @ http://community.opscode.com/cookbooks/iptables
 recommends "iptables"
 
+depends "nginx"
+
 %w[
   ubuntu
   debian

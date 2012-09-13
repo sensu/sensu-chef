@@ -1,0 +1,41 @@
+upstream sensu_dashboard {
+  server 127.0.0.1:<%= node.sensu.dashboard.port %>;
+}
+
+<% if node.sensu.proxy.ssl %>
+server {
+  listen         <%= node.sensu.proxy.port %>;
+  server_name    <%= node.sensu.proxy.server_names.join(' ') %>;
+  rewrite        ^ https://$server_name$request_uri? permanent;
+}
+<% end %>
+
+server {
+<% if node.sensu.proxy.ssl %>
+  listen <%= node.sensu.proxy.ssl_port %> ssl;
+<% else %>
+listen <%= node.sensu.proxy.port %>;
+<% end %>
+  server_name <%= node.sensu.proxy.server_names.join(' ') %>;
+
+  <% if node.sensu.proxy.ssl -%>
+  ssl_certificate <%= @ssl_cert %>;
+  ssl_certificate_key <%= @ssl_key %>;
+  <% end %>
+
+  access_log <%= node.nginx.log_dir %>/sensu.access.log;
+  error_log <%= node.nginx.log_dir %>/sensu.error.log warn;
+
+  root <%= node.sensu.proxy.root %>;
+
+  location / {
+    try_files $uri @sensu_dashboard;
+  }
+
+  location @sensu_dashboard {
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header Host $http_host;
+
+    proxy_pass http://sensu_dashboard;
+  }
+}
