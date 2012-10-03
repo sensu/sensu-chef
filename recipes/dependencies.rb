@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-gem_package "sensu-plugin" do
+sensu_gem "sensu-plugin" do
   version node.sensu.plugin.version
 end
 
 # handler & plugin dependencies
 # eg. node.sensu.client.foo = "bar"
-# eg. gem_package "spice"
+# eg. sensu_gem "spice"
