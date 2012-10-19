@@ -26,6 +26,7 @@ recommends "iptables"
   debian
   centos
   redhat
+  fedora
   windows
 ].each do |os|
   supports os
