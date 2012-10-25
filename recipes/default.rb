@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
+ruby_block "sensu_service_trigger" do
+  block do
+    # Sensu service action trigger for LWRP's
+  end
+  action :nothing
+end
+
 package_options = ""
 
 case node.platform
@@ -89,45 +96,44 @@ if node.sensu.sudoers
   end
 end
 
-include_recipe "sensu::dependencies"
+ssl_directory = File.join(node.sensu.directory, "ssl")
+cert_chain_file = File.join(ssl_directory, "cert.pem")
+private_key_file = File.join(ssl_directory, "key.pem")
 
-remote_directory File.join(node.sensu.directory, "plugins") do
-  files_mode 0755
-  files_backup false
-  purge true
+directory ssl_directory
+
+ssl = data_bag_item("sensu", "ssl")
+
+file node.sensu.rabbitmq.ssl.cert_chain_file do
+  content ssl["client"]["cert"]
+  mode 0644
 end
 
-if node.sensu.ssl
-  node.set.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
-  node.set.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
+file node.sensu.rabbitmq.ssl.private_key_file do
+  content ssl["client"]["key"]
+  mode 0644
+end
 
-  directory File.join(node.sensu.directory, "ssl")
-
-  ssl = data_bag_item("sensu", "ssl")
-
-  file node.sensu.rabbitmq.ssl.cert_chain_file do
-    content ssl["client"]["cert"]
-    mode 0644
-  end
-
-  file node.sensu.rabbitmq.ssl.private_key_file do
-    content ssl["client"]["key"]
-    mode 0644
-  end
+unless node.sensu.rabbitmq_hostname.empty?
+  rabbitmq_hostname = node.sensu.rabbitmq_hostname
 else
-  node.sensu.rabbitmq.delete(:ssl)
-  if node.sensu.rabbitmq.port == 5671
-    Chef::Log.warn("Setting Sensu RabbitMQ port to 5672 as you have disabled SSL.")
-    node.set.sensu.rabbitmq.port = 5672
+  rabbitmq_node = search(:node, "recipe:[sensu::rabbitmq]").first
+
+  rabbitmq_hostname = if rabbitmq_node.has_key?("cloud")
+    rabbitmq_node["cloud"]["public_hostname"] || rabbitmq_node["hostname"]
+  else
+    rabbitmq_node["hostname"]
   end
 end
 
-sensu_config node.name do
-  if node.has_key?(:cloud)
-    address node.cloud.public_ipv4 || node.ipaddress
-  else
-    address node.ipaddress
-  end
-  subscriptions node.roles
-  data_bag data_bag_item("sensu", "config")
+sensu_connection "rabbitmq" do
+  host rabbitmq_hostname
+  port 5671
+  ssl(
+    "cert_chain_file" => cert_chain_file,
+    "private_key_file" => private_key_file
+  )
+  vhost "/sensu"
+  user "sensu"
+  password node.sensu.rabbitmq_password
 end

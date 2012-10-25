@@ -22,12 +22,13 @@ include_recipe "sensu::default"
 remote_directory File.join(node.sensu.directory, "handlers") do
   files_mode 0755
   files_backup false
-  purge true
 end
+
+sensu_connection "redis"
 
 service "sensu-server" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   supports :status => true, :restart => true
   action [:enable, :start]
-  subscribes :restart, resources(:sensu_config => node.name), :delayed
+  subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
 end
