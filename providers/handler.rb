@@ -7,7 +7,7 @@ action :create do
     }
   }
 
-  json_file ::File.join(node.sensu.directory, "conf.d", "#{new_resource.name}.handler.json") do
+  json_file ::File.join(node.sensu.directory, "conf.d", "handlers", "#{new_resource.name}.json") do
     content definition
     mode 0644
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
@@ -15,7 +15,7 @@ action :create do
 end
 
 action :delete do
-  file ::File.join(node.sensu.directory, "conf.d", "#{new_resource.name}.handler.json") do
+  file ::File.join(node.sensu.directory, "conf.d", "handlers", "#{new_resource.name}.json") do
     action :delete
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
