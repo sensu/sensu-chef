@@ -77,31 +77,44 @@ if node.sensu.sudoers
   end
 end
 
-include_recipe "sensu::dependencies"
+ssl_directory = File.join(node.sensu.directory, "ssl")
+cert_chain_file = File.join(ssl_directory, "cert.pem")
+private_key_file = File.join(ssl_directory, "key.pem")
 
-if node.sensu.ssl
-  node.set.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
-  node.set.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
+directory ssl_directory
 
-  directory File.join(node.sensu.directory, "ssl")
+ssl = data_bag_item("sensu", "ssl")
 
-  ssl = data_bag_item("sensu", "ssl")
+file node.sensu.rabbitmq.ssl.cert_chain_file do
+  content ssl["client"]["cert"]
+  mode 0644
+end
 
-  file node.sensu.rabbitmq.ssl.cert_chain_file do
-    content ssl["client"]["cert"]
-    mode 0644
-  end
+file node.sensu.rabbitmq.ssl.private_key_file do
+  content ssl["client"]["key"]
+  mode 0644
+end
 
-  file node.sensu.rabbitmq.ssl.private_key_file do
-    content ssl["client"]["key"]
-    mode 0644
-  end
+unless node.sensu.rabbitmq_hostname.empty?
+  rabbitmq_hostname = node.sensu.rabbitmq_hostname
 else
-  node.sensu.rabbitmq.delete(:ssl)
-  if node.sensu.rabbitmq.port == 5671
-    Chef::Log.warn("Setting Sensu RabbitMQ port to 5672 as you have disabled SSL.")
-    node.set.sensu.rabbitmq.port = 5672
+  rabbitmq_node = search(:node, "recipe:[sensu::rabbitmq]").first
+
+  rabbitmq_hostname = if rabbitmq_node.has_key?("cloud")
+    rabbitmq_node["cloud"]["public_hostname"] || rabbitmq_node["hostname"]
+  else
+    rabbitmq_node["hostname"]
   end
 end
 
-sensu_connection "rabbitmq"
+sensu_connection "rabbitmq" do
+  host rabbitmq_hostname
+  port 5671
+  ssl(
+    "cert_chain_file" => cert_chain_file,
+    "private_key_file" => private_key_file
+  )
+  vhost "/sensu"
+  user "sensu"
+  password node.sensu.rabbitmq_password
+end

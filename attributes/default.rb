@@ -11,12 +11,8 @@ default.sensu.firewall = false
 default.sensu.package.unstable = false
 
 # rabbitmq
-default.sensu.rabbitmq.host = "localhost"
-default.sensu.rabbitmq.port = 5671
-default.sensu.rabbitmq.ssl = Mash.new
-default.sensu.rabbitmq.vhost = "/sensu"
-default.sensu.rabbitmq.user = "sensu"
-default.sensu.rabbitmq.password = "password"
+default.sensu.rabbitmq_hostname = ""
+default.sensu.rabbitmq_password = "secret"
 
 # redis
 default.sensu.redis.host = "localhost"

@@ -17,42 +17,42 @@
 # limitations under the License.
 #
 
-if node.sensu.ssl
-  node.set.rabbitmq.ssl = true
-  node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port
+node.set.rabbitmq.ssl = true
+node.set.rabbitmq.ssl_port = 5671
 
-  ssl_directory = "/etc/rabbitmq/ssl"
+ssl_directory = "/etc/rabbitmq/ssl"
 
-  directory ssl_directory do
-    recursive true
+directory ssl_directory do
+ recursive true
+end
+
+ssl = data_bag_item("sensu", "ssl")
+
+%w[
+  cacert
+  cert
+  key
+].each do |item|
+  path = File.join(ssl_directory, "#{item}.pem")
+
+  file path do
+    content ssl["server"][item]
+    mode 0644
   end
 
-  ssl = data_bag_item("sensu", "ssl")
-
-  %w[
-    cacert
-    cert
-    key
-  ].each do |item|
-    path = File.join(ssl_directory, "#{item}.pem")
-    file path do
-      content ssl["server"][item]
-      mode 0644
-    end
-    node.set.rabbitmq["ssl_#{item}"] = path
-  end
+  node.set.rabbitmq["ssl_#{item}"] = path
 end
 
 if node.platform == "ubuntu" && %w[10.04 10.10 11.04].include?(node.lsb.release)
   include_recipe "apt"
 
   apt_repository "esl" do
-    uri "http://binaries.erlang-solutions.com/debian"
-    distribution node.lsb.codename
-    components ["contrib"]
-    key "http://binaries.erlang-solutions.com/debian/erlang_solutions.asc"
-    action :add
-  end
+   uri "http://binaries.erlang-solutions.com/debian"
+   distribution node.lsb.codename
+   components ["contrib"]
+   key "http://binaries.erlang-solutions.com/debian/erlang_solutions.asc"
+   action :add
+ end
 
   package "esl-erlang"
 else
@@ -61,17 +61,17 @@ end
 
 include_recipe "rabbitmq"
 
-rabbitmq_vhost node.sensu.rabbitmq.vhost do
+rabbitmq_vhost "/sensu" do
   action :add
 end
 
-rabbitmq_user node.sensu.rabbitmq.user do
-  password node.sensu.rabbitmq.password
+rabbitmq_user "sensu" do
+  password node.sensu.rabbitmq_password
   action :add
 end
 
-rabbitmq_user node.sensu.rabbitmq.user do
-  vhost node.sensu.rabbitmq.vhost
+rabbitmq_user "sensu" do
+  vhost "/vhost"
   permissions "\".*\" \".*\" \".*\""
   action :set_permissions
 end
