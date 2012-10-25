@@ -19,6 +19,21 @@
 
 include_recipe "sensu::default"
 
+remote_directory File.join(node.sensu.directory, "plugins") do
+  files_mode 0755
+  files_backup false
+end
+
+sensu_client node.name do
+  if node.has_key?(:cloud)
+    address node.cloud.public_ipv4 || node.ipaddress
+  else
+    address node.ipaddress
+  end
+  subscriptions node.roles
+  additional node.sensu.client
+end
+
 service "sensu-client" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   supports :status => true, :restart => true

@@ -19,6 +19,8 @@
 
 include_recipe "sensu::default"
 
+sensu_connection "redis"
+
 service "sensu-api" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   supports :status => true, :restart => true

@@ -79,12 +79,6 @@ end
 
 include_recipe "sensu::dependencies"
 
-remote_directory File.join(node.sensu.directory, "plugins") do
-  files_mode 0755
-  files_backup false
-  purge true
-end
-
 if node.sensu.ssl
   node.set.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
   node.set.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
@@ -110,12 +104,4 @@ else
   end
 end
 
-sensu_config node.name do
-  if node.has_key?(:cloud)
-    address node.cloud.public_ipv4 || node.ipaddress
-  else
-    address node.ipaddress
-  end
-  subscriptions node.roles
-  data_bag data_bag_item("sensu", "config")
-end
+sensu_connection "rabbitmq"
