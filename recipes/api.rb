@@ -23,7 +23,7 @@ service "sensu-api" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   supports :status => true, :restart => true
   action [:enable, :start]
-  subscribes :restart, resources(:sensu_config => node.name), :delayed
+  subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
 end
 
 if node.sensu.firewall
