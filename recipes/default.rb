@@ -19,7 +19,7 @@
 
 ruby_block "sensu_service_trigger" do
   block do
-    # Sensu service restart trigger for LWRP's
+    # Sensu service action trigger for LWRP's
   end
   action :nothing
 end
