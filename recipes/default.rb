@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
+ruby_block "sensu_service_trigger" do
+  block do
+    # Sensu service action trigger for LWRP's
+  end
+  action :nothing
+end
+
 package_options = ""
 
 case node.platform
