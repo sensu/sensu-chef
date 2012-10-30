@@ -75,9 +75,3 @@ rabbitmq_user node.sensu.rabbitmq.user do
   permissions "\".*\" \".*\" \".*\""
   action :set_permissions
 end
-
-if node.sensu.firewall
-  include_recipe "iptables"
-
-  iptables_rule "port_rabbitmq"
-end
