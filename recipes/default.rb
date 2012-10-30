@@ -79,29 +79,15 @@ else
   end
 end
 
-directory File.join(node.sensu.directory, "conf.d") do
-  recursive true
-end
-
-directory node.sensu.log.directory do
-  recursive true
-  owner "sensu"
-  mode 0755
-end
-
-if node.sensu.sudoers
-  template "/etc/sudoers.d/sensu" do
-    source "sudoers.erb"
-    mode 0440
+[
+  File.join(node.sensu.directory, "conf.d"),
+  node.sensu.log.directory
+].each do |dir|
+  directory dir do
+    recursive true
+    owner "sensu"
+    mode 0755
   end
-end
-
-include_recipe "sensu::dependencies"
-
-remote_directory File.join(node.sensu.directory, "plugins") do
-  files_mode 0755
-  files_backup false
-  purge true
 end
 
 if node.sensu.ssl
@@ -123,6 +109,7 @@ if node.sensu.ssl
   end
 else
   node.sensu.rabbitmq.delete(:ssl)
+
   if node.sensu.rabbitmq.port == 5671
     Chef::Log.warn("Setting Sensu RabbitMQ port to 5672 as you have disabled SSL.")
     node.set.sensu.rabbitmq.port = 5672
