@@ -27,9 +27,3 @@ elsif node.platform == "debian"
 else
   include_recipe "redis::server_package"
 end
-
-if node.sensu.firewall
-  include_recipe "iptables"
-
-  iptables_rule "port_redis"
-end

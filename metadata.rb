@@ -18,9 +18,6 @@ depends "rabbitmq"
 # available @ https://github.com/miah/chef-redis
 depends "redis"
 
-# available @ http://community.opscode.com/cookbooks/iptables
-recommends "iptables"
-
 %w[
   ubuntu
   debian
