@@ -1,6 +1,6 @@
 action :create do
   attributes_config = node.sensu.to_hash.reject do |key, value|
-    %w[package plugin directory log ssl sudoers firewall].include?(key)
+    %w[package plugin directory log ssl sudoers].include?(key)
   end
   data_bag_config = @new_resource.data_bag.reject do |key, value|
     %w[id chef_type data_bag].include?(key)

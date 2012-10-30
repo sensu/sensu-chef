@@ -10,7 +10,6 @@ COOKBOOK DEPENDENCIES
 * yum (available @ http://community.opscode.com/cookbooks/yum)
 * rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
 * redis (available @ https://github.com/miah/chef-redis)
-* iptables - If using firewall options (available @ http://community.opscode.com/cookbooks/iptables)
 
 
 REQUIREMENTS
@@ -38,19 +37,19 @@ Configures and enables the Sensu Client service, "sensu-client".
 
 sensu::api
 ---
-Configures and enables the Sensu API service, "sensu-api", optionally configures local firewall rules if the firewall attribute is set.
+Configures and enables the Sensu API service, "sensu-api".
 
 sensu::dashboard
 ---
-Configures and enables the Sensu dashboard service, "sensu-dashboard", optionally configures local firewall rules if the firewall attribute is set.
+Configures and enables the Sensu dashboard service, "sensu-dashboard".
 
 sensu::rabbitmq
 ---
-Installs and configures RabbitMQ with the Sensu vhost, adds SSL support by default and optionally configures local firewall rules if the firewall attribute is set.
+Installs and configures RabbitMQ with the Sensu vhost, adds SSL support by default.
 
 sensu::redis
 ---
-Installs and configures Redis and optionally configures local firewall rules if the firewall attribute is set.
+Installs and configures Redis.
 
 
 EXAMPLES
@@ -69,7 +68,6 @@ default
 * `default.sensu.log.directory` - Directory to store Sensu logs (defaults to "/var/log/sensu")
 * `default.sensu.ssl` - If true, Sensu and RabbitMQ will use SSL encryption (defaults to true)
 * `default.sensu.sudoers` - If true, adds Sensu sudoers config to /etc/sudoers.d/sensu (defaults to false)
-* `default.sensu.firewall` - If true, will configure iptables for each sensu component - requires the iptables cookbook to be available (defaults to false)
 * `default.sensu.package.unstable` - If true, will allow for the installation of unstable packages (defaults to false)
 
 rabbitmq
