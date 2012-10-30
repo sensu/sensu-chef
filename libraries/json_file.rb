@@ -14,22 +14,22 @@ class Chef::Provider::JsonFile < Chef::Provider::File
   def set_content
     unless compare_content
       backup @new_resource.path if ::File.exists?(@new_resource.path)
-      ::File.open(@new_resource.path, "w") {|f| f.write dump_json(@new_resource.content) }
+      ::File.open(@new_resource.path, "w") { |file| file.write dump_json(@new_resource.content) }
       Chef::Log.info("#{@new_resource} updated file #{@new_resource.path}")
       @new_resource.updated_by_last_action(true)
     end
   end
 
   def action_create
+    # chef >= 10.14.0
     if respond_to?(:define_resource_requirements)
-      # chef >= 10.14.0
       define_resource_requirements
     else
       assert_enclosing_directory_exists!
     end
     set_content unless @new_resource.content.nil?
+    # chef == 0.10.10
     if respond_to?(:enforce_ownership_and_permissions)
-      # chef == 0.10.10
       updated = @new_resource.updated_by_last_action?
       enforce_ownership_and_permissions
       @new_resource.updated_by_last_action(true) if updated
