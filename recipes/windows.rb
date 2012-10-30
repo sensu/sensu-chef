@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: dependencies
+# Recipe:: default
 #
-# Copyright 2011, Sonian Inc.
+# Copyright 2012, Sonian Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,6 @@
 # limitations under the License.
 #
 
-gem_package "sensu-plugin" do
-  version node.sensu.plugin.version
+gem_package "sensu" do
+  version node.sensu.version.split("-").first
 end
-
-# handler & plugin dependencies
-# eg. node.sensu.client.foo = "bar"
-# eg. gem_package "spice"
