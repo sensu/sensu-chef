@@ -2,10 +2,10 @@
 
 # installation
 default.sensu.version = "0.9.7-1"
+default.sensu.package.unstable = false
 default.sensu.directory = "/etc/sensu"
 default.sensu.log.directory = "/var/log/sensu"
 default.sensu.ssl = true
-default.sensu.package.unstable = false
 
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
