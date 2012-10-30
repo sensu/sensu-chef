@@ -1,8 +1,4 @@
-actions :create, :updated
-
-attribute :address, :kind_of => String
-attribute :subscriptions, :kind_of => Array
-attribute :data_bag
+actions :create
 
 def initialize(*args)
   super
