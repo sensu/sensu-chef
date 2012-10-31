@@ -1,6 +1,5 @@
 actions :create, :delete
 
-attribute :name, :kind_of => String
 attribute :command, :kind_of => String, :required => true
 attribute :subscribers, :kind_of => Array, :default => Array.new
 attribute :standalone, :kind_of => [TrueClass, FalseClass], :default => false

@@ -1,6 +1,5 @@
 actions :create, :delete
 
-attribute :name, :kind_of => String
 attribute :type, :kind_of => String
 attribute :command, :kind_of => String
 attribute :socket, :kind_of => Hash
