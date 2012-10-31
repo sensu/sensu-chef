@@ -1,8 +1,12 @@
 action :create do
+  client = {
+    "name" => new_resource.name,
+    "address" => new_resource.address,
+    "subscriptions" => new_resource.subscriptions
+  }
+
   definition = {
-    "client" => new_resource.to_hash.select { |key, value|
-      %w[name address subscriptions].include?(key.to_s)
-    }.merge(new_resource.additional)
+    "client" => client.merge(new_resource.additional)
   }
 
   json_file ::File.join(node.sensu.directory, "conf.d", "client.json") do
