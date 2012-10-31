@@ -2,7 +2,7 @@ action :create do
   definition = {
     "checks" => {
       new_resource.name => new_resource.to_hash.select { |key, value|
-        %w[command subscribers standalone interval handlers].include?(key)
+        %w[command subscribers standalone interval handlers].include?(key.to_s)
       }.merge(new_resource.additional)
     }
   }
