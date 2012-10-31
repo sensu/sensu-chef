@@ -1,7 +1,7 @@
 action :create do
   definition = {
     "client" => new_resource.to_hash.select { |key, value|
-      %w[name address subscriptions].include?(key)
+      %w[name address subscriptions].include?(key.to_s)
     }.merge(new_resource.additional)
   }
 
