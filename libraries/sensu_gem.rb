@@ -14,6 +14,9 @@ class Chef::Resource::SensuGem < Chef::Resource::GemPackage
   end
 
   def after_created
+    Array(@action).each do |action|
+      self.run_action(action)
+    end
     Gem.clear_paths
   end
 end
