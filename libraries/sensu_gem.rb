@@ -14,9 +14,24 @@ class Chef::Resource::SensuGem < Chef::Resource::GemPackage
   end
 
   def after_created
+    Gem.clear_paths
     Array(@action).each do |action|
       self.run_action(action)
     end
     Gem.clear_paths
   end
+end
+
+# fix chef_gem
+current_version = Gem::Version.new(Chef::VERSION)
+
+if(current_version >= Gem::Version.new('10.10.0') && current_version < Gem::Version.new('10.14.0'))
+  module Chef3164
+    def after_created(*)
+      Gem.clear_paths
+      super
+    end
+  end
+
+  Chef::Resource::ChefGem.send(:include, Chef3164)
 end
