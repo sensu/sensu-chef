@@ -12,4 +12,8 @@ class Chef::Resource::SensuGem < Chef::Resource::GemPackage
       'gem'
     end
   end
+
+  def after_created
+    Gem.clear_paths
+  end
 end
