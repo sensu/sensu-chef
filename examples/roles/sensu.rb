@@ -17,3 +17,5 @@ override_attributes :sensu => {
     :password => "secret"
   }
 }
+
+run_list "recipe[sensu]"
