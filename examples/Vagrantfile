@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
     "--memory", "1024"
   ]
 
-  config.vm.provision :shell, :inline => "gem install chef -v 10.12.0 --no-rdoc --no-ri"
+  config.vm.provision :shell, :inline => "gem install chef -v 10.14.0 --no-rdoc --no-ri"
 
   config.vm.forward_port 8080, 8080
   config.vm.forward_port 9000, 9000
@@ -16,7 +16,8 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
     chef.data_bags_path = "data_bags"
-    chef.roles_path = "roles"
-    chef.add_role("vagrant")
+    chef.add_recipe "monitor::server"
+    chef.add_recipe "monitor::redis"
+    chef.add_recipe "monitor::rabbitmq"
   end
 end
