@@ -33,7 +33,7 @@ end
 
 [
   File.join(node.sensu.directory, "conf.d"),
-  node.sensu.log.directory
+  node.sensu.log_directory
 ].each do |dir|
   directory dir do
     recursive true
@@ -42,7 +42,7 @@ end
   end
 end
 
-if node.sensu.ssl
+if node.sensu.use_ssl
   node.set.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
   node.set.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
 
