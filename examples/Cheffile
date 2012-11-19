@@ -1,14 +1,14 @@
 site "http://community.opscode.com/api/v1"
 
-cookbook "apt"
+cookbook "apt",
+  :git => "https://github.com/opscode-cookbooks/apt"
 cookbook "yum",
   :git => "https://github.com/opscode-cookbooks/yum"
 cookbook "rabbitmq",
   :git => "https://github.com/opscode-cookbooks/rabbitmq"
 cookbook "redis",
-  :git => "https://github.com/miah/chef-redis",
-  :ref => "1.0.3"
-cookbook "iptables"
+  :git => "https://github.com/miah/chef-redis"
 cookbook "sensu",
-  :git => "https://github.com/sensu/sensu-chef",
-  :ref => "latest"
+  :git => "https://github.com/sensu/sensu-chef"
+cookbook "monitor",
+  :git => "https://github.com/portertech/chef-monitor"
