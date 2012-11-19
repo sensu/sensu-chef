@@ -4,3 +4,4 @@ Cheffile.lock
 examples/cookbooks
 examples/tmp
 .vagrant
+\#*

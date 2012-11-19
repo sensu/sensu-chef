@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: api
+# Recipe:: dashboard_service
 #
 # Copyright 2012, Sonian Inc.
 #
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-service "sensu-api" do
+service "sensu-dashboard" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   supports :status => true, :restart => true
   action [:enable, :start]

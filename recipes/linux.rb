@@ -29,14 +29,14 @@ when "ubuntu", "debian"
     uri "http://repos.sensuapp.org/apt"
     key "http://repos.sensuapp.org/apt/pubkey.gpg"
     distribution "sensu"
-    components node.sensu.package.unstable ? ["unstable"] : ["main"]
+    components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
     action :add
   end
 when "centos", "redhat"
   include_recipe "yum"
 
   yum_repository "sensu" do
-    repo = node.sensu.package.unstable ? "yum-unstable" : "yum"
+    repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
     action :add
   end
@@ -55,7 +55,7 @@ when "fedora"
   end
 
   yum_repository "sensu" do
-    repo = node.sensu.package.unstable ? "yum-unstable" : "yum"
+    repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
     action :add
   end
@@ -64,4 +64,8 @@ end
 package "sensu" do
   version node.sensu.version
   options package_options
+end
+
+template "/etc/default/sensu" do
+  source "sensu.default.erb"
 end
