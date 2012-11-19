@@ -60,7 +60,9 @@ if node.sensu.use_ssl
     mode 0644
   end
 else
-  node.sensu.rabbitmq.delete(:ssl)
+  rabbitmq = node.sensu.rabbitmq.dup
+  rabbitmq.delete("ssl")
+  node.set.sensu.rabbitmq = rabbitmq
 
   if node.sensu.rabbitmq.port == 5671
     Chef::Log.warn("Setting Sensu RabbitMQ port to 5672 as you have disabled SSL.")
@@ -68,4 +70,4 @@ else
   end
 end
 
-sensu_config node.name
+sensu_base_config node.name
