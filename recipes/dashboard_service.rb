@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: dashboard
+# Recipe:: dashboard_service
 #
 # Copyright 2012, Sonian Inc.
 #

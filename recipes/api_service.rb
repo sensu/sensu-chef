@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: api
+# Recipe:: api_service
 #
 # Copyright 2012, Sonian Inc.
 #
