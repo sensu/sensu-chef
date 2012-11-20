@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if node.sensu.ssl
+if node.sensu.use_ssl
   node.set.rabbitmq.ssl = true
   node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port
 
@@ -43,23 +43,11 @@ if node.sensu.ssl
   end
 end
 
-if node.platform == "ubuntu" && %w[10.04 10.10 11.04].include?(node.lsb.release)
-  include_recipe "apt"
-
-  apt_repository "esl" do
-    uri "http://binaries.erlang-solutions.com/debian"
-    distribution node.lsb.codename
-    components ["contrib"]
-    key "http://binaries.erlang-solutions.com/debian/erlang_solutions.asc"
-    action :add
-  end
-
-  package "esl-erlang"
-else
-  include_recipe "erlang"
-end
-
 include_recipe "rabbitmq"
+
+rabbitmq_plugin "rabbitmq_management" do
+  action :enable
+end
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
   action :add
