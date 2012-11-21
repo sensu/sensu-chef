@@ -3,5 +3,9 @@ Gemfile.lock
 Cheffile.lock
 examples/cookbooks
 examples/tmp
+examples/ssl/ssl.json
+examples/ssl/server
+examples/ssl/client
+examples/ssl/sensu_ca
 .vagrant
 \#*
