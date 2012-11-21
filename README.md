@@ -135,6 +135,50 @@ are to use the embedded Ruby in the monolithic package.
 
 `node.sensu.dashboard.password` - Sensu basic authentication password.
 
+## LWRP's
+
+### Define a Sensu client
+
+```ruby
+sensu_client node.name do
+  address node["ipaddress"]
+  subscriptions node["roles"] + ["all"]
+  additional(:cluster => node.cluster)
+end
+```
+
+### Define a custom configuration snippet
+
+```ruby
+sensu_snippet "irc" do
+  content(
+    :irc_server => "irc://sensubot:password@irc.freenode.net:6667#channel"
+  )
+end
+```
+
+### Define a handler
+
+```ruby
+sensu_handler "pagerduty" do
+  type "pipe"
+  command "pagerduty.rb"
+  severities ["ok", "critical"]
+end
+```
+
+### Define a check
+
+```ruby
+sensu_check "redis_process" do
+  command "check-procs.rb -p redis-server -C 1"
+  handlers ["default"]
+  subscribers ["redis"]
+  interval 30
+  additional(:notification => "Redis is not running")
+end
+```
+
 ## SUPPORT
 
 Please visit #sensu on irc.freenode.net and we will be more than happy
