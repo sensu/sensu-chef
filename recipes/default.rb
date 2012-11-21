@@ -26,9 +26,9 @@ end
 
 case node.platform
 when "windows"
-  include_recipe "sensu::windows"
+  include_recipe "sensu::_windows"
 else
-  include_recipe "sensu::linux"
+  include_recipe "sensu::_linux"
 end
 
 [

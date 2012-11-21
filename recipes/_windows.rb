@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: default
+# Recipe:: _windows
 #
 # Copyright 2012, Sonian Inc.
 #
