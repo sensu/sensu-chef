@@ -14,7 +14,7 @@ An example wrapper cookbook can be found
 ## TESTING
 
 This cookbook comes with a Gemfile, Cheffile, and a Vagrantfile for
-testing and evaluating Sensu. (should have a rake task)
+testing and evaluating Sensu.
 
 ```
 cd examples
@@ -27,10 +27,10 @@ vagrant ssh
 
 ## COOKBOOK DEPENDENCIES
 
-* apt (available @ http://community.opscode.com/cookbooks/apt)
-* yum (available @ http://community.opscode.com/cookbooks/yum)
-* rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
-* redis (available @ https://github.com/miah/chef-redis)
+* [APT](http://community.opscode.com/cookbooks/apt)
+* [YUM](http://community.opscode.com/cookbooks/yum)
+* [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
+* [Redis](https://github.com/miah/chef-redis)*
 
 ## REQUIREMENTS
 
