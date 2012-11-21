@@ -90,7 +90,7 @@ Enables and starts the Sensu dashboard.
 `node.sensu.version` - Sensu build to install.
 
 `node.sensu.use_unstable_repo` - If the build resides on the
-unstable repository.
+"unstable" repository.
 
 `node.sensu.directory` - Sensu configuration directory.
 
@@ -147,16 +147,6 @@ sensu_client node.name do
 end
 ```
 
-### Define a custom configuration snippet
-
-```ruby
-sensu_snippet "irc" do
-  content(
-    :irc_server => "irc://bot:password@irc.freenode.net:6667#channel"
-  )
-end
-```
-
 ### Define a handler
 
 ```ruby
@@ -176,6 +166,16 @@ sensu_check "redis_process" do
   subscribers ["redis"]
   interval 30
   additional(:notification => "Redis is not running")
+end
+```
+
+### Define a custom configuration snippet
+
+```ruby
+sensu_snippet "irc" do
+  content(
+    :irc_server => "irc://bot:password@irc.freenode.net:6667#channel"
+  )
 end
 ```
 
