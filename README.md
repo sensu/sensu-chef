@@ -1,4 +1,5 @@
 ## DESCRIPTION
+
 Provides LWRP's and service recipes to install and configure
 [Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
 
@@ -11,6 +12,7 @@ An example wrapper cookbook can be found
 [How to Write Reusable Chef Cookbooks](http://bit.ly/10r993N)
 
 ## COOKBOOK DEPENDENCIES
+
 * apt (available @ http://community.opscode.com/cookbooks/apt)
 * yum (available @ http://community.opscode.com/cookbooks/yum)
 * rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
@@ -22,11 +24,10 @@ An example wrapper cookbook can be found
 
 Running Sensu with SSL is recommended, this cookbook uses a data bag
 `sensu`, with an item `ssl`, containing the SSL certificates required.
+This cookbook comes with a tool to generate the certificates and data
+bag item.
 
-This cookbook contains with a tool to generate the certificates and
-data bag item.
-
-```bash
+```shell
 cd examples/ssl
 
 ./ssl_certs.sh generate
@@ -38,37 +39,20 @@ knife data bag from file sensu ssl.json
 ./ssl_certs.sh clean
 ```
 
-RECIPES
-=======
+## RECIPES
 
-sensu::default
----
-Installs and configures Sensu and dependencies, but doesn't enable or start any Sensu services.
+## sensu::default
+Installs Sensu and creates a base configuration file, intended to be
+extended. This recipe must be included before any of the Sensu LWRP's
+can be use. This recipe does not enable or start any services.
 
-sensu::server
----
-Configures and enables the Sensu server service, "sensu-server".
+## sensu::rabbitmq
+Installs and configures RabbitMQ for Sensu, from configuring SSL to
+creating a vhost and credentials. This recipe relies heavily on the
+community RabbitMQ cookbook LWRP's.
 
-sensu::client
----
-Configures and enables the Sensu Client service, "sensu-client".
-
-sensu::api
----
-Configures and enables the Sensu API service, "sensu-api".
-
-sensu::dashboard
----
-Configures and enables the Sensu dashboard service, "sensu-dashboard".
-
-sensu::rabbitmq
----
-Installs and configures RabbitMQ with the Sensu vhost, adds SSL support by default.
-
-sensu::redis
----
-Installs and configures Redis.
-
+## sensu::redis
+Installs and configures Redis for Sensu.
 
 EXAMPLES
 =====
