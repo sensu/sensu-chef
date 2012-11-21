@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: linux
+# Recipe:: _linux
 #
 # Copyright 2012, Sonian Inc.
 #
