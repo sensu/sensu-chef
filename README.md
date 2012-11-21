@@ -173,9 +173,7 @@ end
 
 ```ruby
 sensu_snippet "irc" do
-  content(
-    :irc_server => "irc://bot:password@irc.freenode.net:6667#channel"
-  )
+  content(:uri => "irc://sensu:password@irc.freenode.net:6667#channel")
 end
 ```
 
