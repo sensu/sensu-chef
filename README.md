@@ -18,15 +18,10 @@ testing and evaluating Sensu. (should have a rake task)
 
 ```
 cd examples
-
 gem install bundler
-
 bundle install
-
 librarian-chef install
-
 vagrant up
-
 vagrant ssh
 ```
 
@@ -48,13 +43,9 @@ bag item.
 
 ```
 cd examples/ssl
-
 ./ssl_certs.sh generate
-
 knife data bag create sensu
-
 knife data bag from file sensu ssl.json
-
 ./ssl_certs.sh clean
 ```
 
