@@ -67,6 +67,22 @@ community RabbitMQ cookbook LWRP's.
 
 Installs and configures Redis for Sensu.
 
+### sensu::server_service
+
+Enables and starts the Sensu server.
+
+### sensu::client_service
+
+Enables and starts the Sensu client.
+
+### sensu::api_service
+
+Enables and starts the Sensu API.
+
+### sensu::dashboard_service
+
+Enables and starts the Sensu dashboard.
+
 ## ATTRIBUTES
 
 ### Installation
