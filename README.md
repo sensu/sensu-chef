@@ -1,16 +1,16 @@
-DESCRIPTION
-============
-Installs and configures the Sensu server, client, API and dashboard components, installs and configures RabbitMQ and Redis for Sensu.
-Sensu is a monitoring framework that aims to be simple, malleable, and scalable (https://github.com/sensu/sensu).
+## DESCRIPTION
+Provides LWRP's and service recipes to install and configure
+[Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
 
+This cookbook provides the building blocks for creating a monitoring
+cookbook specific to your environment (wrapper). An example can be
+found [HERE](https://github.com/portertech/chef-monitor).
 
-COOKBOOK DEPENDENCIES
-============
+## COOKBOOK DEPENDENCIES
 * apt (available @ http://community.opscode.com/cookbooks/apt)
 * yum (available @ http://community.opscode.com/cookbooks/yum)
 * rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
 * redis (available @ https://github.com/miah/chef-redis)
-
 
 REQUIREMENTS
 ============
@@ -21,7 +21,7 @@ A data bag with SSL configuration for RabbitMQ is required, details on creating 
 
 
 RECIPES
-========
+=======
 
 sensu::default
 ---
