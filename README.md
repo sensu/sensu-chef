@@ -3,8 +3,12 @@ Provides LWRP's and service recipes to install and configure
 [Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
 
 This cookbook provides the building blocks for creating a monitoring
-cookbook specific to your environment (wrapper). An example can be
-found [HERE](https://github.com/portertech/chef-monitor).
+cookbook specific to your environment (wrapper).
+
+An example wrapper cookbook can be found
+[HERE](https://github.com/portertech/chef-monitor).
+
+[How to Write Reusable Chef Cookbooks](http://bit.ly/10r993N)
 
 ## COOKBOOK DEPENDENCIES
 * apt (available @ http://community.opscode.com/cookbooks/apt)
@@ -12,13 +16,27 @@ found [HERE](https://github.com/portertech/chef-monitor).
 * rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
 * redis (available @ https://github.com/miah/chef-redis)
 
-REQUIREMENTS
-============
+## REQUIREMENTS
 
-SSL Configuration
----
-A data bag with SSL configuration for RabbitMQ is required, details on creating the data bag can be found at https://github.com/sensu/sensu-chef/tree/master/examples/ssl
+### SSL CONFIGURATION
 
+Running Sensu with SSL is recommended, this cookbook uses a data bag
+`sensu`, with an item `ssl`, containing the SSL certificates required.
+
+This cookbook contains with a tool to generate the certificates and
+data bag item.
+
+```bash
+cd examples/ssl
+
+./ssl_certs.sh generate
+
+knife data bag create sensu
+
+knife data bag from file sensu ssl.json
+
+./ssl_certs.sh clean
+```
 
 RECIPES
 =======
