@@ -135,14 +135,14 @@ are to use the embedded Ruby in the monolithic package.
 
 `node.sensu.dashboard.password` - Sensu basic authentication password.
 
-## LWRP's
+## LWRP'S
 
-### Define a Sensu client
+### Define a client
 
 ```ruby
 sensu_client node.name do
-  address node["ipaddress"]
-  subscriptions node["roles"] + ["all"]
+  address node.ipaddress
+  subscriptions node.roles + ["all"]
   additional(:cluster => node.cluster)
 end
 ```
@@ -152,7 +152,7 @@ end
 ```ruby
 sensu_snippet "irc" do
   content(
-    :irc_server => "irc://sensubot:password@irc.freenode.net:6667#channel"
+    :irc_server => "irc://bot:password@irc.freenode.net:6667#channel"
   )
 end
 ```
