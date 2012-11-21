@@ -30,11 +30,11 @@ vagrant ssh
 * [APT](http://community.opscode.com/cookbooks/apt)
 * [YUM](http://community.opscode.com/cookbooks/yum)
 * [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
-* [Redis](https://github.com/miah/chef-redis)*
+* [Redis*](https://github.com/miah/chef-redis)
 
 ## REQUIREMENTS
 
-### SSL CONFIGURATION
+### SSL configuration
 
 Running Sensu with SSL is recommended, this cookbook uses a data bag
 `sensu`, with an item `ssl`, containing the SSL certificates required.
@@ -51,63 +51,75 @@ knife data bag from file sensu ssl.json
 
 ## RECIPES
 
-## sensu::default
+### sensu::default
+
 Installs Sensu and creates a base configuration file, intended to be
 extended. This recipe must be included before any of the Sensu LWRP's
 can be used. This recipe does not enable or start any services.
 
-## sensu::rabbitmq
+### sensu::rabbitmq
+
 Installs and configures RabbitMQ for Sensu, from configuring SSL to
 creating a vhost and credentials. This recipe relies heavily on the
 community RabbitMQ cookbook LWRP's.
 
-## sensu::redis
+### sensu::redis
+
 Installs and configures Redis for Sensu.
 
-EXAMPLES
-=====
-Example roles are provided within the examples directory and provide a good overview of a standard Sensu setup. A vagrantfile is also provided for setting up a local test instance using this cookbook. A Cheffile example is also provided for use with Librarian-chef.
+## ATTRIBUTES
 
+### Installation
 
-ATTRIBUTES
-==========
+`node.sensu.version` - Sensu build to install.
 
-default
--------
-* `default.sensu.version` - Version of Sensu to install
-* `default.sensu.plugin.version` - Version of Sensu Plugin gem to install
-* `default.sensu.directory` - Directory to store Sensu configs (defaults to "/etc/sensu")
-* `default.sensu.log.directory` - Directory to store Sensu logs (defaults to "/var/log/sensu")
-* `default.sensu.ssl` - If true, Sensu and RabbitMQ will use SSL encryption (defaults to true)
-* `default.sensu.sudoers` - If true, adds Sensu sudoers config to /etc/sudoers.d/sensu (defaults to false)
-* `default.sensu.package.unstable` - If true, will allow for the installation of unstable packages (defaults to false)
+`node.sensu.use_unstable_repo` - If the build resides on the
+unstable repository.
 
-rabbitmq
---------
-* `default.sensu.rabbitmq.host` - Host for RabbitMQ service (defaults to "localhost")
-* `default.sensu.rabbitmq.port` - Port for RabbitMQ (defaults to 5671)
-* `default.sensu.rabbitmq.vhost` - Vhost for RabbitMQ (defaults to "/sensu")
-* `default.sensu.rabbitmq.user` - User for RabbitMQ vhost authentication (defaults to "sensu")
-* `default.sensu.rabbitmq.password` - Password for RabbitMQ vhost authentication (defaults to "password")
+`node.sensu.directory` - Sensu configuration directory.
 
-redis
------
-* `default.sensu.redis.host` - Host for Redis service (defaults to "localhost")
-* `default.sensu.redis.port` - Port for Redis to listen on (defaults to 6379)
+`node.sensu.log_directory` - Sensu log directory.
 
-api
----
-* `default.sensu.api.host` - Host to locate Sensu API (defaults to "localhost")
-* `default.sensu.api.port` - Port for Sensu API to listen on (defaults to 4567)
+`node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
 
-dashboard
----------
-* `default.sensu.dashboard.host` - Host to locate Sensu Dashboard (defaults to "localhost")
-* `default.sensu.dashboard.port` - Port for Sensu Dashboard to listen on (defaults to 8080)
-* `default.sensu.dashboard.user` - User for Sensu Dashboard HTTP basic authentication (defaults to "admin")
-* `default.sensu.dashboard.password` - Password for Sensu Dashboard HTTP basic authentication (defaults to "secret")
+`node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
+are to use the embedded Ruby in the monolithic package.
 
+### RabbitMQ
 
-SUPPORT
-=======
-Please visit #sensu on irc.freenode.net and we will be more than happy to help.
+`node.sensu.rabbitmq.host` - RabbitMQ host.
+
+`node.sensu.rabbitmq.port` - RabbitMQ port, usually for SSL.
+
+`node.sensu.rabbitmq.ssl` - RabbitMQ SSL configuration, DO NOT EDIT THIS.
+
+`node.sensu.rabbitmq.vhost` - RabbitMQ vhost for Sensu.
+
+`node.sensu.rabbitmq.user` - RabbitMQ user for Sensu.
+
+`node.sensu.rabbitmq.password` - RabbitMQ password for Sensu.
+
+### Redis
+
+`node.sensu.redis.host` - Redis host.
+
+`node.sensu.redis.port` - Redis port.
+
+### Sensu API
+
+`node.sensu.api.host` - Sensu API host, for other services to reach it.
+
+`node.sensu.api.port` - Sensu API port.
+
+### Sensu Dashboard
+
+`node.sensu.dashboard.port` - Sensu Dashboard port.
+
+`node.sensu.dashboard.user` - Sensu basic authentication username.
+
+`node.sensu.dashboard.password` - Sensu basic authentication password.
+
+## SUPPORT
+
+Please visit #sensu on irc.freenode.net and we will be more than happy
+to help.
