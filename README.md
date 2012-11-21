@@ -11,6 +11,25 @@ An example wrapper cookbook can be found
 
 [How to Write Reusable Chef Cookbooks](http://bit.ly/10r993N)
 
+## TESTING
+
+This cookbook comes with a Gemfile, Cheffile, and a Vagrantfile for
+testing and evaluating Sensu. (should have a rake task)
+
+```
+cd examples
+
+gem install bundler
+
+bundle install
+
+librarian-chef install
+
+vagrant up
+
+vagrant ssh
+```
+
 ## COOKBOOK DEPENDENCIES
 
 * apt (available @ http://community.opscode.com/cookbooks/apt)
@@ -27,7 +46,7 @@ Running Sensu with SSL is recommended, this cookbook uses a data bag
 This cookbook comes with a tool to generate the certificates and data
 bag item.
 
-```shell
+```
 cd examples/ssl
 
 ./ssl_certs.sh generate
@@ -44,7 +63,7 @@ knife data bag from file sensu ssl.json
 ## sensu::default
 Installs Sensu and creates a base configuration file, intended to be
 extended. This recipe must be included before any of the Sensu LWRP's
-can be use. This recipe does not enable or start any services.
+can be used. This recipe does not enable or start any services.
 
 ## sensu::rabbitmq
 Installs and configures RabbitMQ for Sensu, from configuring SSL to
