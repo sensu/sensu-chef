@@ -1,7 +1,7 @@
 [ ca ]                                                     
-default_ca = testca                                        
+default_ca = sensu_ca                                        
 
-[ testca ]                                                 
+[ sensu_ca ]                                                 
 dir = .                                                    
 certificate = $dir/cacert.pem                              
 database = $dir/index.txt                                  
@@ -10,13 +10,13 @@ private_key = $dir/private/cakey.pem
 serial = $dir/serial                                       
 
 default_crl_days = 7                                       
-default_days = 365
+default_days = 1825
 default_md = sha1                                          
 
-policy = testca_policy                                     
+policy = sensu_ca_policy                                     
 x509_extensions = certificate_extensions                   
 
-[ testca_policy ]                                          
+[ sensu_ca_policy ]                                          
 commonName = supplied                                      
 stateOrProvinceName = optional                             
 countryName = optional                                     
