@@ -1,14 +1,18 @@
 class Chef::Provider::JsonFile < Chef::Provider::File
   def load_json(path)
-    JSON.load(::File.read(path)) rescue nil
+    JSON.parse(::File.read(path)) rescue Hash.new
   end
 
   def dump_json(obj)
     JSON.pretty_generate(obj) + "\n"
   end
 
+  def to_mash(obj)
+    Mash.from_hash(obj)
+  end
+
   def compare_content
-    load_json(@current_resource.path) == @new_resource.content
+    to_mash(load_json(@current_resource.path)) == to_mash(@new_resource.content)
   end
 
   def set_content
@@ -27,8 +31,8 @@ class Chef::Provider::JsonFile < Chef::Provider::File
     else
       assert_enclosing_directory_exists!
     end
-    set_content unless @new_resource.content.nil?
-    # chef == 0.10.10
+    set_content
+    # chef >= 0.10.10
     if respond_to?(:enforce_ownership_and_permissions)
       updated = @new_resource.updated_by_last_action?
       enforce_ownership_and_permissions
