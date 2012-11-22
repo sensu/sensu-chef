@@ -16,7 +16,7 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
     chef.data_bags_path = "data_bags"
-    chef.add_recipe "monitor::server"
+    chef.add_recipe "monitor::master"
     chef.add_recipe "monitor::redis"
     chef.add_recipe "monitor::rabbitmq"
   end
