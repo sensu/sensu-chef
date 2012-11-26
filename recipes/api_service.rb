@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: client
+# Recipe:: api_service
 #
-# Copyright 2011, Sonian Inc.
+# Copyright 2012, Sonian Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,11 +17,9 @@
 # limitations under the License.
 #
 
-include_recipe "sensu::default"
-
-service "sensu-client" do
+service "sensu-api" do
   provider node.platform =~ /ubuntu|debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
   supports :status => true, :restart => true
   action [:enable, :start]
-  subscribes :restart, resources(:sensu_config => node.name), :delayed
+  subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
 end

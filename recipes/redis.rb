@@ -2,7 +2,7 @@
 # Cookbook Name:: sensu
 # Recipe:: redis
 #
-# Copyright 2011, Sonian Inc.
+# Copyright 2012, Sonian Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,10 +26,4 @@ elsif node.platform == "debian"
   include_recipe "redis::server_source"
 else
   include_recipe "redis::server_package"
-end
-
-if node.sensu.firewall
-  include_recipe "iptables"
-
-  iptables_rule "port_redis"
 end

@@ -1,103 +1,183 @@
-DESCRIPTION
-============
-Installs and configures the Sensu server, client, API and dashboard components, installs and configures RabbitMQ and Redis for Sensu.
-Sensu is a monitoring framework that aims to be simple, malleable, and scalable (https://github.com/sensu/sensu).
+## DESCRIPTION
 
+Provides LWRP's and service recipes to install and configure
+[Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
 
-COOKBOOK DEPENDENCIES
-============
-* apt (available @ http://community.opscode.com/cookbooks/apt)
-* yum (available @ http://community.opscode.com/cookbooks/yum)
-* rabbitmq (available @ http://community.opscode.com/cookbooks/rabbitmq)
-* redis (available @ https://github.com/miah/chef-redis)
-* iptables - If using firewall options (available @ http://community.opscode.com/cookbooks/iptables)
+This cookbook provides the building blocks for creating a monitoring
+cookbook specific to your environment (wrapper).
 
+An example wrapper cookbook can be found
+[HERE](https://github.com/portertech/chef-monitor).
 
-REQUIREMENTS
-============
+[How to Write Reusable Chef Cookbooks](http://bit.ly/10r993N)
 
-SSL Configuration
----
-A data bag with SSL configuration for RabbitMQ is required, details on creating the data bag can be found at https://github.com/sensu/sensu-chef/tree/master/examples/ssl
+## TESTING
 
+This cookbook comes with a Gemfile, Cheffile, and a Vagrantfile for
+testing and evaluating Sensu.
 
-RECIPES
-========
+```
+cd examples
+gem install bundler
+bundle install
+librarian-chef install
+vagrant up
+vagrant ssh
+```
 
-sensu::default
----
-Installs and configures Sensu and dependencies, but doesn't enable or start any Sensu services.
+## COOKBOOK DEPENDENCIES
 
-sensu::server
----
-Configures and enables the Sensu server service, "sensu-server".
+* [APT](http://community.opscode.com/cookbooks/apt)
+* [YUM](http://community.opscode.com/cookbooks/yum)
+* [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
+* [Redis*](https://github.com/miah/chef-redis)
 
-sensu::client
----
-Configures and enables the Sensu Client service, "sensu-client".
+## REQUIREMENTS
 
-sensu::api
----
-Configures and enables the Sensu API service, "sensu-api", optionally configures local firewall rules if the firewall attribute is set.
+### SSL configuration
 
-sensu::dashboard
----
-Configures and enables the Sensu dashboard service, "sensu-dashboard", optionally configures local firewall rules if the firewall attribute is set.
+Running Sensu with SSL is recommended, this cookbook uses a data bag
+`sensu`, with an item `ssl`, containing the SSL certificates required.
+This cookbook comes with a tool to generate the certificates and data
+bag item.
 
-sensu::rabbitmq
----
-Installs and configures RabbitMQ with the Sensu vhost, adds SSL support by default and optionally configures local firewall rules if the firewall attribute is set.
+```
+cd examples/ssl
+./ssl_certs.sh generate
+knife data bag create sensu
+knife data bag from file sensu ssl.json
+./ssl_certs.sh clean
+```
 
-sensu::redis
----
-Installs and configures Redis and optionally configures local firewall rules if the firewall attribute is set.
+## RECIPES
 
+### sensu::default
 
-EXAMPLES
-=====
-Example roles are provided within the examples directory and provide a good overview of a standard Sensu setup. A vagrantfile is also provided for setting up a local test instance using this cookbook. A Cheffile example is also provided for use with Librarian-chef.
+Installs Sensu and creates a base configuration file, intended to be
+extended. This recipe must be included before any of the Sensu LWRP's
+can be used. This recipe does not enable or start any services.
 
+### sensu::rabbitmq
 
-ATTRIBUTES
-==========
+Installs and configures RabbitMQ for Sensu, from configuring SSL to
+creating a vhost and credentials. This recipe relies heavily on the
+community RabbitMQ cookbook LWRP's.
 
-default
--------
-* `default.sensu.version` - Version of Sensu to install
-* `default.sensu.plugin.version` - Version of Sensu Plugin gem to install
-* `default.sensu.directory` - Directory to store Sensu configs (defaults to "/etc/sensu")
-* `default.sensu.log.directory` - Directory to store Sensu logs (defaults to "/var/log/sensu")
-* `default.sensu.ssl` - If true, Sensu and RabbitMQ will use SSL encryption (defaults to true)
-* `default.sensu.sudoers` - If true, adds Sensu sudoers config to /etc/sudoers.d/sensu (defaults to false)
-* `default.sensu.firewall` - If true, will configure iptables for each sensu component - requires the iptables cookbook to be available (defaults to false)
-* `default.sensu.package.unstable` - If true, will allow for the installation of unstable packages (defaults to false)
+### sensu::redis
 
-rabbitmq
---------
-* `default.sensu.rabbitmq.host` - Host for RabbitMQ service (defaults to "localhost")
-* `default.sensu.rabbitmq.port` - Port for RabbitMQ (defaults to 5671)
-* `default.sensu.rabbitmq.vhost` - Vhost for RabbitMQ (defaults to "/sensu")
-* `default.sensu.rabbitmq.user` - User for RabbitMQ vhost authentication (defaults to "sensu")
-* `default.sensu.rabbitmq.password` - Password for RabbitMQ vhost authentication (defaults to "password")
+Installs and configures Redis for Sensu.
 
-redis
------
-* `default.sensu.redis.host` - Host for Redis service (defaults to "localhost")
-* `default.sensu.redis.port` - Port for Redis to listen on (defaults to 6379)
+### sensu::server_service
 
-api
----
-* `default.sensu.api.host` - Host to locate Sensu API (defaults to "localhost")
-* `default.sensu.api.port` - Port for Sensu API to listen on (defaults to 4567)
+Enables and starts the Sensu server.
 
-dashboard
----------
-* `default.sensu.dashboard.host` - Host to locate Sensu Dashboard (defaults to "localhost")
-* `default.sensu.dashboard.port` - Port for Sensu Dashboard to listen on (defaults to 8080)
-* `default.sensu.dashboard.user` - User for Sensu Dashboard HTTP basic authentication (defaults to "admin")
-* `default.sensu.dashboard.password` - Password for Sensu Dashboard HTTP basic authentication (defaults to "secret")
+### sensu::client_service
 
+Enables and starts the Sensu client.
 
-SUPPORT
-=======
-Please visit #sensu on irc.freenode.net and we will be more than happy to help.
+### sensu::api_service
+
+Enables and starts the Sensu API.
+
+### sensu::dashboard_service
+
+Enables and starts the Sensu dashboard.
+
+## ATTRIBUTES
+
+### Installation
+
+`node.sensu.version` - Sensu build to install.
+
+`node.sensu.use_unstable_repo` - If the build resides on the
+"unstable" repository.
+
+`node.sensu.directory` - Sensu configuration directory.
+
+`node.sensu.log_directory` - Sensu log directory.
+
+`node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
+
+`node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
+are to use the embedded Ruby in the monolithic package.
+
+### RabbitMQ
+
+`node.sensu.rabbitmq.host` - RabbitMQ host.
+
+`node.sensu.rabbitmq.port` - RabbitMQ port, usually for SSL.
+
+`node.sensu.rabbitmq.ssl` - RabbitMQ SSL configuration, DO NOT EDIT THIS.
+
+`node.sensu.rabbitmq.vhost` - RabbitMQ vhost for Sensu.
+
+`node.sensu.rabbitmq.user` - RabbitMQ user for Sensu.
+
+`node.sensu.rabbitmq.password` - RabbitMQ password for Sensu.
+
+### Redis
+
+`node.sensu.redis.host` - Redis host.
+
+`node.sensu.redis.port` - Redis port.
+
+### Sensu API
+
+`node.sensu.api.host` - Sensu API host, for other services to reach it.
+
+`node.sensu.api.port` - Sensu API port.
+
+### Sensu Dashboard
+
+`node.sensu.dashboard.port` - Sensu Dashboard port.
+
+`node.sensu.dashboard.user` - Sensu basic authentication username.
+
+`node.sensu.dashboard.password` - Sensu basic authentication password.
+
+## LWRP'S
+
+### Define a client
+
+```ruby
+sensu_client node.name do
+  address node.ipaddress
+  subscriptions node.roles + ["all"]
+  additional(:cluster => node.cluster)
+end
+```
+
+### Define a handler
+
+```ruby
+sensu_handler "pagerduty" do
+  type "pipe"
+  command "pagerduty.rb"
+  severities ["ok", "critical"]
+end
+```
+
+### Define a check
+
+```ruby
+sensu_check "redis_process" do
+  command "check-procs.rb -p redis-server -C 1"
+  handlers ["default"]
+  subscribers ["redis"]
+  interval 30
+  additional(:notification => "Redis is not running")
+end
+```
+
+### Define a custom configuration snippet
+
+```ruby
+sensu_snippet "irc" do
+  content(:uri => "irc://sensu:password@irc.freenode.net:6667#channel")
+end
+```
+
+## SUPPORT
+
+Please visit #sensu on irc.freenode.net and we will be more than happy
+to help.

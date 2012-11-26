@@ -1,30 +1,40 @@
 class Chef::Provider::JsonFile < Chef::Provider::File
   def load_json(path)
-    JSON.load(::File.read(path)) rescue nil
+    JSON.parse(::File.read(path)) rescue Hash.new
   end
 
   def dump_json(obj)
     JSON.pretty_generate(obj) + "\n"
   end
 
+  def to_mash(obj)
+    Mash.from_hash(obj)
+  end
+
   def compare_content
-    load_json(@current_resource.path) == @new_resource.content
+    to_mash(load_json(@current_resource.path)) == to_mash(@new_resource.content)
   end
 
   def set_content
     unless compare_content
       backup @new_resource.path if ::File.exists?(@new_resource.path)
-      ::File.open(@new_resource.path, "w") {|f| f.write dump_json(@new_resource.content) }
+      ::File.open(@new_resource.path, "w") { |file| file.write dump_json(@new_resource.content) }
       Chef::Log.info("#{@new_resource} updated file #{@new_resource.path}")
       @new_resource.updated_by_last_action(true)
     end
   end
 
   def action_create
-    assert_enclosing_directory_exists!
-    set_content unless @new_resource.content.nil?
-    if respond_to?('enforce_ownership_and_permissions')
-      updated = @new_resource.updated_by_last_action? # Work around bug in Chef 0.10.10
+    # chef >= 10.14.0
+    if respond_to?(:define_resource_requirements)
+      define_resource_requirements
+    else
+      assert_enclosing_directory_exists!
+    end
+    set_content
+    # chef >= 0.10.10
+    if respond_to?(:enforce_ownership_and_permissions)
+      updated = @new_resource.updated_by_last_action?
       enforce_ownership_and_permissions
       @new_resource.updated_by_last_action(true) if updated
     else
