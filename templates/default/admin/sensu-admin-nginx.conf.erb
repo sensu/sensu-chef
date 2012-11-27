@@ -1,0 +1,24 @@
+upstream sensu-admin {
+  server <%= @host -%>:<%= @backend_port -%>;
+}
+
+server {
+  listen <%= @http_port -%>;
+  rewrite ^(.*) https://$host$1 permanent;
+}
+
+server {
+  listen <%= @https_port -%>;
+  server_name sensu-admin;
+  ssl on;
+  ssl_certificate <%= @base_path -%>/server-cert.pem;
+  ssl_certificate_key <%= @base_path -%>/server-key.pem;
+  location /assets {
+    gzip_static on;
+    add_header Cache-Control public;
+    alias <%= @base_path -%>/website/current/public/assets;
+  }
+  location / {
+    proxy_pass http://sensu-admin;
+  }
+}
