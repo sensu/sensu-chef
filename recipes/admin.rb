@@ -20,9 +20,7 @@
 # If this is important to you - BACK IT UP, or use a SQL DB thats already backed up for you.
 #
 
-p = package "nginx"
-p.run_action(:install)
-
+package "nginx"
 package "sqlite3"
 package "libsqlite3-dev"
 
@@ -40,7 +38,13 @@ directory node.sensu.admin.base_path do
 end
 
 # Otherwise chef is making the child directories owned by root (under recursive true)
-%w{website website/shared website/shared/config website/shared/log website/shared/db website/shared/bundle website/shared/pids}.each do |dir|
+%w{ website
+    website/shared
+    website/shared/config
+    website/shared/log
+    website/shared/db
+    website/shared/bundle
+    website/shared/pids }.each do |dir|
   directory "#{node.sensu.admin.base_path}/#{dir}" do
     owner "sensu"
     group "sensu"
@@ -63,7 +67,7 @@ template "#{node.sensu.admin.base_path}/sensu-admin-unicorn.rb" do
 end
 
 service "nginx" do
-    supports :status => true, :restart => true, :reload => true
+  supports :status => true, :restart => true, :reload => true
 end
 
 template "#{node.sensu.admin.base_path}/sensu-admin-nginx.conf" do
@@ -94,39 +98,16 @@ link "/etc/nginx/sites-enabled/sensu-admin.conf" do
   to "/etc/nginx/sites-available/sensu-admin.conf"
 end
 
-template "#{node.sensu.admin.base_path}/ssl_cert.conf" do
-  source "admin/ssl_cert.conf.erb"
-  owner "sensu"
-  group "sensu"
-  variables(:country => node.sensu.admin.ssl.country,
-            :province => node.sensu.admin.ssl.state,
-            :city => node.sensu.admin.ssl.city,
-            :company => node.sensu.admin.ssl.company,
-            :email => node.sensu.admin.ssl.email,
-            :department => node.sensu.admin.ssl.department,
-            :domain => node.sensu.admin.ssl.domain)
-end
-
-execute "Create SSL Certificates" do
-  user "sensu"
-  group "sensu"
-  cwd node.sensu.admin.base_path
-  command "openssl req -new -x509 -nodes -out server-cert.pem -keyout server-key.pem -config #{node.sensu.admin.base_path}/ssl_cert.conf"
-  not_if "test -e #{node.sensu.admin.base_path}/server-cert.pem"
-  environment( { 'KEY_COUNTRY' => node.sensu.admin.ssl.country,
-              'KEY_PROVINCE' => node.sensu.admin.ssl.state,
-              'KEY_CITY' => node.sensu.admin.ssl.city,
-              'KEY_ORG' => node.sensu.admin.ssl.company,
-              'KEY_EMAIL' => node.sensu.admin.ssl.email,
-              'KEY_CN' =>  node.sensu.admin.ssl.domain } )
-end
+ssl = data_bag_item("sensu", "ssl")
 
 file "#{node.sensu.admin.base_path}/server-cert.pem" do
-  mode "0600"
+  content ssl["client"]["cert"]
+  mode 0644
 end
 
 file "#{node.sensu.admin.base_path}/server-key.pem" do
-  mode "0600"
+  content ssl["client"]["key"]
+  mode 0600
 end
 
 deploy_revision "sensu-admin" do
