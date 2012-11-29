@@ -6,6 +6,7 @@ attribute :socket, :kind_of => Hash
 attribute :exchange, :kind_of => Hash
 attribute :severities, :kind_of => Array
 attribute :handlers, :kind_of => Array
+attribute :additional, :kind_of => Hash, :default => Hash.new
 
 def initialize(*args)
   super
