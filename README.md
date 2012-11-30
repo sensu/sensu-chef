@@ -177,6 +177,18 @@ sensu_snippet "irc" do
 end
 ```
 
+### Define a mutator
+
+```ruby
+sensu_mutator "tag" do
+  command "/etc/sensu/mutators/tag.rb"
+end
+```
+
+`tag.rb` mutator can be found
+[HERE](https://github.com/portertech/chef-monitor).
+
+
 ## SUPPORT
 
 Please visit #sensu on irc.freenode.net and we will be more than happy
