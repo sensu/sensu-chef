@@ -44,10 +44,7 @@ if node.sensu.use_ssl
 end
 
 include_recipe "rabbitmq"
-
-rabbitmq_plugin "rabbitmq_management" do
-  action :enable
-end
+include_recipe "rabbitmq::mgmt_console"
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
   action :add
