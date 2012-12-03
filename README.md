@@ -180,14 +180,10 @@ end
 ### Define a mutator
 
 ```ruby
-sensu_mutator "tag" do
-  command "/etc/sensu/mutators/tag.rb"
+sensu_mutator "opentsdb" do
+  command "opentsdb.rb"
 end
 ```
-
-`tag.rb` mutator can be found
-[HERE](https://github.com/portertech/chef-monitor).
-
 
 ## SUPPORT
 
