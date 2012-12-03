@@ -1,8 +1,8 @@
 action :create do
   definition = {
     "handlers" => {
-      new_resource.name => new_resource.to_hash.select { |key, value|
-        %w[type command socket exchange severities handlers mutator].include?(key.to_s)
+      new_resource.name => new_resource.to_hash.reject { |key, value|
+        !%w[type command socket exchange severities handlers mutator].include?(key.to_s)
       }.merge(new_resource.additional)
     }
   }

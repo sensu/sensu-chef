@@ -1,8 +1,8 @@
 action :create do
   definition = {
     "mutators" => {
-      new_resource.name => new_resource.to_hash.select { |key, value|
-        %w[command].include?(key.to_s)
+      new_resource.name => {
+        "command" => new_resource.command
       }
     }
   }
