@@ -1,6 +1,7 @@
 .DS_Store
 Gemfile.lock
 Cheffile.lock
+Berksfile.lock
 examples/cookbooks
 examples/tmp
 examples/ssl/ssl.json
