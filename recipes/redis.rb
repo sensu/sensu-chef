@@ -27,3 +27,8 @@ elsif node.platform == "debian"
 else
   include_recipe "redis::server_package"
 end
+
+# Announce via Silverware
+announce(:sensu, :redis, {
+  :port => node[:sensu][:redis][:port]
+})

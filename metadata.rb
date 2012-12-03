@@ -18,6 +18,9 @@ depends "rabbitmq"
 # available @ https://github.com/miah/chef-redis
 depends "redis"
 
+# available @ https://github.com/infochimps-labs/ironfan-pantry/cookbooks/silverware
+depends "silverware"
+
 %w[
   ubuntu
   debian

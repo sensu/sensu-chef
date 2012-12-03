@@ -60,3 +60,12 @@ rabbitmq_user node.sensu.rabbitmq.user do
   permissions "\".*\" \".*\" \".*\""
   action :set_permissions
 end
+
+# Announce via Silverware
+announce(:sensu, :rabbitmq, {
+  :port      => node[:sensu][:rabbitmq][:port],
+  :ssl       => Mash.new().merge(node[:sensu][:rabbitmq][:ssl]),
+  :vhost     => node[:sensu][:rabbitmq][:vhost],
+  :user      => node[:sensu][:rabbitmq][:user],
+  :password  => node[:sensu][:rabbitmq][:password],
+})

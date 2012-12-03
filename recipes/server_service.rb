@@ -23,3 +23,8 @@ service "sensu-server" do
   action [:enable, :start]
   subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
 end
+
+# Announce via Silverware
+announce(:sensu, :server, {
+  :use_ssl => node[:sensu][:use_ssl]
+})
