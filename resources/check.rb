@@ -6,6 +6,7 @@ attribute :standalone, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :interval, :default => 60
 attribute :handlers, :kind_of => Array
 attribute :additional, :kind_of => Hash, :default => Hash.new
+attribute :type, :kind_of => String, :default => nil
 
 def initialize(*args)
   super
