@@ -169,11 +169,12 @@ sensu_check "redis_process" do
 end
 ```
 
-### Define a custom configuration snippet
+### Define a filter
 
 ```ruby
-sensu_snippet "irc" do
-  content(:uri => "irc://sensu:password@irc.freenode.net:6667#channel")
+sensu_filter "environment" do
+  attributes(:client => {:environment => "development"})
+  negate true
 end
 ```
 
@@ -182,6 +183,14 @@ end
 ```ruby
 sensu_mutator "opentsdb" do
   command "opentsdb.rb"
+end
+```
+
+### Define a custom configuration snippet
+
+```ruby
+sensu_snippet "irc" do
+  content(:uri => "irc://sensu:password@irc.freenode.net:6667#channel")
 end
 ```
 

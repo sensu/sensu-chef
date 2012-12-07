@@ -23,3 +23,10 @@ action :create do
   new_resource.updated_by_last_action(true)
 
 end
+
+action :delete do
+  file ::File.join(node.sensu.directory, "conf.d", "mutators", "#{new_resource.name}.json") do
+    action :delete
+    notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+  end
+end
