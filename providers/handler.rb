@@ -19,6 +19,9 @@ action :create do
     mode 0644
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
+
+  new_resource.updated_by_last_action(true)
+
 end
 
 action :delete do
@@ -26,4 +29,7 @@ action :delete do
     action :delete
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
+
+  new_resource.updated_by_last_action(true)
+
 end
