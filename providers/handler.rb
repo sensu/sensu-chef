@@ -20,7 +20,7 @@ action :create do
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
 
-  new_resource.updated_by_last_action(true)
+  notify_if_updated
 
 end
 
@@ -30,6 +30,6 @@ action :delete do
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
 
-  new_resource.updated_by_last_action(true)
+  notify_if_updated
 
 end
