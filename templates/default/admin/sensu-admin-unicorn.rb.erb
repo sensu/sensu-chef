@@ -1,0 +1,9 @@
+listen "<%= @backend_port -%>", :tcp_nodelay => true, :backlog => 100
+working_directory '<%= @base_path -%>/website/current'
+pid '<%= @base_path -%>/website/shared/pids/unicorn.pid'
+timeout 60
+preload_app true
+worker_processes <%= @workers %>
+before_fork do |server, worker|
+  sleep 1
+end
