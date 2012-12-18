@@ -19,8 +19,8 @@
 
 package_options = ""
 
-case node.platform
-when "ubuntu", "debian"
+case node.platform_family
+when "debian"
   package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
 
   include_recipe "apt"
@@ -32,7 +32,7 @@ when "ubuntu", "debian"
     components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
     action :add
   end
-when "centos", "redhat"
+when "rhel"
   include_recipe "yum"
 
   yum_repository "sensu" do
