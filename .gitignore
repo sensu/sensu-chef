@@ -10,3 +10,4 @@ examples/ssl/client
 examples/ssl/sensu_ca
 .vagrant
 \#*
+test/.jamie

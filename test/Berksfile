@@ -1,0 +1,11 @@
+cookbook "apt", git: "https://github.com/opscode-cookbooks/apt"
+
+cookbook "yum", git: "https://github.com/opscode-cookbooks/yum"
+
+cookbook "rabbitmq", git: "https://github.com/opscode-cookbooks/rabbitmq"
+
+cookbook "redis", git: "https://github.com/miah/chef-redis"
+
+cookbook "sensu", git: "https://github.com/sensu/sensu-chef"
+
+cookbook "monitor", git: "https://github.com/portertech/chef-monitor"
