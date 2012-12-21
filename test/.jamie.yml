@@ -1,0 +1,11 @@
+platforms:
+  - name: centos6
+    driver_config:
+      box: "Berkshelf-CentOS-6.3-x86_64-minimal"
+      box_url: "https://dl.dropbox.com/u/31081437/Berkshelf-CentOS-6.3-x86_64-minimal.box"
+suites:
+  - name: default
+    run_list:
+      - "recipe[monitor::master]"
+      - "recipe[monitor::redis]"
+      - "recipe[monitor::rabbitmq]"
