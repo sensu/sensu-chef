@@ -32,11 +32,6 @@ module Sensu
       def post(path,payload)
         req = Net::HTTP::Post.new(path, {'Content-Type'=>'application/json'})
 
-        payload = payload.merge({
-         'timestamp' => Time.now.to_i,
-         'actor' => 'chef'
-        }).to_json
-
         req.body = payload
 
         response = Net::HTTP.start(@server_uri.host, @server_uri.port) do |http|
