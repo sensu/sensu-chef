@@ -14,4 +14,7 @@ action :create do
     mode 0644
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
+
+  notify_if_updated
+
 end
