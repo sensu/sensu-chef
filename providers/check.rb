@@ -1,7 +1,7 @@
 action :create do
   check = new_resource.to_hash.reject { |key, value|
     !%w[type command subscribers standalone handlers].include?(key.to_s)
-  }.merge("interval" => new_resource.interval)
+  }.merge({ "interval" => new_resource.interval, "refresh" => new_resource.refresh })
 
   definition = {
     "checks" => {

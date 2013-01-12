@@ -5,6 +5,7 @@ attribute :command, :kind_of => String, :required => true
 attribute :subscribers, :kind_of => Array
 attribute :standalone, :kind_of => [TrueClass, FalseClass]
 attribute :interval, :default => 60
+attribute :refresh, :default => 1800
 attribute :handlers, :kind_of => Array
 attribute :additional, :kind_of => Hash, :default => Hash.new
 
