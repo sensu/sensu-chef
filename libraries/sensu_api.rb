@@ -20,7 +20,7 @@ module Sensu
           # stash exists, so load the response body into @current_resource.payload
           # but omit the timestamp; @new_resource.timestamp should always differ
           body = JSON.parse(response.body)
-          body.reject {|k,v| k == 'timestamp'}
+          body.reject { |key, value| key == 'timestamp' }
         when '404'
           false
         when '500'
@@ -29,7 +29,7 @@ module Sensu
         end 
       end
 
-      def post(path,payload)
+      def post(path, payload)
         req = Net::HTTP::Post.new(path, {'Content-Type'=>'application/json'})
 
         req.body = payload
