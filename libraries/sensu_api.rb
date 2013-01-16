@@ -29,10 +29,10 @@ module Sensu
         end 
       end
 
-      def post(path, payload)
+      def post(path,payload={})
         req = Net::HTTP::Post.new(path, {'Content-Type'=>'application/json'})
 
-        req.body = payload
+        req.body = payload.to_json.to_s
 
         response = Net::HTTP.start(@server_uri.host, @server_uri.port) do |http|
           http.request(req)
