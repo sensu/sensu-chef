@@ -17,9 +17,6 @@
 # limitations under the License.
 #
 
-node.set.rabbitmq.cluster = true
-node.set.rabbitmq.erlang_cookie = "sensu-9d4383a4-2aa9"
-
 if node.sensu.use_ssl
   node.set.rabbitmq.ssl = true
   node.set.rabbitmq.ssl_port = node.sensu.rabbitmq.port
@@ -48,6 +45,12 @@ end
 
 include_recipe "rabbitmq"
 include_recipe "rabbitmq::mgmt_console"
+
+service "restart #{node.rabbitmq.service_name}" do
+  service_name node.rabbitmq.service_name
+  action :nothing
+  subscribes :restart, "template[#{node.rabbitmq.config_root}/rabbitmq.config]", :immediately
+end
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
   action :add
