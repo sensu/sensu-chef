@@ -2,7 +2,7 @@ action :create do
   definition = {
     "filters" => {
       new_resource.name => new_resource.to_hash.reject { |key, value|
-        !%w[attributes negate].include?(key.to_s)
+        !%w[attributes negate].include?(key.to_s) || value.nil?
       }
     }
   }
