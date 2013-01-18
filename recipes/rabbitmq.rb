@@ -43,6 +43,9 @@ if node.sensu.use_ssl
   end
 end
 
+node.set.rabbitmq.cluster = true
+node.set.rabbitmq.erlang_cookie = "sensu-9d4383a4-2aa9"
+
 include_recipe "rabbitmq"
 
 rabbitmq_plugin "rabbitmq_management" do
