@@ -2,7 +2,7 @@ action :create do
   definition = {
     "handlers" => {
       new_resource.name => new_resource.to_hash.reject { |key, value|
-        !%w[type filters mutator severities handlers command socket exchange].include?(key.to_s)
+        !%w[type filters mutator severities handlers command socket exchange].include?(key.to_s) || value.nil?
       }.merge(new_resource.additional)
     }
   }

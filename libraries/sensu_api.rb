@@ -26,13 +26,13 @@ module Sensu
         when '500'
           Chef::Log.fatal "Sensu::API::Stash: Error getting #{path} from #{api_uri}: " + response.body.inspect
           raise
-        end 
+        end
       end
 
-      def post(path,payload={})
+      def post(path, payload={})
         req = Net::HTTP::Post.new(path, {'Content-Type'=>'application/json'})
 
-        req.body = payload.to_json.to_s
+        req.body = payload.to_json
 
         response = Net::HTTP.start(@server_uri.host, @server_uri.port) do |http|
           http.request(req)
