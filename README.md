@@ -39,7 +39,8 @@ vagrant ssh
 Running Sensu with SSL is recommended, this cookbook uses a data bag
 `sensu`, with an item `ssl`, containing the SSL certificates required.
 This cookbook comes with a tool to generate the certificates and data
-bag item.
+bag item. If the integrity of the certificates is ever compromised,
+you must regenerate and redeploy them.
 
 ```
 cd examples/ssl
