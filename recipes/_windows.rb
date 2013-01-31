@@ -17,6 +17,11 @@
 # limitations under the License.
 #
 
-gem_package "sensu" do
-  version node.sensu.version.split("-").first
+windows_package "sensu-#{node.sensu.version}" do
+  source "http://repos.sensuapp.org/msi/sensu-#{node.sensu.version}.msi"
+end
+
+execute "sensu-client.exe install" do
+  cwd "C:\\opt\\sensu\\bin"
+  only_if { WMI::Win32_Service.find(:first, :conditions => {:name => "sensu-client"}).nil? }
 end
