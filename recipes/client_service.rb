@@ -17,9 +17,21 @@
 # limitations under the License.
 #
 
+service_action = [:enable, :start]
+
+case node.platform_family
+when /windows/
+  service_provider = Chef::Provider::Service::Windows
+  service_action = [:start]
+when /debian/
+  service_provider = Chef::Provider::Service::Init::Debian
+else
+  service_provider = Chef::Provider::Service::Init::Redhat
+end
+
 service "sensu-client" do
-  provider node.platform_family =~ /debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
+  provider service_provider
   supports :status => true, :restart => true
-  action [:enable, :start]
+  action service_action
   subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
 end

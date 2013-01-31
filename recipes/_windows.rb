@@ -21,7 +21,15 @@ windows_package "sensu-#{node.sensu.version}" do
   source "http://repos.sensuapp.org/msi/sensu-#{node.sensu.version}.msi"
 end
 
+service_definition = "C:\\opt\\sensu\\bin\\sensu-client.xml"
+
+template service_definition do
+  source "sensu.xml.erb"
+  variables :service => "sensu-client", :name => "Sensu Client"
+end
+
 execute "sensu-client.exe install" do
   cwd "C:\\opt\\sensu\\bin"
-  only_if { WMI::Win32_Service.find(:first, :conditions => {:name => "sensu-client"}).nil? }
+  action :nothing
+  subscribes :run, "template[#{service_definition}]", :immediately
 end
