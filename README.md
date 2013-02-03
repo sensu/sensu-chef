@@ -29,6 +29,7 @@ vagrant ssh
 
 * [APT](http://community.opscode.com/cookbooks/apt)
 * [YUM](http://community.opscode.com/cookbooks/yum)
+* [Windows](http://community.opscode.com/cookbooks/windows)
 * [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
 * [Redis*](https://github.com/miah/chef-redis)
 
