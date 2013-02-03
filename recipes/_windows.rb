@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-windows_package "sensu" do
+windows_package "Sensu" do
   source "http://repos.sensuapp.org/msi/sensu-#{node.sensu.version}.msi"
   version node.sensu.version.gsub("-", ".")
 end
