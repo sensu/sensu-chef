@@ -37,7 +37,6 @@ end
 ].each do |dir|
   directory dir do
     recursive true
-    owner "sensu"
     mode 0755
   end
 end
