@@ -17,6 +17,20 @@
 # limitations under the License.
 #
 
-gem_package "sensu" do
-  version node.sensu.version.split("-").first
+windows_package "Sensu" do
+  source "http://repos.sensuapp.org/msi/sensu-#{node.sensu.version}.msi"
+  version node.sensu.version.gsub("-", ".")
+end
+
+service_definition = "C:\\opt\\sensu\\bin\\sensu-client.xml"
+
+execute "sensu-client.exe install" do
+  cwd "C:\\opt\\sensu\\bin"
+  action :nothing
+end
+
+template service_definition do
+  source "sensu.xml.erb"
+  variables :service => "sensu-client", :name => "Sensu Client"
+  notifies :run, "template[#{service_definition}]", :immediately
 end

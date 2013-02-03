@@ -1,0 +1,11 @@
+<!--
+  Windows service definition for Sensu
+  MANAGED BY CHEF
+-->
+<service>
+  <id><%= @service %></id>
+  <name><%= @name %></name>
+  <description>This service runs a <%= @name %></description>
+  <executable>C:\opt\sensu\embedded\bin\ruby</executable>
+  <arguments>C:\opt\sensu\embedded\bin\<%= @service %> -c <%= node.sensu.directory %>\config.json -d <%= node.sensu.directory %>\conf.d -l <%= node.sensu.log_directory %>\<%= @service %>.log</arguments>
+</service>
