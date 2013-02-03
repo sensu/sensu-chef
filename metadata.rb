@@ -12,6 +12,9 @@ depends "apt"
 # available @ http://community.opscode.com/cookbooks/yum
 depends "yum"
 
+# available @ http://community.opscode.com/cookbooks/windows
+depends "windows"
+
 # available @ http://community.opscode.com/cookbooks/rabbitmq
 depends "rabbitmq"
 
