@@ -1,4 +1,4 @@
-module SensuJsonFile
+module SensuJSONFile
   class << self
     def load_json(path)
       JSON.parse(File.read(path)) rescue Hash.new
