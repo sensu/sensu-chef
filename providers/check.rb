@@ -16,16 +16,14 @@ action :create do
     mode 0755
   end
 
-  json_file ::File.join(checks_directory, "#{new_resource.name}.json") do
-    content definition
+  sensu_json_file ::File.join(checks_directory, "#{new_resource.name}.json") do
     mode 0644
-    notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+    content definition
   end
 end
 
 action :delete do
-  file ::File.join(node.sensu.directory, "conf.d", "checks", "#{new_resource.name}.json") do
+  sensu_json_file ::File.join(node.sensu.directory, "conf.d", "checks", "#{new_resource.name}.json") do
     action :delete
-    notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
 end
