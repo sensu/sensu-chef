@@ -3,9 +3,8 @@ action :create do
     !%w[rabbitmq redis api dashboard].include?(key.to_s) || value.nil?
   end
 
-  json_file ::File.join(node.sensu.directory, "config.json") do
-    content definitions
+  sensu_json_file File.join(node.sensu.directory, "config.json") do
     mode 0644
-    notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+    content definitions
   end
 end

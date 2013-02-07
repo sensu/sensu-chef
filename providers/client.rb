@@ -9,9 +9,8 @@ action :create do
     "client" => client.merge(new_resource.additional)
   }
 
-  json_file ::File.join(node.sensu.directory, "conf.d", "client.json") do
-    content definition
+  sensu_json_file File.join(node.sensu.directory, "conf.d", "client.json") do
     mode 0644
-    notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+    content definition
   end
 end
