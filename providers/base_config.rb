@@ -3,7 +3,7 @@ action :create do
     !%w[rabbitmq redis api dashboard].include?(key.to_s) || value.nil?
   end
 
-  sensu_json_file File.join(node.sensu.directory, "config.json") do
+  sensu_json_file ::File.join(node.sensu.directory, "config.json") do
     mode 0644
     content definitions
   end

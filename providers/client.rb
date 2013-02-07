@@ -9,7 +9,7 @@ action :create do
     "client" => client.merge(new_resource.additional)
   }
 
-  sensu_json_file File.join(node.sensu.directory, "conf.d", "client.json") do
+  sensu_json_file ::File.join(node.sensu.directory, "conf.d", "client.json") do
     mode 0644
     content definition
   end
