@@ -49,7 +49,7 @@ include_recipe "rabbitmq::mgmt_console"
 service "restart #{node.rabbitmq.service_name}" do
   service_name node.rabbitmq.service_name
   action :nothing
-  subscribes :restart, "template[#{node.rabbitmq.config_root}/rabbitmq.config]", :immediately
+  subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
 end
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
