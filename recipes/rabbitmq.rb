@@ -63,6 +63,6 @@ end
 
 rabbitmq_user node.sensu.rabbitmq.user do
   vhost node.sensu.rabbitmq.vhost
-  permissions "\".*\" \".*\" \".*\""
+  permissions ".* .* .*"
   action :set_permissions
 end
