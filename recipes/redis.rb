@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-node.set.redis.config.listen_addr = "0.0.0.0"
-node.set.redis.config.listen_port = node.sensu.redis.port
+node.set.redis.config.bind = "0.0.0.0"
+node.set.redis.config.port = node.sensu.redis.port
 
 if node.platform == "ubuntu" && node.platform_version <= "10.04"
   include_recipe "redis::server_source"
