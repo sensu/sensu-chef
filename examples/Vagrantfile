@@ -3,6 +3,11 @@
 Vagrant::Config.run do |config|
   config.vm.box = "ubuntu-1204-i386"
   config.vm.box_url = "http://vagrant.sensuapp.org/ubuntu-1204-i386.box"
+  
+  #Tested with CentOS63 as well
+  #config.vm.box = "centos-63-x86_64"
+  #config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.3-x86_64-v20130101.box"
+  
 
   config.vm.customize [
     "modifyvm", :id,
