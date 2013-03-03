@@ -94,6 +94,9 @@ Enables and starts the Sensu dashboard.
 `node.sensu.use_unstable_repo` - If the build resides on the
 "unstable" repository.
 
+`node.sensu.use_existing_repo` - If a sensu repository is already configured
+(e.g. when you have a mirror repo or need a custom repo for proxy configuration)
+
 `node.sensu.directory` - Sensu configuration directory.
 
 `node.sensu.log_directory` - Sensu log directory.
@@ -102,6 +105,9 @@ Enables and starts the Sensu dashboard.
 
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
 are to use the embedded Ruby in the monolithic package.
+
+`node.sensu.use_existing_rabbitmq` - If a non chef-installed RabbitMQ already
+exists on the server (e.g. when installing on a chef-server machine)
 
 ### RabbitMQ
 
