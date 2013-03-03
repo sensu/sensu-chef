@@ -1,9 +1,8 @@
 action :create do
   definition = {
     "filters" => {
-      new_resource.name => new_resource.to_hash.reject { |key, value|
-        !%w[attributes negate].include?(key.to_s) || value.nil?
-      }
+      new_resource.name => SensuDefinitions.sanitize(new_resource.to_hash,
+                             :master_keys => %w[attributes negate])
     }
   }
 

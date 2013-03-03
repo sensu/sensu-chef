@@ -1,11 +1,12 @@
 action :create do
-  check = new_resource.to_hash.reject { |key, value|
-    !%w[type command subscribers standalone handlers].include?(key.to_s) || value.nil?
-  }.merge("interval" => new_resource.interval)
+  check = SensuDefinitions.sanitize(new_resource.to_hash, 
+            :master_keys => %w[type command subscribers standalone handlers]).
+              merge("interval" => new_resource.interval).
+                merge(new_resource.additional)
 
   definition = {
     "checks" => {
-      new_resource.name => check.merge(new_resource.additional)
+      new_resource.name => check
     }
   }
 

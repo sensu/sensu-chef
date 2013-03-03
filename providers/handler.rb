@@ -1,9 +1,9 @@
 action :create do
   definition = {
     "handlers" => {
-      new_resource.name => new_resource.to_hash.reject { |key, value|
-        !%w[type filters mutator severities handlers command socket exchange].include?(key.to_s) || value.nil?
-      }.merge(new_resource.additional)
+      new_resource.name => SensuDefinitions.sanitize(new_resource.to_hash,
+                             :master_keys => %w[type filters mutator severities handlers command socket exchange]).
+                               merge(new_resource.additional)
     }
   }
 
