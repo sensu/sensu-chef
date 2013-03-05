@@ -7,6 +7,7 @@ default.sensu.log_level = "info"
 default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
 default.sensu.service_max_wait = 10
+default.sensu.use_embedded_runit = false
 
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
