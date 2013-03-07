@@ -24,5 +24,6 @@ default.sensu.api.port = 4567
 
 # dashboard
 default.sensu.dashboard.port = 8080
+default.sensu.dashboard.host = "0.0.0.0"
 default.sensu.dashboard.user = "admin"
 default.sensu.dashboard.password = "secret"
