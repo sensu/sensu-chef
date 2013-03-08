@@ -131,6 +131,8 @@ are to use the embedded Ruby in the monolithic package.
 
 ### Sensu Dashboard
 
+`node.sensu.dashboard.bind` - Sensu Dashboard bind address.
+
 `node.sensu.dashboard.port` - Sensu Dashboard port.
 
 `node.sensu.dashboard.user` - Sensu basic authentication username.
