@@ -17,12 +17,8 @@
 # limitations under the License.
 #
 
-package_options = ""
-
 case node.platform_family
 when "debian"
-  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
-
   include_recipe "apt"
 
   apt_repository "sensu" do
@@ -43,9 +39,6 @@ when "rhel"
 when "fedora"
   include_recipe "yum"
 
-  # the sensu yum repo uses rhel versioning to segment builds, so we need to map
-  # fedora versions to the closest rhel version here.
-  # based on: http://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux#Relationship_to_free_and_community_distributions
   rhel_version_equivalent = case node.platform_version.to_i
   when 6..11  then 5
   when 12..18 then 6
@@ -63,7 +56,6 @@ end
 
 package "sensu" do
   version node.sensu.version
-  options package_options
 end
 
 template "/etc/default/sensu" do
