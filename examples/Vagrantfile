@@ -4,6 +4,9 @@ Vagrant::Config.run do |config|
   config.vm.box = "ubuntu-1204-i386"
   config.vm.box_url = "http://vagrant.sensuapp.org/ubuntu-1204-i386.box"
 
+  #config.vm.box = "centos-6-i386"
+  #config.vm.box_url = "http://vagrant.sensuapp.org/centos-6-i386.box"
+
   config.vm.customize [
     "modifyvm", :id,
     "--name", "Sensu Stack",
