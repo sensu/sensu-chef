@@ -1,7 +1,7 @@
 action :create do
-  definitions = node.sensu.to_hash.reject do |key, value|
-    !%w[rabbitmq redis api dashboard].include?(key.to_s) || value.nil?
-  end
+  definitions = SensuDefinitions::sanitize(node.sensu.to_hash, 
+                  :master_keys => %w[rabbitmq redis api dashboard],
+                  :allow_empty_hash => false)
 
   sensu_json_file ::File.join(node.sensu.directory, "config.json") do
     mode 0644
