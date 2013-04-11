@@ -1,10 +1,11 @@
 action :create do
-  definitions = node.sensu.to_hash.reject do |key, value|
-    !%w[rabbitmq redis api dashboard].include?(key.to_s) || value.nil?
-  end
+  definitions = Sensu::Helpers.select_attributes(
+    new_resource,
+    %w[rabbitmq redis api dashboard]
+  )
 
   sensu_json_file ::File.join(node.sensu.directory, "config.json") do
     mode 0644
-    content definitions
+    content Sensu::Helpers.sanitize(definitions)
   end
 end

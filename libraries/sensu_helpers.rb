@@ -7,9 +7,9 @@ module Sensu
         end
       end
 
-      def sanitize(definition)
+      def sanitize(hash)
         sanitized = Hash.new
-        definition.each do |key, value|
+        hash.each do |key, value|
           case value
           when Hash
             sanitized[key] = sanitize(value)
