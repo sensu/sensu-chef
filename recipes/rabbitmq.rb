@@ -43,13 +43,15 @@ if node.sensu.use_ssl
   end
 end
 
-include_recipe "rabbitmq"
-include_recipe "rabbitmq::mgmt_console"
+unless node.sensu.use_existing_rabbitmq
+  include_recipe "rabbitmq"
+  include_recipe "rabbitmq::mgmt_console"
 
-service "restart #{node.rabbitmq.service_name}" do
-  service_name node.rabbitmq.service_name
-  action :nothing
-  subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
+  service "restart #{node.rabbitmq.service_name}" do
+    service_name node.rabbitmq.service_name
+    action :nothing
+    subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
+  end
 end
 
 rabbitmq_vhost node.sensu.rabbitmq.vhost do
