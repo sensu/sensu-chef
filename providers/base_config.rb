@@ -1,6 +1,6 @@
 action :create do
   definitions = Sensu::Helpers.select_attributes(
-    new_resource,
+    node.sensu,
     %w[rabbitmq redis api dashboard]
   )
 
