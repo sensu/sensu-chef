@@ -18,8 +18,9 @@ default.sensu.redis.host = "localhost"
 default.sensu.redis.port = 6379
 
 # api
-default.sensu.api.host = "localhost"
+default.sensu.api.bind = "0.0.0.0"
 default.sensu.api.port = 4567
+default.sensu.api.host = "localhost"
 
 # dashboard
 default.sensu.dashboard.bind = "0.0.0.0"
