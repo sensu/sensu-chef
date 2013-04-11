@@ -12,7 +12,7 @@ module Sensu
         hash.each do |key, value|
           case value
           when Hash
-            sanitized[key] = sanitize(value)
+            sanitized[key] = sanitize(value) unless value.empty?
           when nil
             # noop
           else
