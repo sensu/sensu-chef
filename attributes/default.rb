@@ -9,7 +9,6 @@ default.sensu.use_embedded_ruby = false
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
 default.sensu.rabbitmq.port = 5671
-default.sensu.rabbitmq.ssl = Mash.new
 default.sensu.rabbitmq.vhost = "/sensu"
 default.sensu.rabbitmq.user = "sensu"
 default.sensu.rabbitmq.password = "password"
