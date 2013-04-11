@@ -1,6 +1,6 @@
 def load_current_resource
-  @definition_directory = ::File.join(node.sensu.directory, "conf.d", "handlers")
-  @definition_file = ::File.join(@definition_directory, "#{new_resource.name}.json")
+  definition_directory = ::File.join(node.sensu.directory, "conf.d", "handlers")
+  @definition_file = ::File.join(definition_directory, "#{new_resource.name}.json")
 end
 
 action :create do
@@ -14,11 +14,6 @@ action :create do
       new_resource.name => Sensu::Helpers.sanitize(handler)
     }
   }
-
-  directory @definition_directory do
-    recursive true
-    mode 0755
-  end
 
   sensu_json_file @definition_file do
     mode 0644

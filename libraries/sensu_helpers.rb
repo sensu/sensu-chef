@@ -21,6 +21,14 @@ module Sensu
         end
         sanitized
       end
+
+      def gem_binary
+        if File.exists?("/opt/sensu/embedded/bin/gem")
+          "/opt/sensu/embedded/bin/gem"
+        else
+          "gem"
+        end
+      end
     end
   end
 end
