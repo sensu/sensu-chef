@@ -20,17 +20,16 @@
 windows_package "Sensu" do
   source "http://repos.sensuapp.org/msi/sensu-#{node.sensu.version}.msi"
   version node.sensu.version.gsub("-", ".")
+  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
-
-service_definition = "C:\\opt\\sensu\\bin\\sensu-client.xml"
 
 execute "sensu-client.exe install" do
   cwd "C:\\opt\\sensu\\bin"
   action :nothing
 end
 
-template service_definition do
+template "C:\\opt\\sensu\\bin\\sensu-client.xml" do
   source "sensu.xml.erb"
   variables :service => "sensu-client", :name => "Sensu Client"
-  notifies :run, "template[#{service_definition}]", :immediately
+  notifies :run, "execute[sensu-client.exe install]", :immediately
 end
