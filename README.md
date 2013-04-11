@@ -127,6 +127,8 @@ are to use the embedded Ruby in the monolithic package.
 
 `node.sensu.api.host` - Sensu API host, for other services to reach it.
 
+`node.sensu.api.bind` - Sensu API bind address.
+
 `node.sensu.api.port` - Sensu API port.
 
 ### Sensu Dashboard
