@@ -1,8 +1,8 @@
 module Sensu
   class Helpers
     class << self
-      def select_attributes(resource, keys)
-        resource.to_hash.reject do |key, value|
+      def select_attributes(attributes, keys)
+        attributes.to_hash.reject do |key, value|
           !Array(keys).include?(key.to_s) || value.nil?
         end
       end
