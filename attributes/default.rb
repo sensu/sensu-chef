@@ -4,6 +4,7 @@ default.sensu.use_unstable_repo = false
 default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
 default.sensu.log_level = "info"
+default.sensu.embedded_directory = "/opt/sensu"
 default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
 default.sensu.service_max_wait = 10
