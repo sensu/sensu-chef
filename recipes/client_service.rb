@@ -17,18 +17,36 @@
 # limitations under the License.
 #
 
-service_provider = case node.platform_family
-when /windows/
-  Chef::Provider::Service::Windows
-when /debian/
-  Chef::Provider::Service::Init::Debian
-else
-  Chef::Provider::Service::Init::Redhat
-end
+unless node.sensu.use_embedded_runit
+  service_provider = case node.platform_family
+  when /windows/
+    Chef::Provider::Service::Windows
+  when /debian/
+    Chef::Provider::Service::Init::Debian
+  else
+    Chef::Provider::Service::Init::Redhat
+  end
 
-service "sensu-client" do
-  provider service_provider
-  supports :status => true, :restart => true
-  action [:enable, :start]
-  subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
+  service "sensu-client" do
+    provider service_provider
+    supports :status => true, :restart => true
+    action [:enable, :start]
+    subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
+  end
+else
+  sensu_ctl = ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
+
+  sensu_service "sensu-client" do
+    action :enable
+  end
+
+  service "sensu-client" do
+    start_command "#{sensu_ctl} sensu-client start"
+    stop_command "#{sensu_ctl} sensu-client stop"
+    status_command "#{sensu_ctl} sensu-client status"
+    restart_command "#{sensu_ctl} sensu-client restart"
+    supports :restart => true, :status => true
+    action [:start]
+    subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
+  end
 end

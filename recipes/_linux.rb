@@ -73,4 +73,20 @@ end
 
 template "/etc/default/sensu" do
   source "sensu.default.erb"
+  not_if { node.sensu.use_embedded_runit }
+end
+
+if node.sensu.use_embedded_runit
+
+  sensu_ctl = ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
+
+  execute "configure sensu embedded runit" do
+    command "#{sensu_ctl} configure"
+    not_if "initctl status sensu-runsvdir"
+  end
+
+  # Keep on trying till the job is found :(
+  execute "initctl status sensu-runsvdir" do
+    retries 30
+  end
 end
