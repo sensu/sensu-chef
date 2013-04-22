@@ -80,13 +80,14 @@ if node.sensu.use_embedded_runit
 
   sensu_ctl = ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
 
-  execute "configure sensu embedded runit" do
+  execute "configure_sensu_embedded_runit" do
     command "#{sensu_ctl} configure"
-    not_if "initctl status sensu-runsvdir"
+    not_if "#{sensu_ctl} configured?"
   end
 
   # Keep on trying till the job is found :(
-  execute "initctl status sensu-runsvdir" do
+  execute "wait_for_sensu_embedded_runit" do
+    command "#{sensu_ctl} configured?"
     retries 30
   end
 
