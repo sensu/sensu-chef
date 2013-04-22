@@ -21,7 +21,7 @@ package_options = ""
 
 case node.platform_family
 when "debian"
-  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
 
   include_recipe "apt"
 
