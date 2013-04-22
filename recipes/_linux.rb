@@ -89,4 +89,16 @@ if node.sensu.use_embedded_runit
   execute "initctl status sensu-runsvdir" do
     retries 30
   end
+
+  # Replace packaged init scripts with links to runit
+  %w{ client server api dashboard }.each do |svc|
+    file "/etc/init.d/sensu-#{svc}" do
+      action :delete
+      not_if {::File.symlink?("/etc/init.d/sensu-#{svc}")}
+    end
+
+    link "/etc/init.d/sensu-#{svc}" do
+      to ::File.join(node.sensu.embedded_directory,'embedded','bin','sv')
+    end
+  end
 end
