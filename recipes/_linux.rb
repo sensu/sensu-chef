@@ -17,8 +17,12 @@
 # limitations under the License.
 #
 
+package_options = ""
+
 case node.platform_family
 when "debian"
+  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"'
+
   include_recipe "apt"
 
   apt_repository "sensu" do
@@ -56,6 +60,7 @@ end
 
 package "sensu" do
   version node.sensu.version
+  options package_options
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
