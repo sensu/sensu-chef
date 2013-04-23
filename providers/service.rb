@@ -42,10 +42,10 @@ action :enable do
     end
 
     service new_resource.name do
-      start_command "#{sensu_ctl} sensu-api start"
-      stop_command "#{sensu_ctl} sensu-api stop"
-      status_command "#{sensu_ctl} sensu-api status"
-      restart_command "#{sensu_ctl} sensu-api restart"
+      start_command "#{sensu_ctl} #{new_resource.name} start"
+      stop_command "#{sensu_ctl} #{new_resource.name} stop"
+      status_command "#{sensu_ctl} #{new_resource.name} status"
+      restart_command "#{sensu_ctl} #{new_resource.name} restart"
       supports :restart => true, :status => true
       action [:start]
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
