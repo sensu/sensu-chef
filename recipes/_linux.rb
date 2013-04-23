@@ -73,7 +73,6 @@ end
 
 template "/etc/default/sensu" do
   source "sensu.default.erb"
-  not_if { node.sensu.use_embedded_runit }
 end
 
 if node.sensu.use_embedded_runit
