@@ -54,8 +54,16 @@ action :enable do
 end
 
 action :disable do
-  execute "sensu-ctl_#{new_resource.name}_disable" do
-    command "#{sensu_ctl} #{new_resource.name} disable"
-    only_if { @service_enabled }
+  case new_resource.init_style
+  when "sysv"
+    service new_resource.name do
+      provider node.platform_family =~ /debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
+      action [:disable]
+    end
+  when "runit"
+    execute "sensu-ctl_#{new_resource.name}_disable" do
+      command "#{sensu_ctl} #{new_resource.name} disable"
+      only_if { @service_enabled }
+    end
   end
 end
