@@ -16,7 +16,7 @@ end
 
 action :enable do
   case new_resource.init_style
-  when "sysvinit"
+  when "sysv"
     service new_resource.name do
       provider node.platform_family =~ /debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
       supports :status => true, :restart => true
