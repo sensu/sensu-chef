@@ -6,12 +6,12 @@ def service_pipe
   ::File.join(node.sensu.embedded_directory,'sv',new_resource.name,'supervise','ok')
 end
 
-def sensu_service_path
+def service_path
   ::File.join(node.sensu.embedded_directory,'service',new_resource.name)
 end
 
 def load_current_resource
-  @service_enabled = ::File.symlink?(sensu_service_path) && ::FileTest.pipe?(service_pipe)
+  @service_enabled = ::File.symlink?(service_path) && ::FileTest.pipe?(service_pipe)
 end
 
 action :enable do
