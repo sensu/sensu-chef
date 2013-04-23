@@ -98,12 +98,19 @@ Enables and starts the Sensu dashboard.
 
 `node.sensu.directory` - Sensu configuration directory.
 
+`node.sensu.embedded_directory` - Sensu monolithic package
+installation directory.
+
 `node.sensu.log_directory` - Sensu log directory.
 
 `node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
 
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
 are to use the embedded Ruby in the monolithic package.
+
+`node.sensu.use_embedded_runit` - If Sensu processes should be run
+under the embedded runit service supervision in the monolithic
+package.
 
 ### RabbitMQ
 
