@@ -1,13 +1,13 @@
 def sensu_ctl
-  ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
+  "/opt/sensu/bin/sensu-ctl"
 end
 
 def service_pipe
-  ::File.join(node.sensu.embedded_directory,'sv',new_resource.name,'supervise','ok')
+  "/opt/sensu/sv/#{new_resource.name}/supervise/ok"
 end
 
 def service_path
-  ::File.join(node.sensu.embedded_directory,'service',new_resource.name)
+  "/opt/sensu/sv/service/#{new_resource.name}"
 end
 
 def load_current_resource

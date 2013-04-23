@@ -98,9 +98,6 @@ Enables and starts the Sensu dashboard.
 
 `node.sensu.directory` - Sensu configuration directory.
 
-`node.sensu.embedded_directory` - Sensu monolithic package
-installation directory.
-
 `node.sensu.log_directory` - Sensu log directory.
 
 `node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.

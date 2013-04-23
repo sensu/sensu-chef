@@ -78,7 +78,7 @@ end
 case node.sensu.init_style
 when "runit"
 
-  sensu_ctl = ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
+  sensu_ctl = "/opt/sensu/bin/sensu-ctl"
 
   execute "configure_sensu_embedded_runit" do
     command "#{sensu_ctl} configure"
@@ -99,7 +99,7 @@ when "runit"
     end
 
     link "/etc/init.d/sensu-#{svc}" do
-      to ::File.join(node.sensu.embedded_directory,'embedded','bin','sv')
+      to "/opt/sensu/embedded/bin/sv"
     end
   end
 end
