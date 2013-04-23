@@ -75,7 +75,8 @@ template "/etc/default/sensu" do
   source "sensu.default.erb"
 end
 
-if node.sensu.use_embedded_runit
+case node.sensu.init_style
+when "runit"
 
   sensu_ctl = ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
 

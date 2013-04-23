@@ -17,27 +17,7 @@
 # limitations under the License.
 #
 
-unless node.sensu.use_embedded_runit
-  service "sensu-dashboard" do
-    provider node.platform_family =~ /debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
-    supports :status => true, :restart => true
-    action [:enable, :start]
-    subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
-  end
-else
-  sensu_ctl = ::File.join(node.sensu.embedded_directory,'bin','sensu-ctl')
-
-  sensu_service "sensu-dashboard" do
-    action :enable
-  end
-
-  service "sensu-dashboard" do
-    start_command "#{sensu_ctl} sensu-dashboard start"
-    stop_command "#{sensu_ctl} sensu-dashboard stop"
-    status_command "#{sensu_ctl} sensu-dashboard status"
-    restart_command "#{sensu_ctl} sensu-dashboard restart"
-    supports :restart => true, :status => true
-    action [:start]
-    subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
-  end
+sensu_service "sensu-dashboard" do
+  init_style node.sensu.init_style
+  action :enable
 end
