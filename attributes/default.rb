@@ -8,7 +8,7 @@ default.sensu.embedded_directory = "/opt/sensu"
 default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
 default.sensu.service_max_wait = 10
-default.sensu.use_embedded_runit = false
+default.sensu.init_style = "sysv"
 
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
