@@ -31,14 +31,16 @@ else
   include_recipe "sensu::_linux"
 end
 
-[
-  File.join(node.sensu.directory, "conf.d"),
-  node.sensu.log_directory
-].each do |dir|
-  directory dir do
-    recursive true
-    mode 0755
-  end
+directory node.sensu.log_directory do
+  owner "sensu"
+  group "sensu"
+  recursive true
+  mode 0755
+end
+  
+directory File.join(node.sensu.directory, "conf.d") do
+  recursive true
+  mode 0755
 end
 
 if node.sensu.use_ssl
