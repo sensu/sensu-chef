@@ -6,7 +6,7 @@ end
 action :create do
   check = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[type command subscribers standalone handlers]
+    %w[type command subscribers standalone handle handlers]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
 
   definition = {
