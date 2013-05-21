@@ -5,7 +5,6 @@ action :create do
   )
 
   sensu_json_file ::File.join(node.sensu.directory, "config.json") do
-    mode 0644
     content Sensu::Helpers.sanitize(definitions)
   end
 end

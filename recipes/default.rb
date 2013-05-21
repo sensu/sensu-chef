@@ -35,12 +35,14 @@ directory node.sensu.log_directory do
   owner "sensu"
   group "sensu"
   recursive true
-  mode 0755
+  mode 0750
 end
   
 directory File.join(node.sensu.directory, "conf.d") do
+  owner "root"
+  group "sensu"
   recursive true
-  mode 0755
+  mode 0750
 end
 
 if node.sensu.use_ssl
@@ -54,12 +56,16 @@ if node.sensu.use_ssl
 
   file node.sensu.rabbitmq.ssl.cert_chain_file do
     content ssl["client"]["cert"]
-    mode 0644
+    owner "root"
+    group "sensu"
+    mode 0640
   end
 
   file node.sensu.rabbitmq.ssl.private_key_file do
     content ssl["client"]["key"]
-    mode 0644
+    owner "root"
+    group "sensu"
+    mode 0640
   end
 else
   if node.sensu.rabbitmq.port == 5671

@@ -37,7 +37,8 @@ if node.sensu.use_ssl
     path = File.join(ssl_directory, "#{item}.pem")
     file path do
       content ssl["server"][item]
-      mode 0644
+      group "rabbitmq"
+      mode 0640
     end
     node.override.rabbitmq["ssl_#{item}"] = path
   end
