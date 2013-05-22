@@ -8,6 +8,7 @@ default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
 default.sensu.service_max_wait = 10
 default.sensu.init_style = "sysv"
+default.sensu.data_bag_name = "sensu"
 default.sensu.use_encrypted_data_bag = false
 
 # rabbitmq

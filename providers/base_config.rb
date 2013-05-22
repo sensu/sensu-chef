@@ -5,7 +5,7 @@ action :create do
   )
   if node.sensu.use_encrypted_data_bag
     Sensu::Helpers.deep_merge!(definitions, Sensu::Helpers.select_attributes(
-      Chef::EncryptedDataBagItem.load("sensu", "secrets"), keys
+      Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "secrets"), keys
     ))
   end
 

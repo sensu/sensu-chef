@@ -31,9 +31,9 @@ if node.sensu.use_ssl
   end
 
   if node.sensu.use_encrypted_data_bag
-    ssl = Chef::EncryptedDataBagItem.load("sensu", "ssl")
+    ssl = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "ssl")
   else
-    ssl = data_bag_item("sensu", "ssl")
+    ssl = data_bag_item(node.sensu.data_bag_name, "ssl")
   end
 
   %w[
@@ -63,7 +63,7 @@ end
 
 rabbitmq_user node.sensu.rabbitmq.user do
   if node.sensu.use_encrypted_data_bag
-    secrets = Chef::EncryptedDataBagItem.load("sensu", "secrets")
+    secrets = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "secrets")
     if secrets and secrets.to_hash.has_key? "rabbitmq" and secrets["rabbitmq"].has_key? "password"
       rabbitmq_password = secrets["rabbitmq"]["password"]
     end

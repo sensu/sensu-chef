@@ -39,10 +39,11 @@ vagrant ssh
 ### SSL configuration
 
 Running Sensu with SSL is recommended, this cookbook uses a data bag
-`sensu`, with an item `ssl`, containing the SSL certificates required.
-This cookbook comes with a tool to generate the certificates and data
-bag item. If the integrity of the certificates is ever compromised,
-you must regenerate and redeploy them.
+`sensu` (can be overridden using the `node.sensu.data_bag_name`
+attribute), with an item `ssl`, containing the SSL certificates
+required. This cookbook comes with a tool to generate the
+certificates and data bag item. If the integrity of the certificates
+is ever compromised, you must regenerate and redeploy them.
 
 ```
 cd examples/ssl
@@ -69,7 +70,8 @@ data bag shared secret. See [Encrypt a Data Bag](http://docs.opscode.com/essenti
 ### Encrypted Data Bag
 If you set the `node.sensu.use_encrypted_data_bag` attribute to true,
 the recipes will expect to find SSL certificates and sensitive
-attributes like passwords encrypted in the `sensu` data bag.  SSL
+attributes like passwords encrypted in the data bag `sensu` (can be
+overridden using the `node.sensu.data_bag_name` attribute). SSL
 certificates are stored in the `ssl` key as usual, and attributes are
 stored in the `secrets` key.
 
@@ -84,7 +86,7 @@ knife data bag --secret-file /path/to/your/secret_file create sensu secrets
 ```
 
 You will be taken to an editor where you may enter your JSON data to
-be encrypted.  A valid JSON structure including the rabbitmq and
+be encrypted. A valid JSON structure including the rabbitmq and
 dashboard passwords might look like the following:
 
 ```
@@ -162,8 +164,12 @@ are to use the embedded Ruby in the monolithic package.
 
 `node.sensu.init_style` - Style of init to be used when configuring
 Sensu services, "sysv" and "runit" are currently supported.
+
+`node.sensu.data_bag_name` - Name of the sensu data bag for this node.
+
 `node.sensu.use_encrypted_data_bag` - If secrets and SSL certificates
-are encrypted in the `sensu` data bag.
+are encrypted in the data bag `sensu` (can be overridden using the
+`node.sensu.data_bag_name` attribute).
 
 ### RabbitMQ
 
