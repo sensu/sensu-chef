@@ -1,5 +1,5 @@
 # installation
-default.sensu.version = "0.9.12-3"
+default.sensu.version = "0.9.13"
 default.sensu.use_unstable_repo = false
 default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
