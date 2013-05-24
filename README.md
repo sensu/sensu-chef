@@ -172,7 +172,7 @@ sensu_check "redis_process" do
   handlers ["default"]
   subscribers ["redis"]
   interval 30
-  additional(:notification => "Redis is not running")
+  additional(:notification => "Redis is not running", :occurrences => 5)
 end
 ```
 
