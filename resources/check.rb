@@ -8,6 +8,7 @@ attribute :interval, :default => 60
 attribute :handle, :kind_of => [TrueClass, FalseClass]
 attribute :handlers, :kind_of => Array
 attribute :additional, :kind_of => Hash, :default => Hash.new
+attribute :occurrences, :kind_of => Integer
 
 def initialize(*args)
   super
