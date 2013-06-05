@@ -36,6 +36,7 @@ when "rhel"
   include_recipe "yum"
 
   yum_repository "sensu" do
+    description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
     action :add
@@ -52,6 +53,7 @@ when "fedora"
   end
 
   yum_repository "sensu" do
+    description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
     action :add
