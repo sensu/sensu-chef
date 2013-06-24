@@ -20,7 +20,7 @@
 node.override.redis.config.bind = "0.0.0.0"
 node.override.redis.config.port = node.sensu.redis.port
 
-if node.platform == "ubuntu" && node.platform_version <= "10.04"
+if node.platform == "ubuntu" && node.platform_version <= "12.04"
   node.override.redis.install_type = "source"
 elsif node.platform == "debian"
   node.override.redis.install_type = "source"
