@@ -27,7 +27,11 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl = data_bag_item("sensu", "ssl")
+  if node.sensu.ssl_encrypted_data_bag
+    ssl = Chef::EncryptedDataBagItem.load(node.sensu.ssl_data_bag, node.sensu.ssl_data_bag_id)
+  else
+    ssl = data_bag_item(node.sensu.ssl_data_bag, node.sensu.ssl_data_bag_id)
+  end
 
   %w[
     cacert

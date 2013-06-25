@@ -4,6 +4,9 @@ default.sensu.use_unstable_repo = false
 default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
 default.sensu.use_ssl = true
+default.sensu.ssl_encrypted_data_bag = false
+default.sensu.ssl_data_bag = "sensu"
+default.sensu.ssl_data_bag_id = "ssl"
 default.sensu.use_embedded_ruby = false
 
 # rabbitmq

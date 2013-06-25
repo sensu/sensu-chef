@@ -40,6 +40,11 @@ vagrant ssh
 
 Running Sensu with SSL is recommended, this cookbook uses a data bag
 `sensu`, with an item `ssl`, containing the SSL certificates required.
+If you would like to provide your own data bags/data bag items,
+override the `node.sensu.ssl_data_bag` and `node.sensu.ssl_data_bag_id`
+and optionally `node.sensu.ssl_encrypted_data_bag` if you are using
+encrypted data bags.
+
 This cookbook comes with a tool to generate the certificates and data
 bag item. If the integrity of the certificates is ever compromised,
 you must regenerate and redeploy them.
@@ -100,6 +105,13 @@ Enables and starts the Sensu dashboard.
 `node.sensu.log_directory` - Sensu log directory.
 
 `node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
+
+`node.sensu.ssl_encrypted_data_bag` - Set to true if you are
+using encrypted data bags for the SSL RabbitMQ data.
+
+`node.sensu.ssl_data_bag` - Set it to the SSL data bag name.
+
+`node.sensu.ssl_data_bag_id` - Set it to the SSL data bag ID.
 
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
 are to use the embedded Ruby in the monolithic package.
