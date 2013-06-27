@@ -20,7 +20,6 @@ action :create do
   }
 
   sensu_json_file @definition_path do
-    mode 0644
     content definition
   end
 end
