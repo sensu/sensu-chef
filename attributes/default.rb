@@ -5,6 +5,7 @@ default.sensu.directory = "/etc/sensu"
 default.sensu.log_directory = "/var/log/sensu"
 default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
+default.sensu.service_max_wait = 10
 
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
