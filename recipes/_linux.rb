@@ -32,6 +32,11 @@ when "debian"
     components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
     action :add
   end
+
+  apt_preference "sensu" do
+    pin "version #{node.sensu.version}"
+    pin_priority "700"
+  end
 when "rhel"
   include_recipe "yum"
 
