@@ -31,6 +31,7 @@ when "debian"
     distribution "sensu"
     components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
     action :add
+    notifies :run, "execute[apt-get update]", :immediately
   end
 
   apt_preference "sensu" do
