@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "redis::server"
-
 node.override.redis.config.bind = "0.0.0.0"
 node.override.redis.config.port = node.sensu.redis.port
 
@@ -29,3 +27,5 @@ elsif node.platform == "debian"
 else
   node.override.redis.install_type = "package"
 end
+
+include_recipe "redis::server"

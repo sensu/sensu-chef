@@ -1,20 +1,19 @@
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = "opscode-ubuntu-12.04"
   config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-ubuntu-12.04.box"
 
-  #config.vm.box = "opscode-centos-6.3"
-  #config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-6.3.box"
+  # config.vm.box = "opscode-centos-6.3"
+  # config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/boxes/opscode-centos-6.3.box"
 
-  config.vm.customize [
-    "modifyvm", :id,
-    "--name", "Sensu Stack",
-    "--memory", "1024"
-  ]
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--name", "Sensu Stack"]
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
 
   config.vm.provision :shell, :inline => "command -v chef-solo || curl -L https://www.opscode.com/chef/install.sh | bash"
-
-  config.vm.forward_port 8080, 8080
-  config.vm.forward_port 9000, 9000
+  config.vm.provision :shell, :inline => "mkdir -p /var/chef/cache/"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
