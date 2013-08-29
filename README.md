@@ -68,7 +68,9 @@ community RabbitMQ cookbook LWRP's.
 
 ### sensu::redis
 
-Installs and configures Redis for Sensu.
+Installs and configures Redis for Sensu. This recipe uses Miah's
+Redis cookbook. Please do not use this recipe if you use a different
+Redis cookbook, modify your run_list/role to include your own.
 
 ### sensu::server_service
 
