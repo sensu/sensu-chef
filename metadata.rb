@@ -18,8 +18,8 @@ depends "windows", ">= 1.8.8"
 # available @ http://community.opscode.com/cookbooks/rabbitmq
 depends "rabbitmq", ">= 2.0.0"
 
-# available @ https://github.com/miah/chef-redis
-depends "redis", ">= 2.1.0"
+# available @ http://community.opscode.com/cookbooks/redisio
+depends "redisio", ">= 1.7.0"
 
 %w[
   ubuntu
