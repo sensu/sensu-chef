@@ -17,15 +17,7 @@
 # limitations under the License.
 #
 
-node.override.redis.config.bind = "0.0.0.0"
-node.override.redis.config.port = node.sensu.redis.port
+node.override.redisio.servers = [{:port => node.sensu.redis.port}]
 
-if node.platform == "ubuntu" && node.platform_version <= "12.04"
-  node.override.redis.install_type = "source"
-elsif node.platform == "debian"
-  node.override.redis.install_type = "source"
-else
-  node.override.redis.install_type = "package"
-end
-
-include_recipe "redis::server"
+include_recipe "redisio::install"
+include_recipe "redisio::enable"
