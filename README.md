@@ -32,7 +32,7 @@ vagrant ssh
 * [YUM](http://community.opscode.com/cookbooks/yum)
 * [Windows](http://community.opscode.com/cookbooks/windows)
 * [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
-* [Redis*](https://github.com/miah/chef-redis)
+* [RedisIO](http://community.opscode.com/cookbooks/redisio)
 
 ## REQUIREMENTS
 
@@ -68,9 +68,8 @@ community RabbitMQ cookbook LWRP's.
 
 ### sensu::redis
 
-Installs and configures Redis for Sensu. This recipe uses Miah's
-Redis cookbook. Please do not use this recipe if you use a different
-Redis cookbook, modify your run_list/role to include your own.
+Installs and configures Redis for Sensu. This recipe uses the
+RedisIO cookbook and installs Redis from source.
 
 ### sensu::server_service
 
