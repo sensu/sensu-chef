@@ -6,7 +6,7 @@ end
 action :create do
   mutator = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[command]
+    %w[command timeout]
   )
 
   definition = {
