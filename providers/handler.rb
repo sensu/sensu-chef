@@ -6,7 +6,10 @@ end
 action :create do
   handler = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[type filters mutator severities handlers command socket exchange]
+    %w[
+      type filters mutator severities handlers
+      command timeout socket exchange
+    ]
   ).merge(new_resource.additional)
 
   definition = {
