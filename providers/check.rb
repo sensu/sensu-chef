@@ -9,9 +9,10 @@ action :create do
   check = Sensu::Helpers.select_attributes(
     new_resource,
     %w[
-      type command timeout subscribers standalone handle
-      handlers publish low_flap_threshold high_flap_threshold
-      refresh dependencies
+      command dependencies handle handlers 
+      high_flap_threshold low_flap_threshold 
+      publish refresh standalone 
+      subscribers timeout type 
     ]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
 
