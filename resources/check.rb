@@ -11,6 +11,8 @@ attribute :handlers, :kind_of => Array
 attribute :publish, :kind_of => [TrueClass, FalseClass]
 attribute :low_flap_threshold, :kind_of => Integer
 attribute :high_flap_threshold, :kind_of => Integer
+attribute :refresh, :kind_of => Integer
+attribute :dependencies, :kind_of => Array
 attribute :additional, :kind_of => Hash, :default => Hash.new
 
 def initialize(*args)

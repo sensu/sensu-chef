@@ -11,6 +11,7 @@ action :create do
     %w[
       type command timeout subscribers standalone handle
       handlers publish low_flap_threshold high_flap_threshold
+      refresh dependencies
     ]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
 
