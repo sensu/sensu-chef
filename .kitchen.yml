@@ -28,3 +28,6 @@ suites:
   run_list:
     - "sensu-test"
   attributes: {}
+- name: runit
+  run_list:
+    - "sensu-test::runit"

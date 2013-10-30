@@ -1,0 +1,38 @@
+#
+# Cookbook Name:: sensu-test
+# Recipe:: runit
+#
+# Copyright 2013, Sonian, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+node.default['sensu']['init_style'] = 'runit'
+include_recipe 'sensu-test::default'
+
+# dump pids, trigger a restart, then dump them again
+# leaves files behind for a bats test to compare
+ruby_block "dump_pids_and_restart" do
+  block do
+    dump_sensu_runit_pids('/tmp/pre_restart_sensu_pids')
+  end
+  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+end
+
+ruby_block "dump_pids_after_restart" do
+  block do
+    dump_sensu_runit_pids('/tmp/post_restart_sensu_pids')
+  end
+  action :nothing
+  subscribes :create, "service[sensu-dashboard]", :delayed
+end
