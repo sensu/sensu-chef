@@ -8,3 +8,7 @@ examples/ssl/client
 examples/ssl/sensu_ca
 .vagrant
 \#*
+.librarian
+.kitchen/
+.kitchen.local.yml
+tmp
