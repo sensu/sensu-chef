@@ -10,8 +10,8 @@ def service_path
   "/opt/sensu/service/#{new_resource.service}"
 end
 
-def load_current_resource
-  @service_enabled = ::File.symlink?(service_path) && ::FileTest.pipe?(service_pipe)
+def sensu_runit_service_enabled?
+  ::File.symlink?(service_path) && ::FileTest.pipe?(service_pipe)
 end
 
 action :enable do
@@ -37,7 +37,7 @@ action :enable do
 
     execute "sensu-ctl_#{new_resource.service}_enable" do
       command "#{sensu_ctl} #{new_resource.service} enable"
-      not_if { @service_enabled }
+      not_if { sensu_runit_service_enabled? }
       notifies :create, "ruby_block[block_until_runsv_#{new_resource.service}_available]", :immediately
     end
 
@@ -63,7 +63,7 @@ action :disable do
   when "runit"
     execute "sensu-ctl_#{new_resource.service}_disable" do
       command "#{sensu_ctl} #{new_resource.service} disable"
-      only_if { @service_enabled }
+      only_if { sensu_runit_service_enabled? }
     end
   end
 end
