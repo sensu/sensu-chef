@@ -2,16 +2,16 @@ def sensu_ctl
   "/opt/sensu/bin/sensu-ctl"
 end
 
-def service_pipe
+def sensu_service_pipe
   "/opt/sensu/sv/#{new_resource.service}/supervise/ok"
 end
 
-def service_path
+def sensu_service_path
   "/opt/sensu/service/#{new_resource.service}"
 end
 
 def sensu_runit_service_enabled?
-  ::File.symlink?(service_path) && ::FileTest.pipe?(service_pipe)
+  ::File.symlink?(sensu_service_path) && ::FileTest.pipe?(sensu_service_pipe)
 end
 
 action :enable do
@@ -26,8 +26,8 @@ action :enable do
   when "runit"
     ruby_block "block_until_runsv_#{new_resource.service}_available" do
       block do
-        Chef::Log.debug("waiting until named pipe #{service_pipe} exists")
-        until ::FileTest.pipe?(service_pipe)
+        Chef::Log.debug("waiting until named pipe #{sensu_service_pipe} exists")
+        until ::FileTest.pipe?(sensu_service_pipe)
           sleep(1)
           Chef::Log.debug(".")
         end
