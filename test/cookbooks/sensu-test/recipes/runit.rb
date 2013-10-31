@@ -19,20 +19,3 @@
 
 node.default['sensu']['init_style'] = 'runit'
 include_recipe 'sensu-test::default'
-
-# dump pids, trigger a restart, then dump them again
-# leaves files behind for a bats test to compare
-ruby_block "dump_pids_and_restart" do
-  block do
-    dump_sensu_runit_pids('/tmp/pre_restart_sensu_pids')
-  end
-  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
-end
-
-ruby_block "dump_pids_after_restart" do
-  block do
-    dump_sensu_runit_pids('/tmp/post_restart_sensu_pids')
-  end
-  action :nothing
-  subscribes :create, "service[sensu-dashboard]", :delayed
-end
