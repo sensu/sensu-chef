@@ -21,19 +21,19 @@
 }
 
 @test "should have sensu server running under runsv" {
-  [ "$(ps aux | grep 'runsv sensu-server' | grep -v grep)" ]
+  [ -s /opt/sensu/sv/sensu-server/supervise/pid ]
 }
 
 @test "should have sensu api running under runsv" {
-  [ "$(ps aux | grep 'runsv sensu-api' | grep -v grep)" ]
+  [ -s /opt/sensu/sv/sensu-api/supervise/pid ]
 }
 
 @test "should have sensu dashboard running under runsv" {
-  [ "$(ps aux | grep 'runsv sensu-dashboard' | grep -v grep)" ]
+  [ -s /opt/sensu/sv/sensu-dashboard/supervise/pid ]
 }
 
 @test "should have sensu client running under runsv" {
-  [ "$(ps aux | grep 'runsv sensu-client' | grep -v grep)" ]
+  [ -s /opt/sensu/sv/sensu-client/supervise/pid ]
 }
 
 @test "service pids should have changed after restart" {
