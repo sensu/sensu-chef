@@ -7,7 +7,7 @@ def service_pipe
 end
 
 def service_path
-  "/opt/sensu/sv/service/#{new_resource.service}"
+  "/opt/sensu/service/#{new_resource.service}"
 end
 
 def load_current_resource
