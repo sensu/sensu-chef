@@ -19,5 +19,5 @@
 
 sensu_service "sensu-dashboard" do
   init_style node.sensu.init_style
-  action :enable
+  action [:enable, :start]
 end
