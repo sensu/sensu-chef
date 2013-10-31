@@ -17,8 +17,17 @@ end
 def load_current_resource
   case new_resource.init_style
   when "sysv"
+    service_provider = case node.platform_family
+    when /debian/
+      Chef::Provider::Service::Init::Debian
+    when /windows/
+      Chef::Provider::Service::Windows
+    else
+      Chef::Provider::Service::Init::Redhat
+    end
+
     service new_resource.service do
-      provider node.platform_family =~ /debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
+      provider service_provider
       supports :status => true, :restart => true
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
