@@ -11,4 +11,5 @@ action :create do
   sensu_json_file ::File.join(node.sensu.directory, "conf.d", "client.json") do
     content definition
   end
+  new_resource.updated_by_last_action(true)
 end

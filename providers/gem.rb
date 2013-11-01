@@ -4,6 +4,7 @@ action :install do
     version new_resource.version
     options new_resource.options
   end
+  new_resource.updated_by_last_action(true)
 end
 
 action :remove do
@@ -12,4 +13,5 @@ action :remove do
     version new_resource.version
     action :remove
   end
+  new_resource.updated_by_last_action(true)
 end

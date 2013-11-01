@@ -21,10 +21,12 @@ action :create do
   sensu_json_file @definition_path do
     content definition
   end
+  new_resource.updated_by_last_action(true)
 end
 
 action :delete do
   sensu_json_file @definition_path do
     action :delete
   end
+  new_resource.updated_by_last_action(true)
 end
