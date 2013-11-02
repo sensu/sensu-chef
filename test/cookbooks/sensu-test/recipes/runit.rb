@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sensu
-# Recipe:: client_service
+# Cookbook Name:: sensu-test
+# Recipe:: runit
 #
-# Copyright 2012, Sonian Inc.
+# Copyright 2013, Sonian, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,5 @@
 # limitations under the License.
 #
 
-sensu_service "sensu-client" do
-  init_style node.sensu.init_style
-  action [:enable, :start]
-end
+node.default['sensu']['init_style'] = 'runit'
+include_recipe 'sensu-test::default'

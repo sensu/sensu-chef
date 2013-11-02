@@ -74,3 +74,32 @@ end
 template "/etc/default/sensu" do
   source "sensu.default.erb"
 end
+
+case node.sensu.init_style
+when "runit"
+
+  sensu_ctl = "/opt/sensu/bin/sensu-ctl"
+
+  execute "configure_sensu_embedded_runit" do
+    command "#{sensu_ctl} configure"
+    not_if "#{sensu_ctl} configured?"
+  end
+
+  # Keep on trying till the job is found :(
+  execute "wait_for_sensu_embedded_runit" do
+    command "#{sensu_ctl} configured?"
+    retries 30
+  end
+
+  # Replace packaged init scripts with links to runit
+  %w{ client server api dashboard }.each do |svc|
+    file "/etc/init.d/sensu-#{svc}" do
+      action :delete
+      not_if {::File.symlink?("/etc/init.d/sensu-#{svc}")}
+    end
+
+    link "/etc/init.d/sensu-#{svc}" do
+      to "/opt/sensu/embedded/bin/sv"
+    end
+  end
+end

@@ -17,9 +17,7 @@
 # limitations under the License.
 #
 
-service "sensu-server" do
-  provider node.platform_family =~ /debian/ ? Chef::Provider::Service::Init::Debian : Chef::Provider::Service::Init::Redhat
-  supports :status => true, :restart => true
+sensu_service "sensu-server" do
+  init_style node.sensu.init_style
   action [:enable, :start]
-  subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
 end

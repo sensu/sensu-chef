@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: sensu
-# Recipe:: client_service
+# Cookbook Name:: sensu-test
+# Recipe:: default
 #
-# Copyright 2012, Sonian Inc.
+# Copyright 2013, Sonian, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,16 @@
 # limitations under the License.
 #
 
-sensu_service "sensu-client" do
-  init_style node.sensu.init_style
-  action [:enable, :start]
+include_recipe "sensu::default"
+
+sensu_client node.name do
+  address node["ipaddress"]
+  subscriptions ["all"]
 end
+
+include_recipe "sensu::rabbitmq"
+include_recipe "sensu::redis"
+include_recipe "sensu::server_service"
+include_recipe "sensu::api_service"
+include_recipe "sensu::client_service"
+include_recipe "sensu::dashboard_service"

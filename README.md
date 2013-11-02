@@ -105,6 +105,9 @@ Enables and starts the Sensu dashboard.
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
 are to use the embedded Ruby in the monolithic package.
 
+`node.sensu.init_style` - Style of init to be used when configuring
+Sensu services, "sysv" and "runit" are currently supported.
+
 ### RabbitMQ
 
 `node.sensu.rabbitmq.host` - RabbitMQ host.
