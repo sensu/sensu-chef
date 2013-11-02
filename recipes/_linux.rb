@@ -43,7 +43,7 @@ when "rhel"
   yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
-    url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
+    url "http://repos.sensuapp.org/#{repo}/el/#{node.platform_version.to_i}/$basearch/"
     action :add
   end
 when "fedora"
@@ -54,7 +54,7 @@ when "fedora"
   when 12..18 then 6
   # TODO: 18+ will map to rhel7 but we don't have sensu builds for that yet
   else
-    raise "I don't know how to map fedora version #{node['platform_version']} to a RHEL version. aborting"
+    raise "I don't know how to map fedora version #{node.platform_version} to a RHEL version. aborting"
   end
 
   yum_repository "sensu" do
