@@ -15,9 +15,11 @@ action :create do
     }
   }
 
-  sensu_json_file @definition_path do
+  f = sensu_json_file @definition_path do
     content definition
   end
+
+  new_resource.updated_by_last_action(f.updated_by_last_action?)
 end
 
 action :delete do
