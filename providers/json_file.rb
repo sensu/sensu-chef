@@ -7,19 +7,23 @@ action :create do
       mode 0750
     end
 
-    file new_resource.path do
+   f = file new_resource.path do
       owner new_resource.owner
       group new_resource.group
       mode new_resource.mode
       content Sensu::JSONFile.dump_json(new_resource.content)
       notifies :create, "ruby_block[sensu_service_trigger]", :immediately
     end
+
+    new_resource.updated_by_last_action(f.updated_by_last_action?)
   end
 end
 
 action :delete do
-  file new_resource.path do
+  f = file new_resource.path do
     action :delete
     notifies :create, "ruby_block[sensu_service_trigger]", :immediately
   end
+
+  new_resource.updated_by_last_action(f.updated_by_last_action?)
 end
