@@ -207,5 +207,5 @@ end
 
 ## SUPPORT
 
-Please visit #sensu on irc.freenode.net and we will be more than happy
-to help.
+Please visit [sensuapp.org/support](http://sensuapp.org/support) for details on community and commercial 
+support resources, including the official IRC channel
