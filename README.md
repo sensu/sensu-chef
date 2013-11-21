@@ -208,4 +208,4 @@ end
 ## SUPPORT
 
 Please visit [sensuapp.org/support](http://sensuapp.org/support) for details on community and commercial 
-support resources, including the official IRC channel
+support resources, including the official IRC channel.
