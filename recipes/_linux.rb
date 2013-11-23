@@ -68,7 +68,7 @@ end
 package "sensu" do
   version node.sensu.version
   options package_options
-  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+  notifies :create, "ruby_block[sensu_service_trigger]"
 end
 
 template "/etc/default/sensu" do
