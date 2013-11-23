@@ -1,13 +1,17 @@
+def sensu_path
+  "/opt/sensu"
+end
+
 def sensu_ctl
-  "/opt/sensu/bin/sensu-ctl"
+  "#{sensu_path}/bin/sensu-ctl"
 end
 
 def sensu_service_pipe
-  "/opt/sensu/sv/#{new_resource.service}/supervise/ok"
+  "#{sensu_path}/sv/#{new_resource.service}/supervise/ok"
 end
 
 def sensu_service_path
-  "/opt/sensu/service/#{new_resource.service}"
+  "#{sensu_path}/service/#{new_resource.service}"
 end
 
 def sensu_runit_service_enabled?
