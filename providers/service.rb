@@ -18,6 +18,19 @@ def sensu_runit_service_enabled?
   ::File.symlink?(sensu_service_path) && ::FileTest.pipe?(sensu_service_pipe)
 end
 
+def enable_sensu_runsvdir
+  execute "configure_sensu_runsvdir_#{new_resource.service}" do
+    command "#{sensu_ctl} configure"
+    not_if "#{sensu_ctl} configured?"
+  end
+
+  # Keep on trying till the job is found :(
+  execute "wait_for_sensu_runsvdir_#{new_resource.service}" do
+    command "#{sensu_ctl} configured?"
+    retries 30
+  end
+end
+
 def load_current_resource
   case new_resource.init_style
   when "sysv"
@@ -58,6 +71,8 @@ action :enable do
 
     new_resource.updated_by_last_action(svc.updated_by_last_action?)
   when "runit"
+    enable_sensu_runsvdir
+
     ruby_block "block_until_runsv_#{new_resource.service}_available" do
       block do
         Chef::Log.debug("waiting until named pipe #{sensu_service_pipe} exists")
