@@ -1,17 +1,34 @@
+def sensu_path
+  "/opt/sensu"
+end
+
 def sensu_ctl
-  "/opt/sensu/bin/sensu-ctl"
+  "#{sensu_path}/bin/sensu-ctl"
 end
 
 def sensu_service_pipe
-  "/opt/sensu/sv/#{new_resource.service}/supervise/ok"
+  "#{sensu_path}/sv/#{new_resource.service}/supervise/ok"
 end
 
 def sensu_service_path
-  "/opt/sensu/service/#{new_resource.service}"
+  "#{sensu_path}/service/#{new_resource.service}"
 end
 
 def sensu_runit_service_enabled?
   ::File.symlink?(sensu_service_path) && ::FileTest.pipe?(sensu_service_pipe)
+end
+
+def enable_sensu_runsvdir
+  execute "configure_sensu_runsvdir_#{new_resource.service}" do
+    command "#{sensu_ctl} configure"
+    not_if "#{sensu_ctl} configured?"
+  end
+
+  # Keep on trying till the job is found :(
+  execute "wait_for_sensu_runsvdir_#{new_resource.service}" do
+    command "#{sensu_ctl} configured?"
+    retries 30
+  end
 end
 
 def load_current_resource
@@ -26,14 +43,14 @@ def load_current_resource
       Chef::Provider::Service::Init::Redhat
     end
 
-    service new_resource.service do
+    @sensu_svc ||= service new_resource.service do
       provider service_provider
       supports :status => true, :restart => true
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
   when "runit"
-    service new_resource.service do
+    @sensu_svc ||= service new_resource.service do
       start_command "#{sensu_ctl} #{new_resource.service} start"
       stop_command "#{sensu_ctl} #{new_resource.service} stop"
       status_command "#{sensu_ctl} #{new_resource.service} status"
@@ -48,12 +65,11 @@ end
 action :enable do
   case new_resource.init_style
   when "sysv"
-    svc = service new_resource.service do
-      action :enable
-    end
-
-    new_resource.updated_by_last_action(svc.updated_by_last_action?)
+    @sensu_svc.run_action(:enable)
+    new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
   when "runit"
+    enable_sensu_runsvdir
+
     ruby_block "block_until_runsv_#{new_resource.service}_available" do
       block do
         Chef::Log.debug("waiting until named pipe #{sensu_service_pipe} exists")
@@ -65,54 +81,55 @@ action :enable do
       action :nothing
     end
 
-    svc = execute "sensu-ctl_#{new_resource.service}_enable" do
+    enable_svc = execute "sensu-ctl_#{new_resource.service}_enable" do
       command "#{sensu_ctl} #{new_resource.service} enable"
       not_if { sensu_runit_service_enabled? }
       notifies :create, "ruby_block[block_until_runsv_#{new_resource.service}_available]", :immediately
     end
 
-    new_resource.updated_by_last_action(svc.updated_by_last_action?)
+    init_path = "/etc/init.d/#{new_resource.service}"
+
+    file init_path do
+      action :delete
+      only_if { sensu_runit_service_enabled? && !::File.symlink?(init_path) }
+    end
+
+    svc_link = link init_path do
+      to "#{sensu_path}/embedded/bin/sv"
+    end
+
+    if enable_svc.updated_by_last_action? or svc_link.updated_by_last_action?
+      new_resource.updated_by_last_action(true)
+    end
   end
 end
 
 action :disable do
   case new_resource.init_style
   when "sysv"
-    svc = service new_resource.service do
-      action :disable
-    end
-
-    new_resource.updated_by_last_action(svc.updated_by_last_action?)
+    @sensu_svc.run_action(:disable)
+    new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
   when "runit"
-    svc = execute "sensu-ctl_#{new_resource.service}_disable" do
+    disable_svc = execute "sensu-ctl_#{new_resource.service}_disable" do
       command "#{sensu_ctl} #{new_resource.service} disable"
       only_if { sensu_runit_service_enabled? }
     end
 
-    new_resource.updated_by_last_action(svc.updated_by_last_action?)
+    new_resource.updated_by_last_action(disable_svc.updated_by_last_action?)
   end
 end
 
 action :start do
-  svc = service new_resource.service do
-    action :start
-  end
-
-  new_resource.updated_by_last_action(svc.updated_by_last_action?)
+  @sensu_svc.run_action(:start)
+  new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
 end
 
 action :stop do
-  svc = service new_resource.service do
-    action :stop
-  end
-
-  new_resource.updated_by_last_action(svc.updated_by_last_action?)
+  @sensu_svc.run_action(:stop)
+  new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
 end
 
 action :restart do
-  svc = service new_resource.service do
-    action :restart
-  end
-
-  new_resource.updated_by_last_action(svc.updated_by_last_action?)
+  @sensu_svc.run_action(:restart)
+  new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
 end
