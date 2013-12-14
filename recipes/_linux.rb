@@ -73,4 +73,5 @@ end
 
 template "/etc/default/sensu" do
   source "sensu.default.erb"
+  notifies :create, "ruby_block[sensu_service_trigger]"
 end
