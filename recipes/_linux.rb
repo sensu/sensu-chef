@@ -44,6 +44,7 @@ when "rhel"
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
+    gpgcheck false
     action :add
   end
 when "fedora"
@@ -61,6 +62,7 @@ when "fedora"
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
+    gpgcheck false
     action :add
   end
 end
