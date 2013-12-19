@@ -52,11 +52,7 @@ if node.sensu.use_ssl
 
   directory File.join(node.sensu.directory, "ssl")
 
-  if node.sensu.use_encrypted_data_bag
-    ssl = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "ssl")
-  else
-    ssl = data_bag_item(node.sensu.data_bag_name, "ssl")
-  end
+  ssl = Sensu::Helpers.data_bag_item("ssl")
 
   file node.sensu.rabbitmq.ssl.cert_chain_file do
     content ssl["client"]["cert"]

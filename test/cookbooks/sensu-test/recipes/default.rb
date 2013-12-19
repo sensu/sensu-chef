@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "logrotate"
+
 include_recipe "sensu::default"
 
 sensu_client node.name do
@@ -30,3 +32,9 @@ include_recipe "sensu::server_service"
 include_recipe "sensu::api_service"
 include_recipe "sensu::client_service"
 include_recipe "sensu::dashboard_service"
+
+# ServerSpec dependencies
+
+if platform?("ubuntu")
+  package "net-tools"
+end

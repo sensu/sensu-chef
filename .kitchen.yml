@@ -22,8 +22,11 @@ platforms:
 suites:
 - name: default
   run_list:
-    - "sensu-test"
-  attributes: {}
+    - recipe[sensu-test]
+  sudo: true
 - name: runit
   run_list:
-    - "sensu-test::runit"
+    - recipe[sensu-test::runit]
+- name: encrypted
+  run_list:
+    - recipe[sensu-test]
