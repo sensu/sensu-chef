@@ -38,76 +38,36 @@ vagrant ssh
 
 ### SSL configuration
 
-Running Sensu with SSL is recommended, this cookbook uses a data bag
-`sensu` (can be overridden using the `node.sensu.data_bag_name`
-attribute), with an item `ssl`, containing the SSL certificates
-required. This cookbook comes with a tool to generate the
-certificates and data bag item. If the integrity of the certificates
-is ever compromised, you must regenerate and redeploy them.
+Running Sensu with SSL is recommended; this cookbook uses a data bag
+`sensu`, with an item `ssl`, containing the SSL certificates required.
+Sensu data bag items may be encrypted. This cookbook comes with a tool
+to generate the certificates and data bag item. If the integrity of
+the certificates is ever compromised, you must regenerate and redeploy
+them.
 
 ```
 cd examples/ssl
 ./ssl_certs.sh generate
 knife data bag create sensu
+```
+
+Use the plain-text data bag item:
+
+``` shell
 knife data bag from file sensu ssl.json
+```
+
+Or, encrypted it with your data bag secret. See [Encrypt a Data
+Bag](http://docs.opscode.com/essentials_data_bags_encrypt.html) for
+more information.
+
+```
+knife data bag --secret-file /path/to/your/secret from file sensu ssl.json
+```
+
+``` shell
 ./ssl_certs.sh clean
 ```
-
-If you plan to enable the `use_encrypted_data_bag` option, the commands
-should be:
-
-```
-cd examples/ssl
-./ssl_certs.sh generate
-knife data bag --secret-file /path/to/your/secret_file create sensu
-knife data bag --secret-file /path/to/your/secret_file from file sensu ssl.json
-./ssl_certs.sh clean
-```
-
-Where `/path/to/your/secret_file` is the file containing your encrypted
-data bag shared secret. See [Encrypt a Data Bag](http://docs.opscode.com/essentials_data_bags_encrypt.html) for more information.
-
-### Encrypted Data Bag
-If you set the `node.sensu.use_encrypted_data_bag` attribute to true,
-the recipes will expect to find SSL certificates and sensitive
-attributes like passwords encrypted in the data bag `sensu` (can be
-overridden using the `node.sensu.data_bag_name` attribute). SSL
-certificates are stored in the `ssl` key as usual, and attributes are
-stored in the `secrets` key.
-
-If you enable this option, you _must_ encrypt your SSL certificates
-and rabbitmq password.
-
-To create an encrypted `secrets` key in the `sensu` data bag, execute
-the following:
-
-```
-knife data bag --secret-file /path/to/your/secret_file create sensu secrets
-```
-
-You will be taken to an editor where you may enter your JSON data to
-be encrypted. A valid JSON structure including the rabbitmq and
-dashboard passwords might look like the following:
-
-```
-{
-  "id": "secrets",
-  "rabbitmq": {
-    "password": "supersecret"
-  },
-  "dashboard": {
-    "password": "my_dashboard_password"
-  }
-}
-```
-
-For encrypted SSL certificates, see above.
-
-You may include any of the Sensu attributes in the encrypted data bag,
-but be aware that any attributes found in the data bag will take
-precedence over attributes specified on the node.
-
-See [Encrypt a Data Bag](http://docs.opscode.com/essentials_data_bags_encrypt.html) for more information.
 
 ## RECIPES
 
@@ -157,19 +117,18 @@ Enables and starts the Sensu dashboard.
 
 `node.sensu.log_directory` - Sensu log directory.
 
+`node.sensu.log_level` - Sensu log level (eg. "warn").
+
 `node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
 
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
-are to use the embedded Ruby in the monolithic package.
+use the embedded Ruby in the Sensu package.
 
 `node.sensu.init_style` - Style of init to be used when configuring
 Sensu services, "sysv" and "runit" are currently supported.
 
-`node.sensu.data_bag_name` - Name of the sensu data bag for this node.
-
-`node.sensu.use_encrypted_data_bag` - If secrets and SSL certificates
-are encrypted in the data bag `sensu` (can be overridden using the
-`node.sensu.data_bag_name` attribute).
+`node.sensu.service_max_wait` - How long service scripts should wait
+for Sensu to start/stop.
 
 ### RabbitMQ
 
@@ -270,5 +229,5 @@ end
 
 ## SUPPORT
 
-Please visit [sensuapp.org/support](http://sensuapp.org/support) for details on community and commercial 
+Please visit [sensuapp.org/support](http://sensuapp.org/support) for details on community and commercial
 support resources, including the official IRC channel.
