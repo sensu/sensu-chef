@@ -1,7 +1,7 @@
 actions :install, :remove
 
-attribute :version, :kind_of => String
 attribute :options, :kind_of => [String, Hash]
+attribute :version, :kind_of => String
 
 def initialize(*args)
   super

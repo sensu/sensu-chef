@@ -1,17 +1,19 @@
 actions :create, :delete
 
-attribute :type, :kind_of => String, :equal_to => %w[status metric]
+attribute :additional, :kind_of => Hash, :default => Hash.new
 attribute :command, :kind_of => String, :required => true
-attribute :timeout, :kind_of => Integer
-attribute :subscribers, :kind_of => Array
-attribute :standalone, :kind_of => [TrueClass, FalseClass]
-attribute :interval, :default => 60
+attribute :dependencies, :kind_of => Array
 attribute :handle, :kind_of => [TrueClass, FalseClass]
 attribute :handlers, :kind_of => Array
-attribute :publish, :kind_of => [TrueClass, FalseClass]
-attribute :low_flap_threshold, :kind_of => Integer
 attribute :high_flap_threshold, :kind_of => Integer
-attribute :additional, :kind_of => Hash, :default => Hash.new
+attribute :interval, :default => 60
+attribute :low_flap_threshold, :kind_of => Integer
+attribute :publish, :kind_of => [TrueClass, FalseClass]
+attribute :refresh, :kind_of => Integer
+attribute :standalone, :kind_of => [TrueClass, FalseClass]
+attribute :subscribers, :kind_of => Array
+attribute :timeout, :kind_of => Integer
+attribute :type, :kind_of => String, :equal_to => %w[status metric]
 
 def initialize(*args)
   super
