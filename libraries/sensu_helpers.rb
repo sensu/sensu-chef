@@ -7,9 +7,9 @@ module Sensu
         end
       end
 
-      def sanitize(hash)
+      def sanitize(raw_hash)
         sanitized = Hash.new
-        hash.each do |key, value|
+        raw_hash.each do |key, value|
           case value
           when Hash
             sanitized[key] = sanitize(value) unless value.empty?
@@ -30,16 +30,21 @@ module Sensu
         end
       end
 
-      def deep_merge!(hash, other_hash)
-        other_hash.each_pair do |k,v|
-          tv = hash[k]
-          hash[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? deep_merge(tv, v) : v
+      def data_bag_item(item, missing_ok=false)
+        raw_hash = Chef::DataBagItem.load("sensu", item)
+        encrypted = raw_hash.detect do |key, value|
+          if value.is_a?(Hash)
+            value.has_key?("encrypted_data")
+          end
         end
-        hash
-      end
-
-      def deep_merge(hash, other_hash)
-        deep_merge!(hash.dup, other_hash)
+        if encrypted
+          secret = Chef::EncryptedDataBagItem.load_secret
+          Chef::EncryptedDataBagItem.new(raw_hash, secret)
+        else
+          raw_hash
+        end
+      rescue Chef::Exceptions::ValidationFailed => error
+        missing_ok ? nil : raise(error)
       end
     end
   end

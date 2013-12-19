@@ -3,10 +3,11 @@ action :create do
   definitions = Sensu::Helpers.select_attributes(
     node.sensu, keys
   )
-  if node.sensu.use_encrypted_data_bag
-    Sensu::Helpers.deep_merge!(definitions, Sensu::Helpers.select_attributes(
-      Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "secrets"), keys
-    ))
+
+  config = Sensu::Helpers.data_bag_item("config", true)
+
+  if config
+    definitions = Chef::Mixin::DeepMerge.merge(definitions, config)
   end
 
   f = sensu_json_file ::File.join(node.sensu.directory, "config.json") do

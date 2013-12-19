@@ -5,12 +5,12 @@ module Sensu
         JSON.parse(File.read(path)) rescue Hash.new
       end
 
-      def dump_json(hash)
-        JSON.pretty_generate(hash) + "\n"
+      def dump_json(raw_hash)
+        JSON.pretty_generate(raw_hash) + "\n"
       end
 
-      def to_mash(hash)
-        Mash.from_hash(hash)
+      def to_mash(raw_hash)
+        Mash.from_hash(raw_hash)
       end
 
       def compare_content(path, content)

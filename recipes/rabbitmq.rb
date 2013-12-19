@@ -30,11 +30,7 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  if node.sensu.use_encrypted_data_bag
-    ssl = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "ssl")
-  else
-    ssl = data_bag_item(node.sensu.data_bag_name, "ssl")
-  end
+  ssl = Sensu::Helpers.data_bag_item("ssl")
 
   %w[
     cacert
@@ -57,23 +53,25 @@ service "restart #{node.rabbitmq.service_name}" do
   subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
 end
 
-rabbitmq_vhost node.sensu.rabbitmq.vhost do
+rabbitmq = node.sensu.rabbitmq.to_hash
+
+config = Sensu::Helpers.data_bag_item("config", true)
+
+if config && config["rabbitmq"].is_a?(Hash)
+  rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, config["rabbitmq"])
+end
+
+rabbitmq_vhost rabbitmq["vhost"] do
   action :add
 end
 
-rabbitmq_user node.sensu.rabbitmq.user do
-  if node.sensu.use_encrypted_data_bag
-    secrets = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "secrets")
-    if secrets and secrets.to_hash.has_key? "rabbitmq" and secrets["rabbitmq"].has_key? "password"
-      rabbitmq_password = secrets["rabbitmq"]["password"]
-    end
-  end
-  password rabbitmq_password.nil? ? node.sensu.rabbitmq.password : rabbitmq_password
+rabbitmq_user rabbitmq["user"] do
+  password rabbitmq["password"]
   action :add
 end
 
-rabbitmq_user node.sensu.rabbitmq.user do
-  vhost node.sensu.rabbitmq.vhost
+rabbitmq_user rabbitmq["user"] do
+  vhost rabbitmq["vhost"]
   permissions ".* .* .*"
   action :set_permissions
 end
