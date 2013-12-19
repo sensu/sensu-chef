@@ -40,13 +40,13 @@ when "debian"
 when "rhel"
   include_recipe "yum"
 
-  yum_repository "sensu" do
+  repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
-    gpgcheck false
     action :add
   end
+  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 when "fedora"
   include_recipe "yum"
 
@@ -58,13 +58,13 @@ when "fedora"
     raise "I don't know how to map fedora version #{node['platform_version']} to a RHEL version. aborting"
   end
 
-  yum_repository "sensu" do
+  repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
     url "http://repos.sensuapp.org/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
-    gpgcheck false
     action :add
   end
+  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 end
 
 package "sensu" do
