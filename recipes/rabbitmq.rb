@@ -30,7 +30,11 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl = data_bag_item("sensu", "ssl")
+  if node.sensu.use_encrypted_data_bag
+    ssl = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "ssl")
+  else
+    ssl = data_bag_item(node.sensu.data_bag_name, "ssl")
+  end
 
   %w[
     cacert
@@ -58,7 +62,13 @@ rabbitmq_vhost node.sensu.rabbitmq.vhost do
 end
 
 rabbitmq_user node.sensu.rabbitmq.user do
-  password node.sensu.rabbitmq.password
+  if node.sensu.use_encrypted_data_bag
+    secrets = Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "secrets")
+    if secrets and secrets.to_hash.has_key? "rabbitmq" and secrets["rabbitmq"].has_key? "password"
+      rabbitmq_password = secrets["rabbitmq"]["password"]
+    end
+  end
+  password rabbitmq_password.nil? ? node.sensu.rabbitmq.password : rabbitmq_password
   action :add
 end
 

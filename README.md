@@ -39,10 +39,11 @@ vagrant ssh
 ### SSL configuration
 
 Running Sensu with SSL is recommended, this cookbook uses a data bag
-`sensu`, with an item `ssl`, containing the SSL certificates required.
-This cookbook comes with a tool to generate the certificates and data
-bag item. If the integrity of the certificates is ever compromised,
-you must regenerate and redeploy them.
+`sensu` (can be overridden using the `node.sensu.data_bag_name`
+attribute), with an item `ssl`, containing the SSL certificates
+required. This cookbook comes with a tool to generate the
+certificates and data bag item. If the integrity of the certificates
+is ever compromised, you must regenerate and redeploy them.
 
 ```
 cd examples/ssl
@@ -51,6 +52,62 @@ knife data bag create sensu
 knife data bag from file sensu ssl.json
 ./ssl_certs.sh clean
 ```
+
+If you plan to enable the `use_encrypted_data_bag` option, the commands
+should be:
+
+```
+cd examples/ssl
+./ssl_certs.sh generate
+knife data bag --secret-file /path/to/your/secret_file create sensu
+knife data bag --secret-file /path/to/your/secret_file from file sensu ssl.json
+./ssl_certs.sh clean
+```
+
+Where `/path/to/your/secret_file` is the file containing your encrypted
+data bag shared secret. See [Encrypt a Data Bag](http://docs.opscode.com/essentials_data_bags_encrypt.html) for more information.
+
+### Encrypted Data Bag
+If you set the `node.sensu.use_encrypted_data_bag` attribute to true,
+the recipes will expect to find SSL certificates and sensitive
+attributes like passwords encrypted in the data bag `sensu` (can be
+overridden using the `node.sensu.data_bag_name` attribute). SSL
+certificates are stored in the `ssl` key as usual, and attributes are
+stored in the `secrets` key.
+
+If you enable this option, you _must_ encrypt your SSL certificates
+and rabbitmq password.
+
+To create an encrypted `secrets` key in the `sensu` data bag, execute
+the following:
+
+```
+knife data bag --secret-file /path/to/your/secret_file create sensu secrets
+```
+
+You will be taken to an editor where you may enter your JSON data to
+be encrypted. A valid JSON structure including the rabbitmq and
+dashboard passwords might look like the following:
+
+```
+{
+  "id": "secrets",
+  "rabbitmq": {
+    "password": "supersecret"
+  },
+  "dashboard": {
+    "password": "my_dashboard_password"
+  }
+}
+```
+
+For encrypted SSL certificates, see above.
+
+You may include any of the Sensu attributes in the encrypted data bag,
+but be aware that any attributes found in the data bag will take
+precedence over attributes specified on the node.
+
+See [Encrypt a Data Bag](http://docs.opscode.com/essentials_data_bags_encrypt.html) for more information.
 
 ## RECIPES
 
@@ -107,6 +164,12 @@ are to use the embedded Ruby in the monolithic package.
 
 `node.sensu.init_style` - Style of init to be used when configuring
 Sensu services, "sysv" and "runit" are currently supported.
+
+`node.sensu.data_bag_name` - Name of the sensu data bag for this node.
+
+`node.sensu.use_encrypted_data_bag` - If secrets and SSL certificates
+are encrypted in the data bag `sensu` (can be overridden using the
+`node.sensu.data_bag_name` attribute).
 
 ### RabbitMQ
 

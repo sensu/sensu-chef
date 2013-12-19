@@ -1,8 +1,13 @@
 action :create do
+  keys = %w[rabbitmq redis api dashboard]
   definitions = Sensu::Helpers.select_attributes(
-    node.sensu,
-    %w[rabbitmq redis api dashboard]
+    node.sensu, keys
   )
+  if node.sensu.use_encrypted_data_bag
+    Sensu::Helpers.deep_merge!(definitions, Sensu::Helpers.select_attributes(
+      Chef::EncryptedDataBagItem.load(node.sensu.data_bag_name, "secrets"), keys
+    ))
+  end
 
   f = sensu_json_file ::File.join(node.sensu.directory, "config.json") do
     content Sensu::Helpers.sanitize(definitions)

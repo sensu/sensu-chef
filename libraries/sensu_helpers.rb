@@ -29,6 +29,18 @@ module Sensu
           "gem"
         end
       end
+
+      def deep_merge!(hash, other_hash)
+        other_hash.each_pair do |k,v|
+          tv = hash[k]
+          hash[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? deep_merge(tv, v) : v
+        end
+        hash
+      end
+
+      def deep_merge(hash, other_hash)
+        deep_merge!(hash.dup, other_hash)
+      end
     end
   end
 end
