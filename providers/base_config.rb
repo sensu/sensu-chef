@@ -1,13 +1,12 @@
 action :create do
-  keys = %w[rabbitmq redis api dashboard]
   definitions = Sensu::Helpers.select_attributes(
-    node.sensu, keys
+    node.sensu, %w[rabbitmq redis api dashboard]
   )
 
   config = Sensu::Helpers.data_bag_item("config", true)
 
   if config
-    definitions = Chef::Mixin::DeepMerge.merge(definitions, config)
+    definitions = Chef::Mixin::DeepMerge.merge(definitions, config.to_hash)
   end
 
   f = sensu_json_file ::File.join(node.sensu.directory, "config.json") do

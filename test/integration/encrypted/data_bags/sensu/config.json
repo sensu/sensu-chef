@@ -1,0 +1,9 @@
+{
+  "id": "config",
+  "rabbitmq": {
+    "encrypted_data": "XNZYyE+ML/cHEPITuP5k1D/Js06L/e6lp1jAp73E7dZMxUhKfT7fMSWBAg32\nfrITo8G3m5GQmkG4bY9XqE5FRA==\n",
+    "iv": "qDnVL8QnW5s0BW9WXJWhyw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

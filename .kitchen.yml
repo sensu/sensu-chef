@@ -27,3 +27,6 @@ suites:
 - name: runit
   run_list:
     - recipe[sensu-test::runit]
+- name: encrypted
+  run_list:
+    - recipe[sensu-test]
