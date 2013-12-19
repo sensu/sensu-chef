@@ -7,7 +7,7 @@ action :create do
       mode 0750
     end
 
-   f = file new_resource.path do
+    f = file new_resource.path do
       owner new_resource.owner
       group new_resource.group
       mode new_resource.mode

@@ -32,7 +32,8 @@ def enable_sensu_runsvdir
 end
 
 def load_current_resource
-  case new_resource.init_style
+  @sensu_svc = run_context.resource_collection.lookup("service[#{new_resource.service}]") rescue nil
+  @sensu_svc ||= case new_resource.init_style
   when "sysv"
     service_provider = case node.platform_family
     when /debian/
@@ -42,15 +43,14 @@ def load_current_resource
     else
       Chef::Provider::Service::Init::Redhat
     end
-
-    @sensu_svc ||= service new_resource.service do
+    service new_resource.service do
       provider service_provider
       supports :status => true, :restart => true
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
   when "runit"
-    @sensu_svc ||= service new_resource.service do
+    service new_resource.service do
       start_command "#{sensu_ctl} #{new_resource.service} start"
       stop_command "#{sensu_ctl} #{new_resource.service} stop"
       status_command "#{sensu_ctl} #{new_resource.service} status"
