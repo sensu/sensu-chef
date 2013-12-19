@@ -10,7 +10,7 @@ version          "0.6.2"
 depends "apt"
 
 # available @ http://community.opscode.com/cookbooks/yum
-depends "yum"
+depends "yum", "<= 2.4.4"
 
 # available @ http://community.opscode.com/cookbooks/windows
 depends "windows", ">= 1.8.8"
