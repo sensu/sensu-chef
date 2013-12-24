@@ -27,7 +27,7 @@ when "debian"
 
   apt_repository "sensu" do
     uri node.sensu.apt_repo_url
-    key node.sensu.apt_repo_url + '/pubkey.gpg'
+    key node.sensu.apt_repo_url + "/pubkey.gpg"
     distribution "sensu"
     components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
     action :add
