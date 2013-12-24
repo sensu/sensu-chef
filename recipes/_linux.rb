@@ -26,8 +26,8 @@ when "debian"
   include_recipe "apt"
 
   apt_repository "sensu" do
-    uri "http://repos.sensuapp.org/apt"
-    key "http://repos.sensuapp.org/apt/pubkey.gpg"
+    uri node.sensu.apt_repo_url
+    key "#{node.sensu.apt_repo_url}/pubkey.gpg"
     distribution "sensu"
     components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
     action :add
@@ -43,7 +43,7 @@ when "rhel"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
-    url "http://repos.sensuapp.org/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
+    url "#{node.sensu.yum_repo_url}/#{repo}/el/#{node['platform_version'].to_i}/$basearch/"
     action :add
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
@@ -61,7 +61,7 @@ when "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
-    url "http://repos.sensuapp.org/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
+    url "#{node.sensu.yum_repo_url}/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
     action :add
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)

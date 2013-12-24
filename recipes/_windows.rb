@@ -18,7 +18,7 @@
 #
 
 windows_package "Sensu" do
-  source "http://repos.sensuapp.org/msi/sensu-#{node.sensu.version}.msi"
+  source "#{node.sensu.msi_repo_url}/sensu-#{node.sensu.version}.msi"
   version node.sensu.version.gsub("-", ".")
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
