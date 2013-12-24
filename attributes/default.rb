@@ -9,6 +9,10 @@ default.sensu.use_embedded_ruby = false
 default.sensu.init_style = "sysv"
 default.sensu.service_max_wait = 10
 
+default.sensu.apt_repo_url = "http://repos.sensuapp.org/apt"
+default.sensu.yum_repo_url = "http://repos.sensuapp.org"
+default.sensu.msi_repo_url = "http://repos.sensuapp.org/msi"
+
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
 default.sensu.rabbitmq.port = 5671
