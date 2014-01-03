@@ -8,3 +8,9 @@ def initialize(*args)
   super
   @action = :create
 end
+
+def after_created
+  unless name =~ /^[\w\.-]+$/
+    raise Chef::Exceptions::ValidationFailed, "Sensu client name cannot contain spaces or special characters"
+  end
+end

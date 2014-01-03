@@ -26,6 +26,12 @@ sensu_client node.name do
   subscriptions ["all"]
 end
 
+sensu_check "test" do
+  command "true"
+  interval 10
+  subscribers ["all"]
+end
+
 include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
 include_recipe "sensu::server_service"
