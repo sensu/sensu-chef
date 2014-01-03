@@ -8,6 +8,7 @@ attribute :standalone, :kind_of => [TrueClass, FalseClass]
 attribute :aggregate, :kind_of => [TrueClass, FalseClass]
 attribute :interval, :default => 60
 attribute :handle, :kind_of => [TrueClass, FalseClass]
+attribute :dependencies, :kind_of => Array
 attribute :handlers, :kind_of => Array
 attribute :publish, :kind_of => [TrueClass, FalseClass]
 attribute :low_flap_threshold, :kind_of => Integer
