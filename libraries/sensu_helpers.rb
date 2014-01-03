@@ -43,7 +43,9 @@ module Sensu
         else
           raw_hash
         end
-      rescue Chef::Exceptions::ValidationFailed => error
+      rescue Chef::Exceptions::ValidationFailed,
+        Chef::Exceptions::InvalidDataBagPath,
+        Net::HTTPServerException => error
         missing_ok ? nil : raise(error)
       end
     end
