@@ -50,7 +50,11 @@ if node.sensu.use_ssl
   node.override.sensu.rabbitmq.ssl.cert_chain_file = File.join(node.sensu.directory, "ssl", "cert.pem")
   node.override.sensu.rabbitmq.ssl.private_key_file = File.join(node.sensu.directory, "ssl", "key.pem")
 
-  directory File.join(node.sensu.directory, "ssl")
+  directory File.join(node.sensu.directory, "ssl") do
+    owner "root"
+    group "sensu"
+    mode 0750
+  end
 
   ssl = Sensu::Helpers.data_bag_item("ssl")
 
