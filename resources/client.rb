@@ -11,7 +11,7 @@ def initialize(*args)
 end
 
 def after_created
-  unless name =~ /^[\w\.-]+$/
+  unless name =~ /^[\w\.\-]+$/
     raise Chef::Exceptions::ValidationFailed, "Sensu client name cannot contain spaces or special characters"
   end
 end
