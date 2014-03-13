@@ -38,8 +38,6 @@ when "debian"
     pin_priority "700"
   end
 when "rhel"
-  include_recipe "yum"
-
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
