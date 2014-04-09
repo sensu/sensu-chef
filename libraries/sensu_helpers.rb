@@ -1,3 +1,5 @@
+require "openssl"
+
 module Sensu
   class Helpers
     class << self
@@ -47,6 +49,14 @@ module Sensu
         Chef::Exceptions::InvalidDataBagPath,
         Net::HTTPServerException => error
         missing_ok ? nil : raise(error)
+      end
+
+      def random_password(length=20)
+        password = ""
+        while password.length < length
+          password << ::OpenSSL::Random.random_bytes(1).gsub(/\W/, '')
+        end
+        password
       end
     end
   end

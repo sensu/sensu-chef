@@ -17,6 +17,15 @@
 # limitations under the License.
 #
 
+user "sensu" do
+  password Sensu::Helpers.random_password
+end
+
+group "sensu" do
+  members "sensu"
+  action :manage
+end
+
 windows_package "Sensu" do
   source "#{node.sensu.msi_repo_url}/sensu-#{node.sensu.version}.msi"
   version node.sensu.version.gsub("-", ".")
@@ -31,5 +40,5 @@ end
 template "C:\\opt\\sensu\\bin\\sensu-client.xml" do
   source "sensu.xml.erb"
   variables :service => "sensu-client", :name => "Sensu Client"
-  notifies :run, "execute[sensu-client.exe install]", :immediately
+  notifies :run, "execute[sensu-client.exe install]"
 end

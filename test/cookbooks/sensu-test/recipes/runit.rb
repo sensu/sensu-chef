@@ -17,5 +17,6 @@
 # limitations under the License.
 #
 
-node.default['sensu']['init_style'] = 'runit'
+node.set['sensu']['init_style'] = 'runit'
+
 include_recipe 'sensu-test::default'

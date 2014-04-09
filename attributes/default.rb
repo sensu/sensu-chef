@@ -1,3 +1,10 @@
+# platform
+if platform_family?("windows")
+  default.sensu.admin_user = "Administrator"
+else
+  default.sensu.admin_user = "root"
+end
+
 # installation
 default.sensu.version = "0.12.3-1"
 default.sensu.use_unstable_repo = false
