@@ -30,9 +30,15 @@ suites:
   - name: sysv
     run_list:
       - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2
   - name: runit
     run_list:
       - recipe[sensu-test::runit]
+    excludes:
+      - windows-2012-r2
   - name: encrypted
     run_list:
       - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2
