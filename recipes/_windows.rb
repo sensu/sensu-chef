@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+Chef::Recipe.send(:include, Windows::Helper)
+
 user "sensu" do
   password Sensu::Helpers.random_password
 end
@@ -26,6 +28,12 @@ group "sensu" do
   action :manage
 end
 
+if win_version.windows_server_2012? || win_version.windows_server_2012_r2?
+  windows_feature "NetFx3ServerFeatures"
+end
+
+windows_feature "NetFx3"
+
 windows_package "Sensu" do
   source "#{node.sensu.msi_repo_url}/sensu-#{node.sensu.version}.msi"
   version node.sensu.version.gsub("-", ".")
@@ -33,12 +41,13 @@ windows_package "Sensu" do
 end
 
 execute "sensu-client.exe install" do
-  cwd "C:\\opt\\sensu\\bin"
+  cwd 'C:\opt\sensu\bin'
   action :nothing
 end
 
-template "C:\\opt\\sensu\\bin\\sensu-client.xml" do
+template 'C:\opt\sensu\bin\sensu-client.xml' do
   source "sensu.xml.erb"
   variables :service => "sensu-client", :name => "Sensu Client"
   notifies :run, "execute[sensu-client.exe install]"
+  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
