@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+if !node[:sensu].attribute?(:rabbitmq) or !node[:sensu][:rabbitmq].attribute?(:host)
+    Chef::Application.fatal!("RabbitMQ Host not provided, service will error out on start.  Please provide a node[:rabbitmq][:host]")
+end
+
 sensu_service "sensu-client" do
   init_style node.sensu.init_style
   action [:enable, :start]
