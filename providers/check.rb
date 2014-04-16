@@ -10,7 +10,7 @@ action :create do
     new_resource,
     %w[
       type command timeout subscribers standalone aggregate handle
-      handlers publish low_flap_threshold high_flap_threshold
+      handlers publish low_flap_threshold high_flap_threshold refresh
     ]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
 

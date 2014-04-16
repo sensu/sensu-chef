@@ -13,6 +13,7 @@ attribute :publish, :kind_of => [TrueClass, FalseClass]
 attribute :low_flap_threshold, :kind_of => Integer
 attribute :high_flap_threshold, :kind_of => Integer
 attribute :additional, :kind_of => Hash, :default => Hash.new
+attribute :refresh, :kind_of => Integer
 
 def initialize(*args)
   super
