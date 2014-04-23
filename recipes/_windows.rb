@@ -40,14 +40,17 @@ windows_package "Sensu" do
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
-execute "sensu-client.exe install" do
-  cwd 'C:\opt\sensu\bin'
-  action :nothing
-end
-
 template 'C:\opt\sensu\bin\sensu-client.xml' do
   source "sensu.xml.erb"
   variables :service => "sensu-client", :name => "Sensu Client"
-  notifies :run, "execute[sensu-client.exe install]"
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+end
+
+execute "sensu-client.exe install" do
+  cwd 'C:\opt\sensu\bin'
+  not_if {
+    ::Win32::Service.services.detect do |service|
+      service.service_name == "sensu-client"
+    end
+  }
 end
