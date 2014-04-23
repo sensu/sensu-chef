@@ -27,6 +27,7 @@ depends "redisio", ">= 1.7.0"
   centos
   redhat
   fedora
+  amazon
   windows
 ].each do |os|
   supports os
