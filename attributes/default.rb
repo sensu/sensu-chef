@@ -1,8 +1,17 @@
+# platform
+if platform_family?("windows")
+  default.sensu.admin_user = "Administrator"
+  default.sensu.directory = 'C:\etc\sensu'
+  default.sensu.log_directory = 'C:\var\log\sensu'
+else
+  default.sensu.admin_user = "root"
+  default.sensu.directory = "/etc/sensu"
+  default.sensu.log_directory = "/var/log/sensu"
+end
+
 # installation
-default.sensu.version = "0.12.3-1"
+default.sensu.version = "0.12.6-4"
 default.sensu.use_unstable_repo = false
-default.sensu.directory = "/etc/sensu"
-default.sensu.log_directory = "/var/log/sensu"
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false

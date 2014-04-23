@@ -1,32 +1,44 @@
 ---
-driver_plugin: vagrant
-driver_config:
-  require_chef_omnibus: true
+driver:
+  name: vagrant
   customize:
     memory: 512
 
 platforms:
-- name: ubuntu-12.04
-  driver_config:
-    box: opscode-ubuntu-12.04
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
-- name: centos-6.4
-  driver_config:
-    box: opscode-centos-6.4
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-- name: centos-5.9
-  driver_config:
-    box: opscode-centos-5.9
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-5.9_provisionerless.box
+  - name: ubuntu-12.04
+  - name: ubuntu-13.10
+  - name: centos-5.9
+  - name: centos-6.4
+  - name: centos-6.5
+  - name: windows-2012-r2
+    driver:
+      http_proxy: null
+      https_proxy: null
+      box: windows_2012_r2
+      customize:
+        memory: 2048
+    provisioner:
+      name: windows_chef_zero
+    attributes:
+      lsb:
+        codename: windows
 
 suites:
-- name: default
-  run_list:
-    - recipe[sensu-test]
-  sudo: true
-- name: runit
-  run_list:
-    - recipe[sensu-test::runit]
-- name: encrypted
-  run_list:
-    - recipe[sensu-test]
+  - name: default
+    run_list:
+      - recipe[sensu::default]
+  - name: sysv
+    run_list:
+      - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2
+  - name: runit
+    run_list:
+      - recipe[sensu-test::runit]
+    excludes:
+      - windows-2012-r2
+  - name: encrypted
+    run_list:
+      - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2

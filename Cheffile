@@ -1,5 +1,4 @@
 site "http://community.opscode.com/api/v1"
 
-cookbook "windows", "1.11.0"
 cookbook "sensu", path: "."
 cookbook "sensu-test", path: "test/cookbooks/sensu-test"
