@@ -40,9 +40,18 @@ windows_package "Sensu" do
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
+sensu_client_service_installed = false
+::Win32::Service.services.each do |service|
+  if service.service_name == "sensu-client"
+    sensu_client_service_installed = true
+  end
+end
+
 execute "sensu-client.exe install" do
   cwd 'C:\opt\sensu\bin'
-  action :nothing
+  unless sensu_client_service_installed
+    action :nothing
+  end
 end
 
 template 'C:\opt\sensu\bin\sensu-client.xml' do
