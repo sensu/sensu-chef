@@ -1,22 +1,15 @@
 def load_current_resource
+  @uri = URI.parse(new_resource.name)
   definition_directory = ::File.join(node.sensu.directory, "plugins")
+  filename = new_resource.filename  ? new_resource.filename : ::File.basename(@uri.path)
   @definition_path = ::File.join(definition_directory, filename)
 end
 
-def filename
-  if new_resource.filename
-    new_resource.filename
-  elsif new_resource.name.include? "::"
-    new_resource.name.split("::").last
-  else
-    ::File.basename(URI.parse(new_resource.name).path)
-  end
-end
-
 action :create do
-  if new_resource.name.include? "::"
-    cookbook, file = new_resource.name.split("::")
-    path = @definition_path
+  if @uri.scheme.nil?
+    cookbook = ::File.dirname(@uri.path)
+    file     = ::File.basename(@uri.path)
+    path     = @definition_path
     f = cookbook_file file do
       cookbook cookbook
       path path

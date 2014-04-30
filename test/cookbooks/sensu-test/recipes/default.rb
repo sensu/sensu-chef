@@ -34,7 +34,7 @@ end
 
 sensu_plugin "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/http/check-http.rb"
 
-sensu_plugin "sensu-test::example_plugin.rb"
+sensu_plugin "sensu-test/example_plugin.rb"
 
 include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
