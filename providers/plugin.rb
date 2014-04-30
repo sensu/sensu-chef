@@ -7,7 +7,7 @@ end
 
 action :create do
   if @uri.scheme.nil?
-    cookbook = ::File.dirname(@uri.path)
+    cookbook = ::File.dirname(@uri.path) == "." ? new_resource.cookbook_name.to_s : ::File.dirname(@uri.path)
     file     = ::File.basename(@uri.path)
     path     = @definition_path
     f = cookbook_file file do
