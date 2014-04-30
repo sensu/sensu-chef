@@ -1,7 +1,7 @@
 def load_current_resource
   @uri = URI.parse(new_resource.name)
   definition_directory = ::File.join(node.sensu.directory, "plugins")
-  filename = new_resource.filename  ? new_resource.filename : ::File.basename(@uri.path)
+  filename = new_resource.filename || ::File.basename(@uri.path)
   @definition_path = ::File.join(definition_directory, filename)
 end
 
