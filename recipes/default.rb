@@ -37,11 +37,18 @@ directory node.sensu.log_directory do
   mode 0750
 end
 
-directory File.join(node.sensu.directory, "conf.d") do
-  owner node.sensu.admin_user
-  group "sensu"
-  recursive true
-  mode 0750
+%w[
+  conf.d
+  plugins
+  handlers
+  extensions
+].each do |dir|
+  directory File.join(node.sensu.directory, dir) do
+    owner node.sensu.admin_user
+    group "sensu"
+    recursive true
+    mode 0750
+  end
 end
 
 if node.sensu.use_ssl

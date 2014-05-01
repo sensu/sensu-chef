@@ -7,5 +7,13 @@
   <name><%= @name %></name>
   <description>This service runs a <%= @name %></description>
   <executable>C:\opt\sensu\embedded\bin\ruby</executable>
-  <arguments>C:\opt\sensu\embedded\bin\<%= @service %> -c <%= node.sensu.directory %>\config.json -d <%= node.sensu.directory %>\conf.d -l <%= node.sensu.log_directory %>\<%= @service %>.log</arguments>
+  <argument>C:\opt\sensu\embedded\bin\<%= @service %></argument>
+  <argument>-c</argument>
+  <argument><%= node.sensu.directory %>\config.json</argument>
+  <argument>-d</argument>
+  <argument><%= node.sensu.directory %>\conf.d</argument>
+  <argument>-e</argument>
+  <argument><%= node.sensu.directory %>\extensions</argument>
+  <argument>-l</argument>
+  <argument><%= node.sensu.log_directory %>\<%= @service %>.log</argument>
 </service>
