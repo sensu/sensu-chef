@@ -34,18 +34,18 @@ end
 
 sensu_plugin "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/http/check-http.rb"
 
-sensu_plugin "sensu-test/example_plugin.rb"
+sensu_plugin "example_plugin.rb"
 
-sensu_plugin "example_plugin.rb" do
-  filename "another_example.rb"
+sensu_plugin "another_example.rb" do
+  source "example_plugin.rb"
 end
 
 sensu_plugin "nested_plugin.rb" do
-  cookbook_directory "plugins"
+  source_directory "plugins"
 end
 
 sensu_plugin "another_nested_plugin.rb" do
-  cookbook_directory "plugins/test"
+  source_directory "plugins/test"
 end
 
 include_recipe "sensu::rabbitmq"

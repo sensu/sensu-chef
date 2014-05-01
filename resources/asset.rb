@@ -1,5 +1,6 @@
 actions :create, :create_if_missing, :delete
 
+attribute :asset_directory,    :kind_of => String
 attribute :cookbook,           :kind_of => String
 attribute :source,             :kind_of => String, :name_attribute => true
 attribute :source_directory,   :kind_of => String
