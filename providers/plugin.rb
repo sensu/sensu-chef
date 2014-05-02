@@ -7,15 +7,15 @@ def manage_sensu_asset(resource_action)
   attributes = Sensu::Helpers.select_attributes(
     new_resource,
     %w[
-      name cookbook source source_directory
-      checksum path mode owner group rights
+      cookbook source source_directory checksum
+      path mode owner group rights
     ]
   )
 
   a = sensu_asset new_resource.name do
     asset_directory @asset_directory
     attributes.each do |key, value|
-      send(key.to_sym, value) if respond_to?(key.to_sym)
+      send(key.to_sym, value)
     end
     action resource_action
   end
