@@ -1,8 +1,3 @@
-def load_current_resource
-  @asset_directory = new_resource.asset_directory ||
-    ::File.join(node.sensu.directory, "plugins")
-end
-
 def manage_sensu_asset(resource_action)
   attributes = Sensu::Helpers.select_attributes(
     new_resource,
@@ -13,7 +8,7 @@ def manage_sensu_asset(resource_action)
   )
 
   a = sensu_asset new_resource.name do
-    asset_directory @asset_directory
+    asset_directory new_resource.asset_directory || ::File.join(node.sensu.directory, "plugins")
     attributes.each do |key, value|
       send(key.to_sym, value)
     end

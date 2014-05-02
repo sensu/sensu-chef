@@ -32,22 +32,6 @@ sensu_check "test" do
   subscribers ["all"]
 end
 
-sensu_plugin "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/http/check-http.rb"
-
-sensu_plugin "example_plugin.rb"
-
-sensu_plugin "another_example.rb" do
-  source "example_plugin.rb"
-end
-
-sensu_plugin "nested_plugin.rb" do
-  source_directory "plugins"
-end
-
-sensu_plugin "another_nested_plugin.rb" do
-  source_directory "plugins/test"
-end
-
 include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
 include_recipe "sensu::server_service"
