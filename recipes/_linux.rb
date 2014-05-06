@@ -81,6 +81,7 @@ if node.sensu.use_embedded_ruby
     'RUBYLIB' => nil,
     'RUBYOPT' => nil,
     'GEM_HOME' => nil,
+    'GEM_PATH' => nil,
     'BUNDLE_BIN_PATH' => nil,
     'BUNDLE_GEMFILE' => nil,
   }
