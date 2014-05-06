@@ -3,5 +3,7 @@ LOG_DIR=<%= node.sensu.log_directory %>
 LOG_LEVEL=<%= node.sensu.log_level %>
 SERVICE_MAX_WAIT=<%= node.sensu.service_max_wait %>
 
-# Avoid issues when chef-solo is run with rbenv for instance:
-unset RUBYLIB RUBYOPT GEM_HOME BUNDLE_BIN_PATH BUNDLE_GEMFILE
+unset <%= @unset_env.join ' ' %>
+<% @export_env.each do |env, value| %>
+export <%= env %>=<%= value %>
+<% end %>

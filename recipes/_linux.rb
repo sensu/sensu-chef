@@ -76,7 +76,22 @@ package "sensu" do
   notifies :create, "ruby_block[sensu_service_trigger]"
 end
 
+if node.sensu.use_embedded_ruby
+  init_env_settings = node.sensu.init_env_settings || {
+    'RUBYLIB' => nil,
+    'RUBYOPT' => nil,
+    'GEM_HOME' => nil,
+    'BUNDLE_BIN_PATH' => nil,
+    'BUNDLE_GEMFILE' => nil,
+  }
+else
+  init_env_settings = node.sensu.init_env_settings || {}
+end
 template "/etc/default/sensu" do
   source "sensu.default.erb"
+  variables(
+    :export_env => init_env_settings.reject{|k, v| v.nil? },
+    :unset_env => init_env_settings.select{|k, v| v.nil? }.keys,
+  )
   notifies :create, "ruby_block[sensu_service_trigger]"
 end
