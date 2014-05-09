@@ -91,7 +91,7 @@ end
 template "/etc/default/sensu" do
   source "sensu.default.erb"
   variables(
-    :export_env => init_env_settings.reject{|k, v| v.nil? },
+    :set_env => init_env_settings.reject{|k, v| v.nil? },
     :unset_env => init_env_settings.select{|k, v| v.nil? }.keys,
   )
   notifies :create, "ruby_block[sensu_service_trigger]"

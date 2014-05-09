@@ -4,6 +4,6 @@ LOG_LEVEL=<%= node.sensu.log_level %>
 SERVICE_MAX_WAIT=<%= node.sensu.service_max_wait %>
 
 unset <%= @unset_env.join ' ' %>
-<% @export_env.each do |env, value| %>
-export <%= env %>=<%= value %>
+<% @set_env.each do |env, value| %>
+<%= env %>=<%= value %>
 <% end %>
