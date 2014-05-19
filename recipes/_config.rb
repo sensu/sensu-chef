@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: rabbitmq
+# Recipe:: _config
 #
 # Copyright 2012, Sonian Inc.
 #
@@ -17,6 +17,4 @@
 # limitations under the License.
 #
 
-include_recipe 'sensu::_rabbitmq_includes'
-include_recipe 'sensu::_rabbitmq_ssl'
-include_recipe 'sensu::_rabbitmq_base'
+sensu_base_config node.name
