@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: rabbitmq
+# Recipe:: _rabbitmq_ssl
 #
 # Copyright 2012, Sonian Inc.
 #
@@ -17,6 +17,31 @@
 # limitations under the License.
 #
 
-include_recipe 'sensu::_rabbitmq_includes'
-include_recipe 'sensu::_rabbitmq_ssl'
-include_recipe 'sensu::_rabbitmq_base'
+if node.sensu.use_ssl
+  node.override.rabbitmq.ssl = true
+  node.override.rabbitmq.ssl_port = node.sensu.rabbitmq.port
+
+  ssl_directory = "/etc/rabbitmq/ssl"
+
+  directory ssl_directory do
+    recursive true
+  end
+
+  ssl = Sensu::Helpers.data_bag_item("ssl")
+
+  %w[
+    cacert
+    cert
+    key
+  ].each do |item|
+    path = File.join(ssl_directory, "#{item}.pem")
+    file path do
+      content ssl["server"][item]
+      group "rabbitmq"
+      mode 0640
+    end
+    node.override.rabbitmq["ssl_#{item}"] = path
+  end
+
+end
+
