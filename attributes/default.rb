@@ -3,7 +3,8 @@ if platform_family?("windows")
   default.sensu.admin_user = "Administrator"
   default.sensu.directory = 'C:\etc\sensu'
   default.sensu.log_directory = 'C:\var\log\sensu'
-  default.sensu.windows = Mash.new
+  default.sensu.windows.dism_source = nil
+  default.sensu.windows.package_options = nil
 else
   default.sensu.admin_user = "root"
   default.sensu.directory = "/etc/sensu"
