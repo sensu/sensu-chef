@@ -34,12 +34,12 @@ end
 
 if win_version.windows_server_2012? || win_version.windows_server_2012_r2?
   windows_feature "NetFx3ServerFeatures" do
-    source node.sensu.dism_source
+    source node.sensu.windows.dism_source
   end
 end
 
 windows_feature "NetFx3" do
-  source node.sensu.dism_source
+  source node.sensu.windows.dism_source
 end
 
 windows_package "Sensu" do
