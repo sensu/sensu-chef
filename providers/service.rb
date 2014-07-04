@@ -47,7 +47,7 @@ def load_current_resource
       provider service_provider
       supports :status => true, :restart => true
       retries 3
-      retry_delay 3
+      retry_delay 5
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
@@ -59,7 +59,7 @@ def load_current_resource
       restart_command "#{sensu_ctl} #{new_resource.service} restart"
       supports :restart => true, :status => true
       retries 3
-      retry_delay 3
+      retry_delay 5
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
