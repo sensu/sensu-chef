@@ -25,8 +25,3 @@ describe service("sensu-api") do
   it { should be_enabled }
   it { should be_running }
 end
-
-describe service("sensu-dashboard") do
-  it { should be_enabled }
-  it { should be_running }
-end

@@ -100,10 +100,6 @@ Enables and starts the Sensu client.
 
 Enables and starts the Sensu API.
 
-### sensu::dashboard_service
-
-Enables and starts the Sensu dashboard.
-
 ## ATTRIBUTES
 
 ### Installation
@@ -157,16 +153,6 @@ for Sensu to start/stop.
 `node.sensu.api.bind` - Sensu API bind address.
 
 `node.sensu.api.port` - Sensu API port.
-
-### Sensu Dashboard
-
-`node.sensu.dashboard.bind` - Sensu Dashboard bind address.
-
-`node.sensu.dashboard.port` - Sensu Dashboard port.
-
-`node.sensu.dashboard.user` - Sensu basic authentication username.
-
-`node.sensu.dashboard.password` - Sensu basic authentication password.
 
 ## LWRP'S
 

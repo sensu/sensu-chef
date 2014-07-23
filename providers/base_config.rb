@@ -1,7 +1,7 @@
 action :create do
   definitions = Sensu::Helpers.select_attributes(
     node.sensu,
-    %w[rabbitmq redis api dashboard]
+    %w[rabbitmq redis api]
   )
 
   config = Sensu::Helpers.data_bag_item("config", true)

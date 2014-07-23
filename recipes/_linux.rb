@@ -19,7 +19,10 @@
 
 package_options = ""
 
-case node.platform_family
+platform_family = node.platform_family
+platform_version = node.platform_version.to_i
+
+case platform_family
 when "debian"
   package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
 
@@ -37,28 +40,19 @@ when "debian"
     pin "version #{node.sensu.version}"
     pin_priority "700"
   end
-when "rhel"
-  include_recipe "yum"
-
-  rhel_version_equivalent = platform?("amazon") ? 6 : node.platform_version.to_i
-
-  repo = yum_repository "sensu" do
-    description "sensu monitoring"
-    repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
-    url "#{node.sensu.yum_repo_url}/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
-    action :add
-  end
-  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
-when "fedora"
-  include_recipe "yum"
-
-  platform_version = node.platform_version.to_i
-  rhel_version_equivalent = case platform_version
-  when 6..11  then 5
-  when 12..18 then 6
-  # TODO: 18+ will map to rhel7 but we don't have sensu builds for that yet
+else
+  rhel_version_equivalent = case platform_family
+  when "rhel"
+    platform?("amazon") ? 6 : platform_version
+  when "fedora"
+    case platform_version
+    when 6..11 then 5
+    when 12..18 then 6
+    else
+      raise "Cannot map fedora version #{platform_version} to a RHEL version. aborting"
+    end
   else
-    raise "I don't know how to map fedora version #{platform_version} to a RHEL version. aborting"
+    raise "Unsupported Linux platform family #{platform_family}"
   end
 
   repo = yum_repository "sensu" do

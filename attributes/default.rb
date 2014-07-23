@@ -39,9 +39,3 @@ default.sensu.redis.port = 6379
 default.sensu.api.host = "localhost"
 default.sensu.api.bind = "0.0.0.0"
 default.sensu.api.port = 4567
-
-# dashboard
-default.sensu.dashboard.bind = "0.0.0.0"
-default.sensu.dashboard.port = 8080
-default.sensu.dashboard.user = "admin"
-default.sensu.dashboard.password = "secret"
