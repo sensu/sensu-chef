@@ -22,7 +22,3 @@ end
 describe file("/opt/sensu/sv/sensu-api/supervise/pid") do
   its(:content) { should match /^[0-9]+$/ }
 end
-
-describe file("/opt/sensu/sv/sensu-dashboard/supervise/pid") do
-  its(:content) { should match /^[0-9]+$/ }
-end
