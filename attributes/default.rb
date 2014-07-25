@@ -12,7 +12,7 @@ else
 end
 
 # installation
-default.sensu.version = "0.12.6-4"
+default.sensu.version = "0.13.0-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
