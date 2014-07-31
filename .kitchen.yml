@@ -26,7 +26,12 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[sensu::redis]
+      - recipe[sensu::rabbitmq]
       - recipe[sensu::default]
+    driver_config:
+      network:
+        - ['forwarded_port', {guest: 8080, host: 8080}]
   - name: sysv
     run_list:
       - recipe[sensu-test]
