@@ -1,7 +1,7 @@
 site 'http://community.opscode.com/api/v1'
 
 cookbook "apt", "2.1.1"
-cookbook "yum", "2.3.0"
+cookbook "yum", "3.0.0"
 cookbook "rabbitmq", "2.3.0"
 
 cookbook "redis",
