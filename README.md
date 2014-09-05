@@ -117,6 +117,12 @@ Enables and starts the Sensu API.
 
 `node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
 
+`node.sensu.user` - The user who owns all sensu files and directories. Default
+"sensu".
+
+`node.sensu.group` - The group that owns all sensu files and directories.
+Default "sensu".
+
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
 use the embedded Ruby in the Sensu package.
 
