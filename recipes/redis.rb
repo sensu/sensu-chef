@@ -19,5 +19,5 @@
 
 node.override.redisio.servers = [{:port => node.sensu.redis.port}]
 
-include_recipe "redisio::install"
+include_recipe "redisio"
 include_recipe "redisio::enable"
