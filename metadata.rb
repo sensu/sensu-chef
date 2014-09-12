@@ -19,7 +19,7 @@ depends "windows", ">= 1.8.8"
 depends "rabbitmq", ">= 2.0.0"
 
 # available @ http://community.opscode.com/cookbooks/redisio
-depends "redisio", ">= 1.7.0"
+depends "redisio", ">= 2.2.3"
 
 %w[
   ubuntu
