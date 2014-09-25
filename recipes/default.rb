@@ -34,7 +34,7 @@ directory node.sensu.log_directory do
   owner "sensu"
   group "sensu"
   recursive true
-  mode 0750
+  mode 0755
 end
 
 %w[
@@ -47,7 +47,7 @@ end
     owner node.sensu.admin_user
     group "sensu"
     recursive true
-    mode 0750
+    mode 0755
   end
 end
 
@@ -59,7 +59,7 @@ if node.sensu.use_ssl
   directory File.join(node.sensu.directory, "ssl") do
     owner node.sensu.admin_user
     group "sensu"
-    mode 0750
+    mode 0755
   end
 
   ssl = Sensu::Helpers.data_bag_item("ssl")
