@@ -57,8 +57,8 @@ Use the plain-text data bag item:
 knife data bag from file sensu ssl.json
 ```
 
-Or, encrypted it with your data bag secret. See [Encrypt a Data
-Bag](http://docs.opscode.com/essentials_data_bags_encrypt.html) for
+Or, encrypt it with your data bag secret. See [Encrypt a Data
+Bag](https://docs.getchef.com/essentials_data_bags.html#encrypt-a-data-bag-item) for
 more information.
 
 ```
