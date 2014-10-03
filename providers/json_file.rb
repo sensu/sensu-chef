@@ -8,7 +8,7 @@ action :create do
       recursive true
       owner @owner
       group new_resource.group
-      mode 0750
+      mode 0755
     end
 
     f = file new_resource.path do
