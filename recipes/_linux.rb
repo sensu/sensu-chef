@@ -67,6 +67,7 @@ end
 package "sensu" do
   version node.sensu.version
   options package_options
+  allow_downgrade trues
   notifies :create, "ruby_block[sensu_service_trigger]"
 end
 
