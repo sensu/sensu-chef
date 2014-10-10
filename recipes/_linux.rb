@@ -63,12 +63,19 @@ else
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 end
-
-package "sensu" do
-  version node.sensu.version
-  options package_options
-  allow_downgrade true
-  notifies :create, "ruby_block[sensu_service_trigger]"
+if platform_family == 'debian'
+  package "sensu" do
+    version node.sensu.version
+    options package_options
+    notifies :create, "ruby_block[sensu_service_trigger]"
+  end
+else
+  yum_package "sensu" do
+    version node.sensu.version
+    options package_options
+    allow_downgrade true
+    notifies :create, "ruby_block[sensu_service_trigger]"
+  end
 end
 
 template "/etc/default/sensu" do
