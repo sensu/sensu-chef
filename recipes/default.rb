@@ -34,7 +34,7 @@ directory node.sensu.log_directory do
   owner "sensu"
   group "sensu"
   recursive true
-  mode 0750
+  mode node.sensu.log_directory_mode
 end
 
 %w[
