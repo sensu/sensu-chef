@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: rabbitmq
+# Recipe:: _base
 #
 # Copyright 2012, Sonian Inc.
 #
@@ -17,6 +17,36 @@
 # limitations under the License.
 #
 
-include_recipe 'sensu::_rabbitmq_includes'
-include_recipe 'sensu::_rabbitmq_ssl'
-include_recipe 'sensu::_rabbitmq_base'
+ruby_block "sensu_service_trigger" do
+  block do
+    # Sensu service action trigger for LWRP's
+  end
+  action :nothing
+end
+
+if platform_family?("windows")
+  include_recipe "sensu::_windows"
+else
+  include_recipe "sensu::_linux"
+end
+
+directory node.sensu.log_directory do
+  owner "sensu"
+  group "sensu"
+  recursive true
+  mode 0750
+end
+
+%w[
+  conf.d
+  plugins
+  handlers
+  extensions
+].each do |dir|
+  directory File.join(node.sensu.directory, dir) do
+    owner node.sensu.admin_user
+    group "sensu"
+    recursive true
+    mode 0750
+  end
+end
