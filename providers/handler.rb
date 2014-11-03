@@ -8,7 +8,7 @@ action :create do
     new_resource,
     %w[
       type filters mutator severities handlers
-      command timeout socket exchange
+      command timeout socket pipe
     ]
   ).merge(new_resource.additional)
 
