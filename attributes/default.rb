@@ -19,6 +19,7 @@ default.sensu.use_ssl = true
 default.sensu.use_embedded_ruby = false
 default.sensu.init_style = "sysv"
 default.sensu.service_max_wait = 10
+default.sensu.ignore_start_failure = false
 
 default.sensu.apt_repo_url = "http://repos.sensuapp.org/apt"
 default.sensu.yum_repo_url = "http://repos.sensuapp.org"
