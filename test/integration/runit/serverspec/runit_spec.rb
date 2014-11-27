@@ -2,12 +2,11 @@ require "serverspec"
 require "net/http"
 require "uri"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
+set :backend, :exec
 
 RSpec.configure do |c|
   c.before :all do
-    c.path = "/sbin:/usr/sbin"
+    c.path = "/bin:/sbin:/usr/sbin:/usr/bin"
   end
 end
 

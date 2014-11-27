@@ -2,12 +2,11 @@ require "serverspec"
 require "net/http"
 require "uri"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
+set :backend, :exec
 
 RSpec.configure do |c|
   c.before :all do
-    c.path = "/sbin:/usr/sbin"
+    c.path = "/bin:/sbin:/usr/sbin:/usr/bin"
   end
 end
 
@@ -20,13 +19,13 @@ describe file(pid_file) do
 end
 
 describe command("cp #{pid_file} /tmp/_pid_file") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe command("/opt/sensu/bin/sensu-ctl #{service} restart") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe command("diff #{pid_file} /tmp/_pid_file") do
-  it { should return_exit_status 1 }
+  its(:exit_status) { should eq 1 }
 end
