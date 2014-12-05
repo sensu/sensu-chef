@@ -43,7 +43,11 @@ when "debian"
 else
   rhel_version_equivalent = case platform_family
   when "rhel"
-    platform?("amazon") ? 6 : platform_version
+    if platform?("amazon") || platform_version >= 7 
+      6
+    else
+      platform_version
+    end
   when "fedora"
     case platform_version
     when 6..11 then 5
