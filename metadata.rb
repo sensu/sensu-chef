@@ -13,13 +13,13 @@ depends "apt"
 depends "yum"
 
 # available @ http://community.opscode.com/cookbooks/windows
-depends "windows", ">= 1.8.8"
+depends "windows", "~> 1.8"
 
 # available @ http://community.opscode.com/cookbooks/rabbitmq
-depends "rabbitmq", ">= 2.0.0"
+depends "rabbitmq", "~> 2.0"
 
 # available @ http://community.opscode.com/cookbooks/redisio
-depends "redisio", ">= 1.7.0"
+depends "redisio", "~> 1.7"
 
 %w[
   ubuntu
