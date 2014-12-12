@@ -2,7 +2,7 @@
 # Cookbook Name:: sensu
 # Recipe:: default
 #
-# Copyright 2012, Sonian Inc.
+# Copyright 2014, Sonian Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@
 
 ruby_block "sensu_service_trigger" do
   block do
-    # Sensu service action trigger for LWRP's
+    # Sensu service action trigger for LWRPs.
+    # This resource must be defined before the Sensu LWRPs can be used.
   end
   action :nothing
 end
