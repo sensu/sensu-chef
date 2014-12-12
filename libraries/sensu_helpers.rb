@@ -12,6 +12,9 @@ module Sensu
       def sanitize(raw_hash)
         sanitized = Hash.new
         raw_hash.each do |key, value|
+          # Expand Chef::DelayedEvaluator (lazy)
+          value = value.call if value.respond_to?(:call)
+
           case value
           when Hash
             sanitized[key] = sanitize(value) unless value.empty?
