@@ -9,6 +9,7 @@ else
   default.sensu.admin_user = "root"
   default.sensu.directory = "/etc/sensu"
   default.sensu.log_directory = "/var/log/sensu"
+  default.sensu.log_directory_mode = "0750"
 end
 
 # installation
