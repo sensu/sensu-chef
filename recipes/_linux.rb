@@ -2,7 +2,7 @@
 # Cookbook Name:: sensu
 # Recipe:: _linux
 #
-# Copyright 2012, Sonian Inc.
+# Copyright 2014, Sonian Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ when "debian"
 else
   rhel_version_equivalent = case platform_family
   when "rhel"
-    if platform?("amazon") || platform_version >= 7 
+    if platform?("amazon") || platform_version >= 7
       6
     else
       platform_version
@@ -67,7 +67,9 @@ else
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 end
-if platform_family == 'debian'
+
+case platform_family
+when "debian"
   package "sensu" do
     version node.sensu.version
     options package_options
