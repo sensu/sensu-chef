@@ -23,7 +23,7 @@ platform_version = node.platform_version.to_i
 enterprise = Sensu::Helpers.data_bag_item("enterprise")
 credentials = enterprise["repository"]["credentials"]
 
-repository_url = "http://#{credentials["user"]}:#{credentials["password"]}@enterprise.sensuapp.com"
+repository_url = "http://#{credentials['user']}:#{credentials['password']}@enterprise.sensuapp.com"
 
 case platform_family
 when "debian"
