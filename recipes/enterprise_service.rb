@@ -19,6 +19,7 @@
 
 service "sensu-enterprise" do
   subscribes :restart, resources("package[sensu-enterprise]"), :immediately
+  subscribes :restart, resources("template[/etc/default/sensu-enterprise]"), :delayed
   subscribes :reload, resources("ruby_block[sensu_service_trigger]"), :delayed
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => true
   action [:enable, :start]

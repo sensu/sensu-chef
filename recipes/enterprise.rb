@@ -56,3 +56,7 @@ end
 package "sensu-enterprise" do
   version node.sensu.enterprise.version
 end
+
+template "/etc/default/sensu-enterprise" do
+  source "sensu-enterprise.default.erb"
+end
