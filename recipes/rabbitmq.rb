@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+group "rabbitmq"
+
 if node.sensu.use_ssl
   node.override.rabbitmq.ssl = true
   node.override.rabbitmq.ssl_port = node.sensu.rabbitmq.port
