@@ -17,8 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "rabbitmq"
-include_recipe "rabbitmq::mgmt_console"
+group "rabbitmq"
 
 if node.sensu.use_ssl
   node.override.rabbitmq.ssl = true
@@ -46,6 +45,9 @@ if node.sensu.use_ssl
     node.override.rabbitmq["ssl_#{item}"] = path
   end
 end
+
+include_recipe "rabbitmq"
+include_recipe "rabbitmq::mgmt_console"
 
 service "restart #{node.rabbitmq.service_name}" do
   service_name node.rabbitmq.service_name
