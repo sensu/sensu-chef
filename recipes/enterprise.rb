@@ -37,17 +37,10 @@ when "debian"
     action :add
   end
 else
-  rhel_version_equivalent = case platform_family
-  when "rhel"
-    platform?("amazon") ? 6 : platform_version
-  else
-    raise "Unsupported Linux platform family #{platform_family}"
-  end
-
   repo = yum_repository "sensu-enterprise" do
     description "sensu enterprise"
     repo = node.sensu.enterprise.use_unstable_repo ? "yum-unstable" : "yum"
-    url File.join(repository_url, repo, "el", rhel_version_equivalent, "$basearch")
+    url "#{repository_url}/#{repo}/noarch/"
     action :add
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
