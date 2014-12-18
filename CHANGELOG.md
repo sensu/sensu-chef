@@ -1,3 +1,27 @@
+## 2.3.0 - 2014-12-18
+
+### Fixes
+
+Reordered RabbitMQ attribute overrides and recipe includes.
+
+Fixed Windows sensu-client service install resource gate.
+
+### Features
+
+Sensu Enterprise recipes, install and service.
+
+Sanitize helper works with delayed eval values.
+
+YUM allow downgrade for the Sensu package.
+
+Sensu user & group attributes.
+
+### Other
+
+Bumped the default version of Sensu to 0.16.0-1.
+
+ChefSpec matchers.
+
 ## 2.2.0 - 2014-10-23
 
 ### Features

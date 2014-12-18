@@ -19,11 +19,9 @@
 
 include_recipe "logrotate"
 
-include_recipe "sensu::default"
-
+include_recipe "sensu::enterprise"
 include_recipe "sensu::rabbitmq"
 include_recipe "sensu::redis"
-include_recipe "sensu::enterprise"
 include_recipe "sensu::enterprise_service"
 
 # ServerSpec dependencies

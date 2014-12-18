@@ -88,6 +88,10 @@ community RabbitMQ cookbook LWRP's.
 Installs and configures Redis for Sensu. This recipe uses the
 RedisIO cookbook and installs Redis from source.
 
+### sensu::enterprise
+
+Installs and configures Sensu Enterprise.
+
 ### sensu::server_service
 
 Enables and starts the Sensu server.
@@ -99,6 +103,10 @@ Enables and starts the Sensu client.
 ### sensu::api_service
 
 Enables and starts the Sensu API.
+
+### sensu::enterprise_service
+
+Enables and starts Sensu Enterprise.
 
 ## ATTRIBUTES
 
