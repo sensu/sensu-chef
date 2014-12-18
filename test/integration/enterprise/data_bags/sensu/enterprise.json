@@ -1,0 +1,9 @@
+{
+  "id": "enterprise",
+  "repository": {
+    "credentials": {
+      "user": "YOUR_USER",
+      "password": "YOUR_PASSWORD"
+    }
+  }
+}

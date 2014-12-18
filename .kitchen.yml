@@ -47,3 +47,8 @@ suites:
   - name: asset
     run_list:
       - recipe[sensu-test::asset]
+  - name: enterprise
+    run_list:
+      - recipe[sensu-test::enterprise]
+    excludes:
+      - windows-2012-r2
