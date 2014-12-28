@@ -44,6 +44,7 @@ def load_current_resource
       Chef::Provider::Service::Init::Redhat
     end
     service new_resource.service do
+      ignore_failure node.sensu.ignore_start_failure
       provider service_provider
       supports :status => true, :restart => true
       retries 3
@@ -53,6 +54,7 @@ def load_current_resource
     end
   when "runit"
     service new_resource.service do
+      ignore_failure node.sensu.ignore_start_failure
       start_command "#{sensu_ctl} #{new_resource.service} start"
       stop_command "#{sensu_ctl} #{new_resource.service} stop"
       status_command "#{sensu_ctl} #{new_resource.service} status"

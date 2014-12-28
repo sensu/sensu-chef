@@ -2,12 +2,11 @@ require "serverspec"
 require "net/http"
 require "uri"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
+set :backend, :exec
 
 RSpec.configure do |c|
   c.before :all do
-    c.path = "/sbin:/usr/sbin"
+    c.path = "/bin:/sbin:/usr/sbin:/usr/bin"
   end
 end
 
@@ -17,7 +16,7 @@ describe file("/opt/sensu/embedded/bin/ruby") do
 end
 
 describe command("ps aux | grep rabbitmq-server | grep -v grep") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe port(5671) do
@@ -25,7 +24,7 @@ describe port(5671) do
 end
 
 describe command("ps aux | grep redis-server | grep -v grep") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe port(6379) do
