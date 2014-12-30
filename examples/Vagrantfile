@@ -1,12 +1,3 @@
-$install_chef = <<SCRIPT
-if ! [ -d "/opt/chef" ];
-then
-    apt-get update
-    apt-get install -y curl
-    curl -L https://www.opscode.com/chef/install.sh | bash
-fi
-SCRIPT
-
 Vagrant.configure("2") do |config|
   config.vm.box = "opscode-ubuntu-13.04"
   config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-13.04_provisionerless.box"
@@ -20,8 +11,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.network :forwarded_port, guest: 8080, host: 8080
-
-  config.vm.provision :shell, :inline => $install_chef
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
