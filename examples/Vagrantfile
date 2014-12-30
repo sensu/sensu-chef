@@ -14,6 +14,9 @@ Vagrant.configure("2") do |config|
   # password: supersecret
   config.vm.network :forwarded_port, guest: 3000, host: 3000
 
+  # API port
+  config.vm.network :forwarded_port, guest: 4567, host: 4567
+
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
     chef.data_bags_path = "data_bags"
