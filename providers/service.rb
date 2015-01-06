@@ -27,6 +27,7 @@ def enable_sensu_runsvdir
   # Keep on trying till the job is found :(
   execute "wait_for_sensu_runsvdir_#{new_resource.service}" do
     command "#{sensu_ctl} configured?"
+    not_if "#{sensu_ctl} configured?"
     retries 30
   end
 end
