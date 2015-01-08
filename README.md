@@ -140,6 +140,11 @@ Sensu services, "sysv" and "runit" are currently supported.
 `node.sensu.service_max_wait` - How long service scripts should wait
 for Sensu to start/stop.
 
+`node.sensu.data_bag_items` - Allows override of the data bag processing
+performed by the sensu-chef cookbook. For example the content of the 
+"sensu" data bag item named "config" will be overridden by a Hash stored 
+under node.sensu.data_bag_items.config.
+
 ### RabbitMQ
 
 `node.sensu.rabbitmq.host` - RabbitMQ host.
