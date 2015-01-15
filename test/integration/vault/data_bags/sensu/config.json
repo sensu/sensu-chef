@@ -1,0 +1,6 @@
+{
+  "id": "config",
+  "rabbitmq": {
+    "password": "vaultpassword"
+  }
+}
