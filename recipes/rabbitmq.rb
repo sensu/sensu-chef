@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+include_recipe "chef-sugar"
+
 group "rabbitmq"
 
 if node.sensu.use_ssl
@@ -45,6 +47,10 @@ if node.sensu.use_ssl
     node.override.rabbitmq["ssl_#{item}"] = path
   end
 end
+
+# The packaged erlang in 12.04 (and below) is vulnerable to 
+# the poodly exploit which stops rabbitmq starting its SSL listener
+node.override.erlang.install_method = 'esl' if ubuntu_before_trusty?
 
 include_recipe "rabbitmq"
 include_recipe "rabbitmq::mgmt_console"
