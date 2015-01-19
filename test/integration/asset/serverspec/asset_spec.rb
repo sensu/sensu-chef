@@ -2,14 +2,8 @@ require "serverspec"
 require "net/http"
 require "uri"
 
-include Serverspec::Helper::Exec
-include Serverspec::Helper::DetectOS
-
-RSpec.configure do |c|
-  c.before :all do
-    c.path = "/sbin:/usr/sbin"
-  end
-end
+set :backend, :exec
+set :path, "/bin:/usr/bin:/sbin:/usr/sbin"
 
 %w[
   check-http.rb
