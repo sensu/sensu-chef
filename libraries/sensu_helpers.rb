@@ -39,12 +39,16 @@ module Sensu
         raw_hash = Chef::DataBagItem.load("sensu", item)
         encrypted = raw_hash.detect do |key, value|
           if value.is_a?(Hash)
-            value.has_key?("encrypted_data")
+            value.key?("encrypted_data")
           end
         end
         if encrypted
-          secret = Chef::EncryptedDataBagItem.load_secret
-          Chef::EncryptedDataBagItem.new(raw_hash, secret)
+          if Chef::DataBag.load("sensu").key?("#{item}_keys")
+            chef_vault_item("sensu", item)
+          else
+            secret = Chef::EncryptedDataBagItem.load_secret
+            Chef::EncryptedDataBagItem.new(raw_hash, secret)
+          end
         else
           raw_hash
         end

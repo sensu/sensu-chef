@@ -44,6 +44,13 @@ suites:
       - recipe[sensu-test]
     excludes:
       - windows-2012-r2
+  - name: vault
+    run_list:
+      - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2
+    attributes:
+      dev_mode: true
   - name: asset
     run_list:
       - recipe[sensu-test::asset]
