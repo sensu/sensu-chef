@@ -24,6 +24,9 @@ depends "redisio", ">= 1.7.0"
 # available @ https://supermarket.chef.io/cookbooks/chef-sugar
 depends "chef-sugar"
 
+# available @ https://supermarket.chef.io/cookbooks/chef-vault
+suggests "chef-vault", "~> 1.1.5"
+
 %w[
   ubuntu
   debian
