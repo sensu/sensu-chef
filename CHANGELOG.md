@@ -1,3 +1,27 @@
+## 2.4.0 - 2015-01-23
+
+### Fixes
+
+Ensure RabbitMQ verifies peer certificates.
+
+Runit runsvdir is now managed idempotently.
+
+Use esl-erlang on Ubuntu 12.04 and previous releases to address the poodle
+exploit.
+
+Updated ServerSpec tests to work with v2.
+
+### Features
+
+Chef-Vault support for encrypted data bags.
+
+Sensu configuration directory mode attribute.
+
+Sensu service config data bag item support.
+
+RabbitMQ user ACL (permissions) support, allowing Sensu clients to use a
+separate RabbitMQ user with different permissions than Sensu servers etc.
+
 ## 2.3.0 - 2014-12-18
 
 ### Fixes
