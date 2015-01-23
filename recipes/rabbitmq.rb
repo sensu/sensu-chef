@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "chef-sugar"
-
 group "rabbitmq"
 
 if node.sensu.use_ssl
@@ -52,7 +50,9 @@ end
 
 # The packaged erlang in 12.04 (and below) is vulnerable to
 # the poodle exploit which stops rabbitmq starting its SSL listener
-node.override.erlang.install_method = "esl" if ubuntu_before_trusty?
+if node.platform == "ubuntu" && node.platform_version <= "12.04"
+  node.override.erlang.install_method = "esl"
+end
 
 include_recipe "rabbitmq"
 include_recipe "rabbitmq::mgmt_console"
@@ -66,7 +66,7 @@ end
 if node.sensu.use_acl
   # something nifty
 else
-  rabbitmq = Array(node.sensu.rabbitmq).first.to_hash
+  rabbitmq = [node.sensu.rabbitmq].flatten.first.to_hash
 
   config = Sensu::Helpers.data_bag_item("config", true)
 
