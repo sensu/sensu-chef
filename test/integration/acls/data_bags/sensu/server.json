@@ -1,0 +1,7 @@
+{
+  "id": "server",
+  "rabbitmq": {
+    "user": "sensu_server",
+    "permissions": ".* .* .*"
+  }
+}
