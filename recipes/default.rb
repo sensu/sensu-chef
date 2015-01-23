@@ -48,7 +48,7 @@ end
     owner node.sensu.admin_user
     group node.sensu.group
     recursive true
-    mode 0750
+    mode node.sensu.directory_mode
   end
 end
 

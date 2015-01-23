@@ -10,6 +10,7 @@ else
   default.sensu.user = "sensu"
   default.sensu.group = "sensu"
   default.sensu.directory = "/etc/sensu"
+  default.sensu.directory_mode = "0750"
   default.sensu.log_directory = "/var/log/sensu"
   default.sensu.log_directory_mode = "0750"
 end
