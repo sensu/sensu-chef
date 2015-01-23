@@ -24,6 +24,8 @@ group "rabbitmq"
 if node.sensu.use_ssl
   node.override.rabbitmq.ssl = true
   node.override.rabbitmq.ssl_port = node.sensu.rabbitmq.port
+  node.override.rabbitmq.ssl_verify = "verify_peer"
+  node.override.rabbitmq.ssl_fail_if_no_peer_cert = true
 
   ssl_directory = "/etc/rabbitmq/ssl"
 
@@ -48,9 +50,9 @@ if node.sensu.use_ssl
   end
 end
 
-# The packaged erlang in 12.04 (and below) is vulnerable to 
-# the poodly exploit which stops rabbitmq starting its SSL listener
-node.override.erlang.install_method = 'esl' if ubuntu_before_trusty?
+# The packaged erlang in 12.04 (and below) is vulnerable to
+# the poodle exploit which stops rabbitmq starting its SSL listener
+node.override.erlang.install_method = "esl" if ubuntu_before_trusty?
 
 include_recipe "rabbitmq"
 include_recipe "rabbitmq::mgmt_console"
@@ -61,25 +63,29 @@ service "restart #{node.rabbitmq.service_name}" do
   subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
 end
 
-rabbitmq = node.sensu.rabbitmq.to_hash
+if node.sensu.use_acl
+  # something nifty
+else
+  rabbitmq = Array(node.sensu.rabbitmq).first.to_hash
 
-config = Sensu::Helpers.data_bag_item("config", true)
+  config = Sensu::Helpers.data_bag_item("config", true)
 
-if config && config["rabbitmq"].is_a?(Hash)
-  rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, config["rabbitmq"])
-end
+  if config && config["rabbitmq"].is_a?(Hash)
+    rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, config["rabbitmq"])
+  end
 
-rabbitmq_vhost rabbitmq["vhost"] do
-  action :add
-end
+  rabbitmq_vhost rabbitmq["vhost"] do
+    action :add
+  end
 
-rabbitmq_user rabbitmq["user"] do
-  password rabbitmq["password"]
-  action :add
-end
+  rabbitmq_user rabbitmq["user"] do
+    password rabbitmq["password"]
+    action :add
+  end
 
-rabbitmq_user rabbitmq["user"] do
-  vhost rabbitmq["vhost"]
-  permissions ".* .* .*"
-  action :set_permissions
+  rabbitmq_user rabbitmq["user"] do
+    vhost rabbitmq["vhost"]
+    permissions ".* .* .*"
+    action :set_permissions
+  end
 end
