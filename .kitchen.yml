@@ -44,6 +44,15 @@ suites:
       - recipe[sensu-test]
     excludes:
       - windows-2012-r2
+  - name: acls
+    run_list:
+      - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2
+    attributes:
+      sensu:
+        rabbitmq:
+          permissions: "^foo-.* .* .*"
   - name: vault
     run_list:
       - recipe[sensu-test]

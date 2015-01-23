@@ -20,7 +20,6 @@ default.sensu.version = "0.16.0-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
-default.sensu.use_acl = false
 default.sensu.use_embedded_ruby = false
 default.sensu.init_style = "sysv"
 default.sensu.service_max_wait = 10

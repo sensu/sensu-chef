@@ -63,12 +63,15 @@ service "restart #{node.rabbitmq.service_name}" do
   subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
 end
 
-if node.sensu.use_acl
-  # something nifty
-else
-  rabbitmq = [node.sensu.rabbitmq].flatten.first.to_hash
+%w[
+  config
+  client
+  api
+  server
+].each do |data_bag_item_id|
+  rabbitmq = node.sensu.rabbitmq.to_hash
 
-  config = Sensu::Helpers.data_bag_item("config", true)
+  config = Sensu::Helpers.data_bag_item(data_bag_item_id, true)
 
   if config && config["rabbitmq"].is_a?(Hash)
     rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, config["rabbitmq"])
@@ -85,7 +88,7 @@ else
 
   rabbitmq_user rabbitmq["user"] do
     vhost rabbitmq["vhost"]
-    permissions ".* .* .*"
+    permissions rabbitmq.fetch("permissions", ".* .* .*")
     action :set_permissions
   end
 end
