@@ -1,4 +1,4 @@
-define :sensu_silence_client, :action => :create, :expire => -1, :payload => {} do
+define :sensu_silence_client, :action => :create, :expire => nil, :payload => {} do
   if params[:action] == :create or params[:action] == :silence
     sensu_api_stash "silence/#{params[:name]}" do
       api_uri params[:api_uri]

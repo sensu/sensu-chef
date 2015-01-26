@@ -1,4 +1,4 @@
-define :sensu_silence_check, :action => :create, :expire => -1, :payload => {} do
+define :sensu_silence_check, :action => :create, :expire => nil, :payload => {} do
 
   if params[:client].nil?
     params[:client] = node.name
