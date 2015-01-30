@@ -20,7 +20,7 @@
 Chef::Recipe.send(:include, Windows::Helper)
 
 user "sensu" do
-  password Sensu::Helpers.random_password
+  password Sensu::Helpers.random_password(20, true, true, true, true)
   not_if {
     user = Chef::Util::Windows::NetUser.new("sensu")
     !!user.get_info rescue false
