@@ -52,7 +52,7 @@ suites:
     attributes:
       sensu:
         rabbitmq:
-          permissions: "^foo-.* .* .*"
+          user: sensu_client
   - name: vault
     run_list:
       - recipe[sensu-test]
