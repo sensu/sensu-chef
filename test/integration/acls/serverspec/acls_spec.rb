@@ -26,6 +26,6 @@ describe file("/etc/sensu/config.json") do
 end
 
 describe command("rabbitmqctl list_permissions -p /sensu") do
-  its(:stdout) { should match /sensu\s+\^foo-\.\*\s+\.\*\s+\.\*/ }
+  its(:stdout) { should match /sensu_client\s+\^foo-\.\*\s+\.\*\s+\.\*/ }
   its(:stdout) { should match /sensu_server\s+\.\*\s+\.\*\s+\.\*/ }
 end
