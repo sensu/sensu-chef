@@ -12,8 +12,7 @@ if defined?(ChefSpec)
   end
 
   def create_if_missing_sensu_asset(name)
-    ChefSpec::Matchers::ResourceMatcher
-      .new(:sensu_asset, :create_if_missing, name)
+    ChefSpec::Matchers::ResourceMatcher.new(:sensu_asset, :create_if_missing, name)
   end
 
   def delete_sensu_asset(name)
@@ -81,8 +80,7 @@ if defined?(ChefSpec)
   end
 
   def create_if_missing_sensu_plugin(name)
-    ChefSpec::Matchers::ResourceMatcher
-      .new(:sensu_plugin, :create_if_missing, name)
+    ChefSpec::Matchers::ResourceMatcher.new(:sensu_plugin, :create_if_missing, name)
   end
 
   def delete_sensu_plugin(name)
