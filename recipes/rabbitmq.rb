@@ -46,6 +46,20 @@ if node.sensu.use_ssl
     end
     node.override.rabbitmq["ssl_#{item}"] = path
   end
+
+  directory File.join(ssl_directory, "client")
+
+  %w[
+    cert
+    key
+  ].each do |item|
+    path = File.join(ssl_directory, "client", "#{item}.pem")
+    file path do
+      content ssl["client"][item]
+      group "rabbitmq"
+      mode 0640
+    end
+  end
 end
 
 # The packaged erlang in 12.04 (and below) is vulnerable to
