@@ -10,7 +10,7 @@ define :rabbitmq_credentials do
 
   rabbitmq_user params[:user] do
     vhost params[:vhost]
-    permissions params.fetch(:permissions, ".* .* .*")
+    permissions params[:permissions] || ".* .* .*"
     action :set_permissions
   end
 end
