@@ -8,7 +8,17 @@ end
 action :create do
   api = Sensu::API::Stash.new(new_resource.api_uri)
   unless new_resource.payload == @current_resource.payload
-    if api.post("/stashes/#{new_resource.name}", new_resource.payload)
+    # add path, timestamp and owner to the payload
+    # when we look at the stash later, these bits helps us know how old a stash is and how it got there
+    # allow to overwrite payload completely
+    payload = {'path' => new_resource.name, 'content' => { 'timestamp' => Time.now.to_i, 'owner' => 'chef'}}
+
+    if new_resource.expire != nil
+      payload['expire'] = new_resource.expire
+    end
+
+    merged_payload = payload.merge(new_resource.payload)
+    if api.post("/stashes", merged_payload)
       new_resource.updated_by_last_action(true)
     end
   end
