@@ -1,3 +1,25 @@
+## 2.5.0 - 2015-01-29
+
+### Fixes
+
+Sensu directory mode attributes have been moved out of the Linux platform
+attributes, allowing Windows nodes to converge.
+
+Sensu service specific RabbitMQ credentials are now only managed if they
+have been configured.
+
+### Features
+
+The `random_password` helper has been updated to ensure a certain level of
+complexity, meeting Windows server 2012 user password requirements.
+
+API stash LWRP and silencing definitions now support Sensu API stack
+expiration (in seconds).
+
+A copy of the Sensu client certificate and key are now stored on the
+RabbitMQ node(s), intended to be used for RabbitMQ Federation. They can be
+found in `/etc/rabbitmq/ssl/client/`.
+
 ## 2.4.0 - 2015-01-23
 
 ### Fixes
