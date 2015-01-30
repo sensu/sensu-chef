@@ -99,7 +99,7 @@ end
 ].each do |service|
   service_config = Sensu::Helpers.data_bag_item(service, true)
 
-  next unless service_config["rabbitmq"].is_a?(Hash)
+  next unless service_config && service_config["rabbitmq"].is_a?(Hash)
 
   service_rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, service_config["rabbitmq"])
 
