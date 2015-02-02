@@ -79,7 +79,7 @@ end
 
 rabbitmq = node.sensu.rabbitmq.to_hash
 
-sensu_config = Sensu::Helpers.data_bag_item("config", true)
+sensu_config = Sensu::Helpers.data_bag_item("config", true, node['sensu']['bag_name'])
 
 if sensu_config && sensu_config["rabbitmq"].is_a?(Hash)
   rabbitmq = Chef::Mixin::DeepMerge.merge(rabbitmq, sensu_config["rabbitmq"])
