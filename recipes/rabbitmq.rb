@@ -31,7 +31,7 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl = Sensu::Helpers.data_bag_item("ssl")
+  ssl = Sensu::Helpers.data_bag_item("ssl", flase ,node['sensu']['bag_name'])
 
   %w[
     cacert
@@ -97,7 +97,7 @@ end
   api
   server
 ].each do |service|
-  service_config = Sensu::Helpers.data_bag_item(service, true)
+  service_config = Sensu::Helpers.data_bag_item(service, true, node['sensu']['bag_name'])
 
   next unless service_config && service_config["rabbitmq"].is_a?(Hash)
 
