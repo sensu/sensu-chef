@@ -43,3 +43,6 @@ default.sensu.redis.port = 6379
 default.sensu.api.host = "localhost"
 default.sensu.api.bind = "0.0.0.0"
 default.sensu.api.port = 4567
+
+#data_bag
+default['sensu']['bag_name'] = "sensu"
