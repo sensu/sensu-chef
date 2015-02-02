@@ -19,7 +19,7 @@ action :create do
   ].each do |service|
     next unless node.recipe?("sensu::#{service}_service")
 
-    service_data_bag_item = Sensu::Helpers.data_bag_item(service, true)
+    service_data_bag_item = Sensu::Helpers.data_bag_item(service, true, node['sensu']['bag_name'])
 
     if service_data_bag_item
       service_config = Chef::Mixin::DeepMerge.merge(service_config, service_data_bag_item.to_hash)
