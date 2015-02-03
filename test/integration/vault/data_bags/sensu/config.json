@@ -1,6 +1,7 @@
 {
   "id": "config",
   "rabbitmq": {
+    "encrypted_data": "",
     "password": "vaultpassword"
   }
 }
