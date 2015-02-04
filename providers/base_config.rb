@@ -4,7 +4,7 @@ action :create do
     %w[rabbitmq redis api]
   )
 
-  config = Sensu::Helpers.data_bag_item("config", true, node['sensu']['data_bag_name'])
+  config = Sensu::Helpers.data_bag_item(node['sensu']["config_data_bag_key"], true, node['sensu']['data_bag_name'])
 
   if config
     definitions = Chef::Mixin::DeepMerge.merge(definitions, config.to_hash)
