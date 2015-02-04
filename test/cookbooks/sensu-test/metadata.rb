@@ -8,3 +8,4 @@ version          '0.1.0'
 
 depends          'logrotate'
 depends          'sensu'
+depends          'chef-vault'
