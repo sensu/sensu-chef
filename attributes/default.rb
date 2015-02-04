@@ -46,3 +46,7 @@ default.sensu.api.port = 4567
 
 #data_bag
 default['sensu']['data_bag_name'] = "sensu"
+default['sensu']['ssl_data_bag_key'] = 'ssl'
+default['sensu']['config_data_bag_key'] = 'config'
+default['sensu']['enterprise_data_bag_key'] = 'enterprise'
+default['sensu']['api_data_bag_key'] = 'api'
