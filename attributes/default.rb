@@ -45,4 +45,4 @@ default.sensu.api.bind = "0.0.0.0"
 default.sensu.api.port = 4567
 
 #data_bag
-default['sensu']['bag_name'] = "sensu"
+default['sensu']['data_bag_name'] = "sensu"
