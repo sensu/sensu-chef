@@ -2,3 +2,4 @@ site "http://community.opscode.com/api/v1"
 
 cookbook "sensu", path: "."
 cookbook "sensu-test", path: "test/cookbooks/sensu-test"
+cookbook "chef-vault", git: "https://github.com/opscode-cookbooks/chef-vault", ref: "master"
