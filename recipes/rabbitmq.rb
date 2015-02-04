@@ -31,7 +31,7 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl = Sensu::Helpers.data_bag_item("ssl", flase ,node['sensu']['bag_name'])
+  ssl = Sensu::Helpers.data_bag_item("ssl", false ,node['sensu']['bag_name'])
 
   %w[
     cacert
