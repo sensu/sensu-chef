@@ -19,6 +19,8 @@
 
 include_recipe "logrotate"
 
+include_recipe "chef-vault"
+
 include_recipe "sensu::default"
 
 sensu_client node.name do
