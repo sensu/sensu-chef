@@ -1,3 +1,9 @@
+## 2.6.0 - 2015-02-18
+
+### Features
+
+Data bag name and item attributes, enabling control over data bags.
+
 ## 2.5.0 - 2015-01-29
 
 ### Fixes
