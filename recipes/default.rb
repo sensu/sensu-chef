@@ -63,7 +63,10 @@ if node.sensu.use_ssl
     mode 0750
   end
 
-  ssl = Sensu::Helpers.data_bag_item(node['sensu']['ssl_data_bag_key'], false, node['sensu']['data_bag_name'])
+  data_bag_name = node.sensu.data_bag.name
+  ssl_item = node.sensu.data_bag.ssl_item
+
+  ssl = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
 
   file node.sensu.rabbitmq.ssl.cert_chain_file do
     content ssl["client"]["cert"]
