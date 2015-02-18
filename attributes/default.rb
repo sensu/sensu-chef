@@ -44,11 +44,8 @@ default.sensu.api.host = "localhost"
 default.sensu.api.bind = "0.0.0.0"
 default.sensu.api.port = 4567
 
-#data_bag
-default['sensu']['data_bag_name'] = "sensu"
-default['sensu']['ssl_data_bag_key'] = 'ssl'
-default['sensu']['config_data_bag_key'] = 'config'
-default['sensu']['enterprise_data_bag_key'] = 'enterprise'
-default['sensu']['server_data_bag_key'] = 'server'
-default['sensu']['client_data_bag_key'] = 'client'
-default['sensu']['api_data_bag_key'] = 'api'
+# data bag
+default.sensu.data_bag.name = "sensu"
+default.sensu.data_bag.ssl_item = "ssl"
+default.sensu.data_bag.config_item = "config"
+default.sensu.data_bag.enterprise_item = "enterprise"

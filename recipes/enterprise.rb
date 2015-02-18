@@ -22,7 +22,11 @@ include_recipe "sensu"
 platform_family = node.platform_family
 platform_version = node.platform_version.to_i
 
-enterprise = Sensu::Helpers.data_bag_item(node['sensu']["enterprise_data_bag_key"],true, node['sensu']['data_bag_name'])
+data_bag_name = node.sensu.data_bag.name
+enterprise_item = node.sensu.data_bag.enterprise_item
+
+enterprise = Sensu::Helpers.data_bag_item(enterprise_item, true, data_bag_name)
+
 credentials = enterprise["repository"]["credentials"]
 
 repository_url = "http://#{credentials['user']}:#{credentials['password']}@enterprise.sensuapp.com"
