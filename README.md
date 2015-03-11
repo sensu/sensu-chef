@@ -132,7 +132,7 @@ Enables and starts Sensu Enterprise.
 Default "sensu".
 
 `node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
-use the embedded Ruby in the Sensu package.
+use the embedded Ruby in the Sensu package (default: false).
 
 `node.sensu.init_style` - Style of init to be used when configuring
 Sensu services, "sysv" and "runit" are currently supported.
