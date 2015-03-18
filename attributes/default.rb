@@ -1,6 +1,8 @@
 # platform
 if platform_family?("windows")
   default.sensu.admin_user = "Administrator"
+  default.sensu.user = "sensu"
+  default.sensu.group = "sensu"
   default.sensu.directory = 'C:\etc\sensu'
   default.sensu.log_directory = 'C:\var\log\sensu'
   default.sensu.windows.dism_source = nil
@@ -14,7 +16,11 @@ else
 end
 
 # installation
-default.sensu.version = "0.16.0-1"
+if platform_family?('windows')
+  default.sensu.version = '0.14.0-1'
+else
+  default.sensu.version = "0.16.0-1"
+end
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
