@@ -1,3 +1,12 @@
+## 2.8.0 - 2015-03-17
+
+### Features
+
+Enable Sensu transport and Redis reconnect_on_error by default (true).
+This allows Sensu to recover from unexpected transport and Redis client
+errors. Connection loss always results in a reconnect, regardless of this
+setting.
+
 ## 2.7.0 - 2015-03-17
 
 ### Features
