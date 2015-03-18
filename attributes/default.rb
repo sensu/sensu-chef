@@ -30,6 +30,9 @@ default.sensu.apt_repo_url = "http://repos.sensuapp.org/apt"
 default.sensu.yum_repo_url = "http://repos.sensuapp.org"
 default.sensu.msi_repo_url = "http://repos.sensuapp.org/msi"
 
+# transport
+default.sensu.transport.reconnect_on_error = true
+
 # rabbitmq
 default.sensu.rabbitmq.host = "localhost"
 default.sensu.rabbitmq.port = 5671
@@ -40,6 +43,7 @@ default.sensu.rabbitmq.password = "password"
 # redis
 default.sensu.redis.host = "localhost"
 default.sensu.redis.port = 6379
+default.sensu.redis.reconnect_on_error = true
 
 # api
 default.sensu.api.host = "localhost"
