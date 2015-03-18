@@ -1,3 +1,7 @@
+# user
+default.sensu.user = "sensu"
+default.sensu.group = "sensu"
+
 # platform
 if platform_family?("windows")
   default.sensu.admin_user = "Administrator"
@@ -7,8 +11,6 @@ if platform_family?("windows")
   default.sensu.windows.package_options = nil
 else
   default.sensu.admin_user = "root"
-  default.sensu.user = "sensu"
-  default.sensu.group = "sensu"
   default.sensu.directory = "/etc/sensu"
   default.sensu.log_directory = "/var/log/sensu"
 end
