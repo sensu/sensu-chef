@@ -1,3 +1,15 @@
+## 2.7.0 - 2015-03-17
+
+### Features
+
+Bumped the default version of Sensu to 0.17.0-1.
+
+The 0.17.0-1 MSI (Windows) has SSL/TLS support.
+
+### Fixes
+
+Sensu user and group attributes no longer Linux platform specific.
+
 ## 2.6.0 - 2015-02-18
 
 ### Features
