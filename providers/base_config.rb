@@ -1,7 +1,7 @@
 action :create do
   definitions = Sensu::Helpers.select_attributes(
     node.sensu,
-    %w[rabbitmq redis api]
+    %w[transport rabbitmq redis api]
   )
 
   data_bag_name = node.sensu.data_bag.name
