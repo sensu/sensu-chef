@@ -1,3 +1,7 @@
+# user
+default.sensu.user = "sensu"
+default.sensu.group = "sensu"
+
 # platform
 if platform_family?("windows")
   default.sensu.admin_user = "Administrator"
@@ -7,14 +11,12 @@ if platform_family?("windows")
   default.sensu.windows.package_options = nil
 else
   default.sensu.admin_user = "root"
-  default.sensu.user = "sensu"
-  default.sensu.group = "sensu"
   default.sensu.directory = "/etc/sensu"
   default.sensu.log_directory = "/var/log/sensu"
 end
 
 # installation
-default.sensu.version = "0.16.0-1"
+default.sensu.version = "0.17.0-1"
 default.sensu.use_unstable_repo = false
 default.sensu.log_level = "info"
 default.sensu.use_ssl = true
