@@ -40,6 +40,21 @@ when "debian"
     pin "version #{node.sensu.version}"
     pin_priority "700"
   end
+when "smartos"
+  group node.sensu.group
+  user node.sensu.user do
+    comment node.sensu.user
+    gid node.sensu.group
+    shell '/bin/bash'
+  end
+  directory "#{node.sensu.directory}/conf.d/checks" do
+    owner node.sensu.user
+    group node.sensu.group
+    mode '0755'
+    recursive true
+    action :create
+  end
+
 else
   rhel_version_equivalent = case platform_family
   when "rhel"
@@ -75,6 +90,9 @@ when "debian"
     options package_options
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
+when "smartos"
+  gem_package "sensu"
+  gem_package "sensu-plugin"
 else
   yum_package "sensu" do
     version node.sensu.version
