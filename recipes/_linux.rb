@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-case node.platform_family
+platform_family = node.platform_family
+
+case platform_family
 when "debian"
   include_recipe "apt"
 
@@ -41,7 +43,7 @@ when "debian"
     options package_options
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
-else
+when "rhel", "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
@@ -55,6 +57,8 @@ else
     allow_downgrade true
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
+else
+  raise "Unsupported Linux platform family #{platform_family}"
 end
 
 template "/etc/default/sensu" do
