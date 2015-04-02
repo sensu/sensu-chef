@@ -17,15 +17,10 @@
 # limitations under the License.
 #
 
-package_options = ""
-
 platform_family = node.platform_family
-platform_version = node.platform_version.to_i
 
 case platform_family
 when "debian"
-  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
-
   include_recipe "apt"
 
   apt_repository "sensu" do
@@ -40,48 +35,30 @@ when "debian"
     pin "version #{node.sensu.version}"
     pin_priority "700"
   end
-else
-  rhel_version_equivalent = case platform_family
-  when "rhel"
-    if platform?("amazon") || platform_version >= 7
-      6
-    else
-      platform_version
-    end
-  when "fedora"
-    case platform_version
-    when 6..11 then 5
-    when 12..18 then 6
-    else
-      raise "Cannot map fedora version #{platform_version} to a RHEL version. aborting"
-    end
-  else
-    raise "Unsupported Linux platform family #{platform_family}"
-  end
 
-  repo = yum_repository "sensu" do
-    description "sensu monitoring"
-    repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
-    url "#{node.sensu.yum_repo_url}/#{repo}/el/#{rhel_version_equivalent}/$basearch/"
-    action :add
-  end
-  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
-end
+  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
 
-case platform_family
-when "debian"
   package "sensu" do
     version node.sensu.version
     options package_options
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
-else
+when "rhel", "fedora"
+  repo = yum_repository "sensu" do
+    description "sensu monitoring"
+    repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
+    url "#{node.sensu.yum_repo_url}/#{repo}/el/$basearch/"
+    action :add
+  end
+  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
+
   yum_package "sensu" do
     version node.sensu.version
-    options package_options
     allow_downgrade true
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
+else
+  raise "Unsupported Linux platform family #{platform_family}"
 end
 
 template "/etc/default/sensu" do
