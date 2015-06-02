@@ -53,9 +53,9 @@ end
 end
 
 if node["sensu"]["use_ssl"]
-  node["override"]["sensu"]["rabbitmq"]["ssl"] = Mash.new
-  node["override"]["sensu"]["rabbitmq"]["ssl"]["cert_chain_file"] = File.join(node["sensu"]["directory"], "ssl", "cert.pem")
-  node["override"]["sensu"]["rabbitmq"]["ssl"]["private_key_file"] = File.join(node["sensu"]["directory"], "ssl", "key.pem")
+  node.override["sensu"]["rabbitmq"]["ssl"] = Mash.new
+  node.override["sensu"]["rabbitmq"]["ssl"]["cert_chain_file"] = File.join(node["sensu"]["directory"], "ssl", "cert.pem")
+  node.override["sensu"]["rabbitmq"]["ssl"]["private_key_file"] = File.join(node["sensu"]["directory"], "ssl", "key.pem")
 
   directory File.join(node["sensu"]["directory"], "ssl") do
     owner node["sensu"]["admin_user"]
