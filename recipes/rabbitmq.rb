@@ -46,6 +46,7 @@ if node.sensu.use_ssl
       content ssl["server"][item]
       group "rabbitmq"
       mode 0640
+      sensitive true
     end
     node.override.rabbitmq["ssl_#{item}"] = path
   end
@@ -61,6 +62,7 @@ if node.sensu.use_ssl
       content ssl["client"][item]
       group "rabbitmq"
       mode 0640
+      sensitive true
     end
   end
 end

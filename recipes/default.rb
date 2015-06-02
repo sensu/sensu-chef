@@ -80,6 +80,7 @@ if node.sensu.use_ssl
     owner node.sensu.admin_user
     group node.sensu.group
     mode 0640
+    sensitive true
   end
 else
   if node.sensu.rabbitmq.port == 5671
