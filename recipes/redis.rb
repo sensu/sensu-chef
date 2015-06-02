@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-node.override.redisio.servers = [{:port => node.sensu.redis.port}]
+node.override["redisio"]["servers"] = [{:port => node["sensu"]["redis"]["port"]}]
 
 include_recipe "redisio::default"
 include_recipe "redisio::install"

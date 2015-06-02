@@ -17,43 +17,43 @@
 # limitations under the License.
 #
 
-platform_family = node.platform_family
+platform_family = node["platform_family"]
 
 case platform_family
 when "debian"
   include_recipe "apt"
 
   apt_repository "sensu" do
-    uri node.sensu.apt_repo_url
-    key "#{node.sensu.apt_repo_url}/pubkey.gpg"
+    uri node["sensu"]['apt_repo_url']
+    key "#{node['sensu']['apt_repo_url']}/pubkey.gpg"
     distribution "sensu"
-    components node.sensu.use_unstable_repo ? ["unstable"] : ["main"]
+    components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
     action :add
   end
 
   apt_preference "sensu" do
-    pin "version #{node.sensu.version}"
+    pin "version #{node['sensu']['version']}"
     pin_priority "700"
   end
 
   package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
 
   package "sensu" do
-    version node.sensu.version
+    version node["sensu"]["version"]
     options package_options
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
 when "rhel", "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
-    repo = node.sensu.use_unstable_repo ? "yum-unstable" : "yum"
-    url "#{node.sensu.yum_repo_url}/#{repo}/el/$basearch/"
+    repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
+    url "#{node['sensu']['yum_repo_url']}/#{repo}/el/$basearch/"
     action :add
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 
   yum_package "sensu" do
-    version node.sensu.version
+    version node['sensu']['version']
     allow_downgrade true
     notifies :create, "ruby_block[sensu_service_trigger]"
   end

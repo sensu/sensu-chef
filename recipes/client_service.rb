@@ -18,6 +18,6 @@
 #
 
 sensu_service "sensu-client" do
-  init_style node.sensu.init_style
+  init_style node["sensu"]["init_style"]
   action [:enable, :start]
 end
