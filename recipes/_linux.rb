@@ -53,7 +53,7 @@ when "rhel", "fedora"
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 
   yum_package "sensu" do
-    version node['sensu']['version']
+    version node["sensu"]["version"]
     allow_downgrade true
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
