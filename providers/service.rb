@@ -36,7 +36,7 @@ def load_current_resource
   @sensu_svc = run_context.resource_collection.lookup("service[#{new_resource.service}]") rescue nil
   @sensu_svc ||= case new_resource.init_style
   when "sysv"
-    service_provider = case node.platform_family
+    service_provider = case node["platform_family"]
     when /debian/
       Chef::Provider::Service::Init::Debian
     when /windows/
