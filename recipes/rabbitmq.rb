@@ -80,7 +80,7 @@ service "restart #{node["rabbitmq"]["service_name"]}" do
   subscribes :restart, resources("template[#{node['rabbitmq']['config_root']}/rabbitmq.config]"), :immediately
 end
 
-rabbitmq = node["sensu"]["rabbitmq"]["to_hash"]
+rabbitmq = node["sensu"]["rabbitmq"].to_hash
 
 config_item = node["sensu"]["data_bag"]["config_item"]
 sensu_config = Sensu::Helpers.data_bag_item(config_item, true, data_bag_name)
