@@ -112,71 +112,71 @@ Enables and starts Sensu Enterprise.
 
 ### Installation
 
-`node.sensu.version` - Sensu build to install.
+`node["sensu"]["version"]` - Sensu build to install.
 
-`node.sensu.use_unstable_repo` - If the build resides on the
+`node["sensu"]["use_unstable_repo"]` - If the build resides on the
 "unstable" repository.
 
-`node.sensu.directory` - Sensu configuration directory.
+`node["sensu"]["directory"]` - Sensu configuration directory.
 
-`node.sensu.log_directory` - Sensu log directory.
+`node["sensu"]["log_directory"]` - Sensu log directory.
 
-`node.sensu.log_level` - Sensu log level (eg. "warn").
+`node["sensu"]["log_level"]` - Sensu log level (eg. "warn").
 
-`node.sensu.use_ssl` - If Sensu and RabbitMQ are to use SSL.
+`node["sensu"]["use_ssl"]` - If Sensu and RabbitMQ are to use SSL.
 
-`node.sensu.user` - The user who owns all sensu files and directories. Default
+`node["sensu"]["user"]` - The user who owns all sensu files and directories. Default
 "sensu".
 
-`node.sensu.group` - The group that owns all sensu files and directories.
+`node["sensu"]["group"]` - The group that owns all sensu files and directories.
 Default "sensu".
 
-`node.sensu.use_embedded_ruby` - If Sensu Ruby handlers and plugins
+`node["sensu"]["use_embedded_ruby"]` - If Sensu Ruby handlers and plugins
 use the embedded Ruby in the Sensu package (default: false).
 
-`node.sensu.init_style` - Style of init to be used when configuring
+`node["sensu"]["init_style"]` - Style of init to be used when configuring
 Sensu services, "sysv" and "runit" are currently supported.
 
-`node.sensu.service_max_wait` - How long service scripts should wait
+`node["sensu"]["service_max_wait"]` - How long service scripts should wait
 for Sensu to start/stop.
 
 ### RabbitMQ
 
-`node.sensu.rabbitmq.host` - RabbitMQ host.
+`node["sensu"]["rabbitmq"]["host"]` - RabbitMQ host.
 
-`node.sensu.rabbitmq.port` - RabbitMQ port, usually for SSL.
+`node["sensu"]["rabbitmq"]["port"]` - RabbitMQ port, usually for SSL.
 
-`node.sensu.rabbitmq.ssl` - RabbitMQ SSL configuration, DO NOT EDIT THIS.
+`node["sensu"]["rabbitmq"]["ssl"]` - RabbitMQ SSL configuration, DO NOT EDIT THIS.
 
-`node.sensu.rabbitmq.vhost` - RabbitMQ vhost for Sensu.
+`node["sensu"]["rabbitmq"]["vhost"]` - RabbitMQ vhost for Sensu.
 
-`node.sensu.rabbitmq.user` - RabbitMQ user for Sensu.
+`node["sensu"]["rabbitmq"]["user"]` - RabbitMQ user for Sensu.
 
-`node.sensu.rabbitmq.password` - RabbitMQ password for Sensu.
+`node["sensu"]["rabbitmq"]["password"]` - RabbitMQ password for Sensu.
 
 ### Redis
 
-`node.sensu.redis.host` - Redis host.
+`node["sensu"]["redis"]["host"]` - Redis host.
 
-`node.sensu.redis.port` - Redis port.
+`node["sensu"]["redis"]["port"]` - Redis port.
 
 ### Sensu API
 
-`node.sensu.api.host` - Sensu API host, for other services to reach it.
+`node["sensu"]["api"]["host"]` - Sensu API host, for other services to reach it.
 
-`node.sensu.api.bind` - Sensu API bind address.
+`node["sensu"]["api"]["bind"]` - Sensu API bind address.
 
-`node.sensu.api.port` - Sensu API port.
+`node["sensu"]["api"]["port"]` - Sensu API port.
 
 ## LWRP'S
 
 ### Define a client
 
 ```ruby
-sensu_client node.name do
-  address node.ipaddress
-  subscriptions node.roles + ["all"]
-  additional(:cluster => node.cluster)
+sensu_client node["name"] do
+  address node["ipaddress"]
+  subscriptions node["roles"] + ["all"]
+  additional(:cluster => node["cluster"])
 end
 ```
 
