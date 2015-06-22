@@ -48,7 +48,7 @@ if defined?(ChefSpec)
   end
 
   def remove_sensu_gem(name)
-    ChefSpec::Matchers::ResourceMatcher.new(:sensu_client, :remove, name)
+    ChefSpec::Matchers::ResourceMatcher.new(:sensu_gem, :remove, name)
   end
 
   def create_sensu_handler(name)
