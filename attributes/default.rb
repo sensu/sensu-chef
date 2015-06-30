@@ -13,6 +13,7 @@ else
   default.sensu.admin_user = "root"
   default.sensu.directory = "/etc/sensu"
   default.sensu.log_directory = "/var/log/sensu"
+  default.sensu.init_env_settings = nil
 end
 
 # installation

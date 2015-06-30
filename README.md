@@ -140,6 +140,13 @@ Sensu services, "sysv" and "runit" are currently supported.
 `node.sensu.service_max_wait` - How long service scripts should wait
 for Sensu to start/stop.
 
+`node.sensu.init_env_settings` - {'ENVNAME' => '/env/value'}.
+Export each environment variable specified in the provided hash.
+Unset any variable set to `nil`. If `use_embedded_ruby` is specified
+defaults to unsetting any Ruby related environment variable so
+that the services can be restarted even if `chef-solo` is executed
+with rbenv or RVM.
+
 ### RabbitMQ
 
 `node.sensu.rabbitmq.host` - RabbitMQ host.
