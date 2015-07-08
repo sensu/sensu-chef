@@ -1,5 +1,5 @@
 def load_current_resource
-  @owner = new_resource.owner || node.sensu.admin_user
+  @owner = new_resource.owner || node["sensu"]["admin_user"]
 
   @uri = URI.parse(new_resource.name)
 

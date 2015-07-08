@@ -1,4 +1,4 @@
-EMBEDDED_RUBY=<%= node.sensu.use_embedded_ruby %>
-LOG_DIR=<%= node.sensu.log_directory %>
-LOG_LEVEL=<%= node.sensu.log_level %>
-SERVICE_MAX_WAIT=<%= node.sensu.service_max_wait %>
+EMBEDDED_RUBY=<%= node["sensu"]["use_embedded_ruby"] %>
+LOG_DIR=<%= node["sensu"]["log_directory"] %>
+LOG_LEVEL=<%= node["sensu"]["log_level"] %>
+SERVICE_MAX_WAIT=<%= node["sensu"]["service_max_wait"] %>

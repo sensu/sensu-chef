@@ -34,18 +34,18 @@ end
 
 if win_version.windows_server_2012? || win_version.windows_server_2012_r2?
   windows_feature "NetFx3ServerFeatures" do
-    source node.sensu.windows.dism_source
+    source node["sensu"]["windows"]["dism_source"]
   end
 end
 
 windows_feature "NetFx3" do
-  source node.sensu.windows.dism_source
+  source node["sensu"]["windows"]["dism_source"]
 end
 
 windows_package "Sensu" do
-  source "#{node.sensu.msi_repo_url}/sensu-#{node.sensu.version}.msi"
-  options node.sensu.windows.package_options
-  version node.sensu.version.gsub("-", ".")
+  source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}.msi"
+  options node["sensu"]["windows"]["package_options"]
+  version node["sensu"]["version"].gsub("-", ".")
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 

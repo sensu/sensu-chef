@@ -17,15 +17,15 @@
 # limitations under the License.
 #
 
-data_bag_name = node.sensu.data_bag.name
+data_bag_name = node["sensu"]["data_bag"]["name"]
 
 group "rabbitmq"
 
-if node.sensu.use_ssl
-  node.override.rabbitmq.ssl = true
-  node.override.rabbitmq.ssl_port = node.sensu.rabbitmq.port
-  node.override.rabbitmq.ssl_verify = "verify_peer"
-  node.override.rabbitmq.ssl_fail_if_no_peer_cert = true
+if node["sensu"]["use_ssl"]
+  node.override["rabbitmq"]["ssl"] = true
+  node.override["rabbitmq"]["ssl_port"] = node["sensu"]["rabbitmq"]["port"]
+  node.override["rabbitmq"]["ssl_verify"] = "verify_peer"
+  node.override["rabbitmq"]["ssl_fail_if_no_peer_cert"] = true
 
   ssl_directory = "/etc/rabbitmq/ssl"
 
@@ -33,7 +33,7 @@ if node.sensu.use_ssl
     recursive true
   end
 
-  ssl_item = node.sensu.data_bag.ssl_item
+  ssl_item = node["sensu"]["data_bag"]["ssl_item"]
   ssl = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
 
   %w[
@@ -47,7 +47,7 @@ if node.sensu.use_ssl
       group "rabbitmq"
       mode 0640
     end
-    node.override.rabbitmq["ssl_#{item}"] = path
+    node.override["rabbitmq"]["ssl_#{item}"] = path
   end
 
   directory File.join(ssl_directory, "client")
@@ -67,22 +67,22 @@ end
 
 # The packaged erlang in 12.04 (and below) is vulnerable to
 # the poodle exploit which stops rabbitmq starting its SSL listener
-if node.platform == "ubuntu" && node.platform_version <= "12.04"
-  node.override.erlang.install_method = "esl"
+if node["platform"] == "ubuntu" && node["platform_version"] <= "12.04"
+  node.override["erlang"]["install_method"] = "esl"
 end
 
 include_recipe "rabbitmq"
 include_recipe "rabbitmq::mgmt_console"
 
-service "restart #{node.rabbitmq.service_name}" do
-  service_name node.rabbitmq.service_name
+service "restart #{node["rabbitmq"]["service_name"]}" do
+  service_name node["rabbitmq"]["service_name"]
   action :nothing
-  subscribes :restart, resources("template[#{node.rabbitmq.config_root}/rabbitmq.config]"), :immediately
+  subscribes :restart, resources("template[#{node['rabbitmq']['config_root']}/rabbitmq.config]"), :immediately
 end
 
-rabbitmq = node.sensu.rabbitmq.to_hash
+rabbitmq = node["sensu"]["rabbitmq"].to_hash
 
-config_item = node.sensu.data_bag.config_item
+config_item = node["sensu"]["data_bag"]["config_item"]
 sensu_config = Sensu::Helpers.data_bag_item(config_item, true, data_bag_name)
 
 if sensu_config && sensu_config["rabbitmq"].is_a?(Hash)
