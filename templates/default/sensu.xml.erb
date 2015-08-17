@@ -16,4 +16,6 @@
   <argument><%= node["sensu"]["directory"] %>\extensions</argument>
   <argument>-l</argument>
   <argument><%= node["sensu"]["log_directory"] %>\<%= @service %>.log</argument>
+  <argument>-L</argument>
+  <argument><%= node["sensu"]["log_level"] %></argument>
 </service>
