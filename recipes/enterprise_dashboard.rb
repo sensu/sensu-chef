@@ -17,6 +17,14 @@
 # limitations under the License.
 #
 
+ruby_block "sensu_service_trigger" do
+  block do
+    # Sensu service action trigger for LWRPs.
+    # This resource must be defined before the Sensu LWRPs can be used.
+  end
+  action :nothing
+end
+
 platform_family = node["platform_family"]
 platform_version = node["platform_version"].to_i
 
@@ -51,5 +59,7 @@ else
 end
 
 package "sensu-enterprise-dashboard" do
-  version node["sensu"]["enterprise"]["version"]
+  version node["sensu"]["enterprise-dashboard"]["version"]
 end
+
+sensu_dashboard_config node.name

@@ -19,7 +19,6 @@
 
 service "sensu-enterprise-dashboard" do
   subscribes :restart, resources("package[sensu-enterprise-dashboard]"), :delayed
-  subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => false
   action [:enable, :start]
 end
