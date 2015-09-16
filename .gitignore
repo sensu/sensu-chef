@@ -13,3 +13,4 @@ examples/ssl/sensu_ca
 .kitchen/
 .kitchen.local.yml
 tmp
+Berksfile
