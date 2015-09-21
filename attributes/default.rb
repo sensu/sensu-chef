@@ -16,7 +16,7 @@ else
 end
 
 # installation
-default["sensu"]["version"] = "0.19.2-1"
+default["sensu"]["version"] = "0.20.3-1"
 default["sensu"]["use_unstable_repo"] = false
 default["sensu"]["log_level"] = "info"
 default["sensu"]["use_ssl"] = true
