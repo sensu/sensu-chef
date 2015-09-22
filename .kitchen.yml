@@ -68,3 +68,8 @@ suites:
       - recipe[sensu-test::enterprise]
     excludes:
       - windows-2012-r2
+  - name: enterprise-dashboard
+    run_list:
+      - recipe[sensu-test::enterprise_dashboard]
+    excludes:
+      - windows-2012-r2
