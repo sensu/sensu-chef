@@ -16,7 +16,7 @@ else
 end
 
 # installation
-default["sensu"]["version"] = "0.20.3-1"
+default["sensu"]["version"] = "0.20.6-1"
 default["sensu"]["use_unstable_repo"] = false
 default["sensu"]["log_level"] = "info"
 default["sensu"]["use_ssl"] = true
@@ -26,9 +26,9 @@ default["sensu"]["service_max_wait"] = 10
 default["sensu"]["directory_mode"] = "0750"
 default["sensu"]["log_directory_mode"] = "0750"
 
-default["sensu"]["apt_repo_url"] = "http://repos.sensuapp.org/apt"
-default["sensu"]["yum_repo_url"] = "http://repos.sensuapp.org"
-default["sensu"]["msi_repo_url"] = "http://repos.sensuapp.org/msi"
+default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
+default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
+default["sensu"]["msi_repo_url"] = "http://repositories.sensuapp.org/msi"
 
 # transport
 default["sensu"]["transport"]["reconnect_on_error"] = true
