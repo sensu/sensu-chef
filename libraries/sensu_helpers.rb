@@ -2,7 +2,7 @@ require "openssl"
 
 module Sensu
   class Helpers
-    extend ChefVaultItem if Kernel.const_defined?("ChefVaultItem")
+    extend ChefVaultCookbook if Kernel.const_defined?("ChefVaultCookbook")
     class << self
       def select_attributes(attributes, keys)
         attributes.to_hash.reject do |key, value|
