@@ -29,6 +29,7 @@ default["sensu"]["log_directory_mode"] = "0750"
 default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
 default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
 default["sensu"]["msi_repo_url"] = "http://repositories.sensuapp.org/msi"
+default["sensu"]["add_repo"] = true
 
 # transport
 default["sensu"]["transport"]["reconnect_on_error"] = true
