@@ -29,6 +29,7 @@ when "debian"
     distribution "sensu"
     components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
     action :add
+    only_if { node["sensu"]["add_repo"] }
   end
 
   apt_preference "sensu" do
@@ -49,6 +50,7 @@ when "rhel", "fedora"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
     url "#{node['sensu']['yum_repo_url']}/#{repo}/$basearch/"
     action :add
+    only_if { node["sensu"]["add_repo"] }
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 
