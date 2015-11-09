@@ -3,6 +3,7 @@ actions :create
 attribute :address, :kind_of => String, :required => true
 attribute :subscriptions, :kind_of => Array, :default => Array.new
 attribute :keepalive, :kind_of => Hash, :default => Hash.new
+attribute :keepalives, :kind_of => [TrueClass, FalseClass], :default => true
 attribute :additional, :kind_of => Hash, :default => Hash.new
 
 def initialize(*args)
