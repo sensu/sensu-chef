@@ -1,3 +1,18 @@
+## 2.10.0 - 2015-05-25
+
+### Fixes
+
+Changed restart notifications with enterprise for client, api, and server
+configurations to delayed instead of immediate.
+
+### Other
+
+Bumped the default version of Sensu to 0.18.1-1
+
+Bumped the default version of Enterprise to 1.1.0-1
+
+Added winrm-transport gem for Test Kitchen in the Gemfile
+
 ## 2.9.0 - 2015-04-02
 
 ### Features
