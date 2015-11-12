@@ -1,3 +1,39 @@
+## 2.11.0 - 2015-11-11
+
+### Features
+
+Added ability to disable repo installation similar to the Uchiwa cookbook
+
+Added enterprise dashboard recipe and attributes
+
+Added sensitive to some file creation resources for security
+
+### Fixes
+
+Set default log level of Enterprise to info
+
+Updated repository URLs for Sensu
+
+Fixed dependency and extension for chef-vault
+
+Reverted previous change to enterprise service notifications back to immediate
+restart to resolve issue #373
+
+Updated node attribute access from dot notation to quoted strings for better
+compatibility
+
+### Other
+
+Bumped the default version of Sensu to 0.20.3-1
+
+Bumped the default version of Enterprise to 1.5.2-1
+
+The Berksfile is now ignored to allow ChefDK users to use their own Berksfile
+
+Removed Enterprise data bag item
+
+Added ChefSpec matcher for `create_sensu_dashboard_config`
+
 ## 2.10.0 - 2015-05-25
 
 ### Fixes
