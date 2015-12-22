@@ -8,6 +8,8 @@ class Chef::Resource::SensuGem < Chef::Resource::GemPackage
   def gem_binary
     if(::File.exists?('/opt/sensu/embedded/bin/gem'))
       '/opt/sensu/embedded/bin/gem'
+    elsif(::File.exists?('c:\opt\sensu\embedded\bin\gem.bat')) 
+      'c:\opt\sensu\embedded\bin\gem.bat'
     else
       'gem'
     end
