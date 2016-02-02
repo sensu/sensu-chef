@@ -3,7 +3,7 @@ actions :create, :delete
 attribute :type, :kind_of => String, :equal_to => %w[status metric]
 attribute :command, :kind_of => String, :required => true
 attribute :timeout, :kind_of => Integer
-attribute :subscribers, :kind_of => Array, :required => true
+attribute :subscribers, :kind_of => Array
 attribute :standalone, :kind_of => [TrueClass, FalseClass]
 attribute :aggregate, :kind_of => [TrueClass, FalseClass]
 attribute :interval, :default => 60
@@ -25,6 +25,6 @@ def after_created
     raise Chef::Exceptions::ValidationFailed, "Sensu check name cannot contain spaces or special characters"
   end
   
-    raise Chef::Exceptions::ValidationFailed, "Sensu check must either define subscribers, or has to be standalone." unless (subscribers || standalone)
+  raise Chef::Exceptions::ValidationFailed, "Sensu check must either define subscribers, or has to be standalone." unless (subscribers || standalone)
 
 end
