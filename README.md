@@ -7,8 +7,6 @@ This cookbook provides the building blocks for creating a monitoring
 cookbook specific to your environment (wrapper). Without such a
 wrapper, no Sensu configuration files will be created for your nodes.
 
-This cookbook does not attempt to manage or pin its dependencies (neither cookbooks nor packages). If you require or desire pinning either of these, you should do so in your wrapper cookbook.
-
 An example wrapper cookbook can be found
 [HERE](https://github.com/portertech/chef-monitor).
 
@@ -35,6 +33,12 @@ vagrant ssh
 * [Windows](http://community.opscode.com/cookbooks/windows)
 * [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
 * [RedisIO](http://community.opscode.com/cookbooks/redisio)
+
+NOTE: This cookbook either pins its dependencies optimistically or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
+
+## PACKAGES
+
+This cookbook makes no attempt to manage the versions of its package dependencies. If you desire or require management of these versions, you should handle these via your wrapper cookbook.
 
 ## REQUIREMENTS
 
