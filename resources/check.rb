@@ -22,9 +22,9 @@ end
 
 def after_created
   unless name =~ /^[\w\.-]+$/
-    raise Chef::Exceptions::ValidationFailed, "Sensu check name cannot contain spaces or special characters"
+    raise Chef::Exceptions::ValidationFailed, "Sensu check name (#{name}) cannot contain spaces or special characters"
   end
   
-  raise Chef::Exceptions::ValidationFailed, "Sensu check must either define subscribers, or has to be standalone." unless (subscribers || standalone)
+  raise Chef::Exceptions::ValidationFailed, "Sensu check (#{name}) must either define subscribers, or has to be standalone." unless (subscribers || standalone)
 
 end
