@@ -34,7 +34,7 @@ vagrant ssh
 * [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
 * [RedisIO](http://community.opscode.com/cookbooks/redisio)
 
-NOTE: This cookbook either pins its dependencies optimistically or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
+NOTE: This cookbook either constrains its dependencies optimistically (`>=`) or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
 
 ## PACKAGES
 
