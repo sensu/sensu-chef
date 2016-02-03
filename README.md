@@ -7,6 +7,8 @@ This cookbook provides the building blocks for creating a monitoring
 cookbook specific to your environment (wrapper). Without such a
 wrapper, no Sensu configuration files will be created for your nodes.
 
+This cookbook does not attempt to manage or pin its dependencies (neither cookbooks nor packages). If you require or desire pinning either of these, you should do so in your wrapper cookbook.
+
 An example wrapper cookbook can be found
 [HERE](https://github.com/portertech/chef-monitor).
 
