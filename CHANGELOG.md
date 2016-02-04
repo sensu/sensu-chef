@@ -1,3 +1,21 @@
+# Sensu cookbook changelog
+
+This file is used to track changes made in each version of the sensu cookbook.
+
+## Unreleased
+
+### Project changes
+
+The Sensu cookbook project has adopted a new contribution workflow and a new code of conduct policy. Please see the relevant documents in repo for details.
+
+### Features
+
+Added [ChefSpec](https://github.com/sethvargo/chefspec) test coverage for the following:
+
+* `default` and `client_service` recipes
+* `sensu_gem` LWRP
+* Sensu::Helpers library `#select_attributes` and `#gem_binary`  methods
+
 ## 2.11.0 - 2015-11-11
 
 ### Features
