@@ -8,5 +8,6 @@ group :integration do
   gem "kitchen-docker"
   gem "winrm-transport"
   gem "windows_chef_zero", ">= 1.0.0"
-  gem "librarian-chef"
+  gem "batali"
+  gem "batali-tk"
 end
