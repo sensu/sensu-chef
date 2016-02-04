@@ -16,6 +16,10 @@ Added [ChefSpec](https://github.com/sethvargo/chefspec) test coverage for the fo
 * `sensu_gem` LWRP
 * Sensu::Helpers library `#select_attributes` and `#gem_binary`  methods
 
+### Other
+
+Replaced Librarian with Batali so we have a supported dep-solver
+
 ## 2.11.0 - 2015-11-11
 
 ### Features

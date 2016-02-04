@@ -1,0 +1,5 @@
+Batali.define do
+  source 'https://supermarket.chef.io'
+  cookbook "sensu-test", path: "test/cookbooks/sensu-test"
+  metadata
+end
