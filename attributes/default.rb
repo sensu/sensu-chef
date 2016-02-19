@@ -25,6 +25,8 @@ default["sensu"]["init_style"] = "sysv"
 default["sensu"]["service_max_wait"] = 10
 default["sensu"]["directory_mode"] = "0750"
 default["sensu"]["log_directory_mode"] = "0750"
+default["sensu"]["client_deregister_on_stop"] = false
+default["sensu"]["client_deregister_handler"] = nil
 
 default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
 default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
