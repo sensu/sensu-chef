@@ -16,6 +16,8 @@ Added [ChefSpec](https://github.com/sethvargo/chefspec) test coverage for the fo
 * `sensu_gem` LWRP
 * Sensu::Helpers library `#select_attributes` and `#gem_binary`  methods
 
+Added source attribute to sensu_gem resource
+
 ## 2.11.0 - 2015-11-11
 
 ### Features
