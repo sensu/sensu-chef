@@ -45,3 +45,5 @@ include_recipe "sensu::client_service"
 if platform?("ubuntu")
   package "net-tools"
 end
+
+include_recipe "sensu-test::gem_lwrp"

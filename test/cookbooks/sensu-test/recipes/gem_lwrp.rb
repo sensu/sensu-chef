@@ -17,4 +17,18 @@ sensu_gem 'sensu-plugins-hipchat' do
   action :remove
 end
 
+remote_file '/tmp/sensu-plugins-cpu-checks.gem' do
+  source 'https://rubygems.org/downloads/sensu-plugins-cpu-checks-0.0.3.gem'
+end
 
+# for testing source property
+sensu_gem 'sensu-plugins-cpu-checks' do
+  source '/tmp/sensu-plugins-cpu-checks.gem'
+  action :install
+end
+
+# for testing upgrade action
+sensu_gem 'sensu-plugins-disk-checks' do
+  version '1.1.2'
+  action :upgrade
+end
