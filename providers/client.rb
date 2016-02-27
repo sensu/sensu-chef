@@ -1,7 +1,7 @@
 action :create do
   client = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[name address subscriptions keepalive]
+    %w[name address subscriptions keepalive keepalives]
   ).merge(new_resource.additional)
 
   definition = {
