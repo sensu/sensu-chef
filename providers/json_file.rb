@@ -8,6 +8,22 @@ action :create do
   end
 
   unless Sensu::JSONFile.compare_content(new_resource.path, new_resource.content)
+    if new_resource.group == node["sensu"]["group"]
+      group new_resource.group do
+        system true
+      end
+    end
+
+    if @owner == node["sensu"]["user"]
+      user @owner do
+        system true
+        group new_resource.group
+        home '/opt/sensu'
+        shell '/bin/false'
+        comment 'Sensu Monitoring Framework'
+      end
+    end
+
     directory ::File.dirname(new_resource.path) do
       recursive true
       owner @owner
