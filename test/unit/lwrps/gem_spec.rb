@@ -19,6 +19,12 @@ describe 'sensu-test::gem_lwrp' do
         expect(chef_run).to install_gem_package('sensu-plugins-chef').with(:version => '0.0.5')
       end
     end
+
+    context 'source specified' do
+      it 'installs the specified gem package from the specified source' do
+        expect(chef_run).to install_gem_package('sensu-plugins-cpu-checks').with(:source => '/tmp/sensu-plugins-cpu-checks.gem')
+      end
+    end
   end
 
   context 'action :remove' do
