@@ -26,3 +26,9 @@ sensu_gem 'sensu-plugins-cpu-checks' do
   source '/tmp/sensu-plugins-cpu-checks.gem'
   action :install
 end
+
+# for testing upgrade action
+sensu_gem 'sensu-plugins-disk-checks' do
+  version '1.1.2'
+  action :upgrade
+end

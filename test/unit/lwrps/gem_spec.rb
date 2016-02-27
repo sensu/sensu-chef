@@ -33,4 +33,10 @@ describe 'sensu-test::gem_lwrp' do
     end
   end
 
+  context 'action :upgrade' do
+    it 'installs or upgrades the specified gem package to the specified version' do
+      expect(chef_run).to upgrade_gem_package('sensu-plugins-disk-checks').with(:version => '1.1.2')
+    end
+  end
+
 end
