@@ -44,12 +44,31 @@ This cookbook makes no attempt to manage the versions of its package dependencie
 
 ### SSL configuration
 
-Running Sensu with SSL is recommended; this cookbook uses a data bag
-`sensu`, with an item `ssl`, containing the SSL certificates required.
-Sensu data bag items may be encrypted. This cookbook comes with a tool
-to generate the certificates and data bag item. If the integrity of
-the certificates is ever compromised, you must regenerate and redeploy
-them.
+Running Sensu with SSL is recommended; by default this cookbook attempts to load SSL credentials from a data bag `sensu`, with an item `ssl`, containing the required SSL certificates and keys. These data bag items may be encrypted via native Chef encrypted data bags or via Chef Vault.
+
+The data loaded from the data bag by default is expected to be formatted as follows:
+
+```json
+{
+  "server": {
+    "cert": "CERTIFICATE_DATA",
+    "key": "PRIVATE_KEY_DATA",
+    "cacert": "CA_CERTIFICATE_DATA"
+  },
+  "client": {
+    "cert": "CERTIFICATE_DATA",
+    "key": "PRIVATE_KEY_DATA"
+  }
+}
+```
+
+All of the above values are expected to be strings comprised of PEM-formatted credentials with escaped line endings. See `test/integration/data_bags/sensu/ssl.json` for a more literal example.
+
+If the attempt to load SSL credentials from a data bag fails, the cookbook will log a warning but proceed with the rest of the Chef run anyway, on the assumption that credentials will be inserted into the Chef "run state" (i.e. `node.run_state['sensu']['ssl']`) in the same format using the `Sensu::ChefRunState` helper methods, `set_sensu_run_state` and `get_sensu_run_state`.
+
+Please see the [documentation for the run state helper methods](#helper-modules-and-methods) for more information.
+
+This cookbook comes with a tool to generate the certificates and datam bag items. If the integrity of the certificates is ever compromised, you must regenerate and redeploy them.
 
 ```
 cd examples/ssl
@@ -232,6 +251,43 @@ sensu_snippet "irc" do
   content(:uri => "irc://sensu:password@irc.freenode.net:6667#channel")
 end
 ```
+
+## Helper modules and methods
+
+### Run State Helpers
+
+The `Sensu::ChefRunState` module provides helper methods which populate `node.run_state['sensu']` with arbitrary key/value pairs. This provides a means for wrapper cookbooks to populate the `node.run_state` with data required by the cookbook, e.g. SSL credentials, without cookbook itself enforcing source for that data.
+
+n.b. The `node.run_state` is not persisted locally nor on a Chef server. Data stored here exists only for the durration of the Chef run.
+
+#### `set_sensu_state`
+
+This method sets values inside the `node.run_state['sensu']` Mash, and expects arguments in the following order:
+
+1. the Chef `node` object
+2. one or more keys, providing the path to walk
+3. the value to set at that path
+
+Example:
+
+`set_sensu_state(node, 'food', 'nachos', true)`
+
+The above sets the value of `node.run_state['sensu']['food']['nachos']` to `true`.
+
+#### `get_sensu_state`
+
+This method retrieves the value of a key inside the `node.run_state['sensu']` Mash and expects arguments in the following order:
+
+1. the Chef `node` object
+2. one or more keys, providing the path to walk
+
+Examples:
+
+`get_sensu_state(node, 'food', 'nachos')` would return `true`
+
+When no value is set for a requested path, this method returns `nil`:
+
+`get_sensu_state(node, 'this', 'path', 'is', 'invalid')` returns `nil`
 
 ## SUPPORT
 
