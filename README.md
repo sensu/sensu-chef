@@ -68,7 +68,7 @@ If the attempt to load SSL credentials from a data bag fails, the cookbook will 
 
 Please see the [documentation for the run state helper methods](#helper-modules-and-methods) for more information.
 
-This cookbook comes with a tool to generate the certificates and datam bag items. If the integrity of the certificates is ever compromised, you must regenerate and redeploy them.
+This cookbook comes with a tool to generate the certificates and data bag items. If the integrity of the certificates is ever compromised, you must regenerate and redeploy them.
 
 ```
 cd examples/ssl
@@ -258,7 +258,7 @@ end
 
 The `Sensu::ChefRunState` module provides helper methods which populate `node.run_state['sensu']` with arbitrary key/value pairs. This provides a means for wrapper cookbooks to populate the `node.run_state` with data required by the cookbook, e.g. SSL credentials, without cookbook itself enforcing source for that data.
 
-n.b. The `node.run_state` is not persisted locally nor on a Chef server. Data stored here exists only for the durration of the Chef run.
+n.b. The `node.run_state` is not persisted locally nor on a Chef server. Data stored here exists only for the duration of the Chef run.
 
 #### `set_sensu_state`
 
