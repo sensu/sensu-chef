@@ -73,3 +73,6 @@ suites:
       - recipe[sensu-test::enterprise_dashboard]
     excludes:
       - windows-2012-r2
+  - name: run-state-helpers
+    run_list:
+      - recipe[sensu-test::run_state_helpers]
