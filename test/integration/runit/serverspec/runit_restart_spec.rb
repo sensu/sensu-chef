@@ -1,9 +1,4 @@
-require "serverspec"
-require "net/http"
-require "uri"
-
-set :backend, :exec
-set :path, "/bin:/usr/bin:/sbin:/usr/sbin"
+require 'spec_helper'
 
 service = "sensu-client"
 
