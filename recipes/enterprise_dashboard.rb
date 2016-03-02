@@ -23,10 +23,16 @@ platform_version = node["platform_version"].to_i
 data_bag_name = node["sensu"]["data_bag"]["name"]
 enterprise_item = node["sensu"]["data_bag"]["enterprise_item"]
 
-enterprise = Sensu::Helpers.data_bag_item(enterprise_item, true, data_bag_name)
+begin
+  unless get_sensu_state(node, "enterprise")
+    enterprise = Sensu::Helpers.data_bag_item(enterprise_item, true, data_bag_name)
+    set_sensu_state(node, "enterprise", enterprise)
+   end
+rescue =>
+    Chef::Log.warn("Failed to populate Sensu state with Enterprise repository credentials from data bag: " + e.inspect)
+end
 
-credentials = enterprise["repository"]["credentials"]
-
+credentials = get_sensu_state(node, "enterprise", "repository", "credentials")
 repository_url = "http://#{credentials['user']}:#{credentials['password']}@enterprise.sensuapp.com"
 
 case platform_family

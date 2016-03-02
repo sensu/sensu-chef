@@ -66,17 +66,24 @@ if node["sensu"]["use_ssl"]
   data_bag_name = node["sensu"]["data_bag"]["name"]
   ssl_item = node["sensu"]["data_bag"]["ssl_item"]
 
-  ssl = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
+  begin
+    unless get_sensu_state(node, "ssl")
+      ssl_data = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
+      set_sensu_state(node, "ssl", ssl_data)
+    end
+  rescue => e
+    Chef::Log.warn("Failed to populate Sensu state with ssl credentials from data bag: " + e.inspect)
+  end
 
   file node["sensu"]["rabbitmq"]["ssl"]["cert_chain_file"] do
-    content ssl["client"]["cert"]
+    content lazy { get_sensu_state(node, "ssl", "client", "cert") }
     owner node["sensu"]["admin_user"]
     group node["sensu"]["group"]
     mode 0640
   end
 
   file node["sensu"]["rabbitmq"]["ssl"]["private_key_file"] do
-    content ssl["client"]["key"]
+    content lazy { get_sensu_state(node, "ssl", "client", "key") }
     owner node["sensu"]["admin_user"]
     group node["sensu"]["group"]
     mode 0640

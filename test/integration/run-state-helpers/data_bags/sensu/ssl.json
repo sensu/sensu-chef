@@ -1,0 +1,12 @@
+{
+  "id": "ssl",
+  "server": {
+    "key": "INVALID SERVER KEY",
+    "cert": "INVALID SERVER CERT",
+    "cacert": "INVALID CA CERT"
+  },
+  "client": {
+    "key": "INVALID CLIENT KEY",
+    "cert": "INVALID CLIENT CERT"
+  }
+}
