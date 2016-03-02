@@ -1,9 +1,5 @@
-require "serverspec"
-require "net/http"
-require "uri"
-
-set :backend, :exec
-set :path, "/bin:/usr/bin:/sbin:/usr/sbin"
+require 'spec_helper'
+require 'service_dependency_spec'
 
 describe file("/opt/sensu/sv/sensu-server/supervise/pid") do
   its(:content) { should match /^[0-9]+$/ }
