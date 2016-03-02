@@ -85,3 +85,5 @@ suites:
   - name: run-state-helpers
     run_list:
       - recipe[sensu-test::run_state_helpers]
+    excludes:
+      - windows-2012-r2
