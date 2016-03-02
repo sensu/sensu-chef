@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'service_dependency_spec'
+require 'service_dependency_helper'
 
 describe service("sensu-enterprise") do
   it { should be_enabled }
