@@ -64,11 +64,22 @@ suites:
     run_list:
       - recipe[sensu-test::asset]
   - name: enterprise
+    driver:
+      customize:
+        memory: 3072
+    attributes:
+      sensu_test:
+        enterprise_repo_user: <%= ENV['SENSU_ENTERPRISE_USER'] %>
+        enterprise_repo_pass: <%= ENV['SENSU_ENTERPRISE_PASS'] %>
     run_list:
       - recipe[sensu-test::enterprise]
     excludes:
       - windows-2012-r2
   - name: enterprise-dashboard
+    attributes:
+      sensu_test:
+        enterprise_repo_user: <%= ENV['SENSU_ENTERPRISE_USER'] %>
+        enterprise_repo_pass: <%= ENV['SENSU_ENTERPRISE_PASS'] %>
     run_list:
       - recipe[sensu-test::enterprise_dashboard]
     excludes:
