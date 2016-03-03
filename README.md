@@ -12,19 +12,9 @@ An example wrapper cookbook can be found
 
 [How to Write Reusable Chef Cookbooks](http://bit.ly/10r993N)
 
-## TESTING
+## CONTRIBUTING
 
-This cookbook comes with a Gemfile, Cheffile, and a Vagrantfile for
-testing and evaluating Sensu.
-
-```
-cd examples
-gem install bundler
-bundle install
-librarian-chef install
-vagrant up
-vagrant ssh
-```
+See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
 ## COOKBOOK DEPENDENCIES
 
