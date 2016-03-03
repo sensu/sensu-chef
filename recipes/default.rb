@@ -68,7 +68,7 @@ if node["sensu"]["use_ssl"]
 
   begin
     unless get_sensu_state(node, "ssl")
-      ssl_data = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
+      ssl_data = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name).to_hash
       set_sensu_state(node, "ssl", ssl_data)
     end
   rescue => e
