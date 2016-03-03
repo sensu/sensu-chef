@@ -18,4 +18,5 @@ end
 
 describe file('/etc/sensu/config.json') do
   its(:content) { should match /encryptedPassword42/ }
+  its(:content) { should_not match /"id": / }
 end
