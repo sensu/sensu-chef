@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'service_dependency_spec'
+require 'service_dependency_helper'
 
 describe file("/opt/sensu/sv/sensu-server/supervise/pid") do
   its(:content) { should match /^[0-9]+$/ }

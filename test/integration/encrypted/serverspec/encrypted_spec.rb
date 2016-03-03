@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'service_dependency_spec'
+require 'service_dependency_helper'
 
 describe service("sensu-server") do
   it { should be_enabled }
@@ -18,4 +18,5 @@ end
 
 describe file('/etc/sensu/config.json') do
   its(:content) { should match /encryptedPassword42/ }
+  its(:content) { should_not match /"id": / }
 end
