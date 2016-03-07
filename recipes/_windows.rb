@@ -20,18 +20,16 @@
 require 'chef/win32/version'
 win_version = Chef::ReservedNames::Win32::Version.new
 
-user node["sensu"]["user"] do
+user "sensu" do
   password Sensu::Helpers.random_password(20, true, true, true, true)
   not_if {
-    lazy {
-      user = Chef::Util::Windows::NetUser.new(node["sensu"]["user"])
-      !!user.get_info rescue false
-    }
+    user = Chef::Util::Windows::NetUser.new("sensu")
+    !!user.get_info rescue false
   }
 end
 
-group node["sensu"]["group"] do
-  members node["sensu"]["user"]
+group "sensu" do
+  members "sensu"
   action :manage
 end
 
