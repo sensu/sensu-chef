@@ -26,6 +26,7 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[sensu-test::ensure_group.rb]
       - recipe[sensu::default]
     attributes:
       sensu:
