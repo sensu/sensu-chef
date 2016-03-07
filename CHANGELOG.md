@@ -28,6 +28,10 @@ Added source attribute to sensu_gem resource
 Added upgrade action to sensu_gem resource
 Added helpers for storing key/value pairs which persist for duration of the Chef run
 
+### Fixes
+
+Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
+
 ## 2.11.0 - 2015-11-11
 
 ### Features
