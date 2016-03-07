@@ -29,6 +29,7 @@ suites:
       - recipe[sensu::default]
     attributes:
       sensu:
+        group: nogroup
         windows:
           dism_source: <%= ENV['SENSU_WINDOWS_DISM_SOURCE'] %>
   - name: sysv
