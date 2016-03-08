@@ -19,6 +19,8 @@ platforms:
       box: windows_2012_r2
       customize:
         memory: 2048
+    provisioner:
+      windows_chef_zero
     attributes:
       lsb:
         codename: windows
