@@ -15,7 +15,7 @@ require 'spec_helper'
   end
 end
 
-describe file("/etc/sensu/handlers/pagerduty.rb") do
+describe file("/etc/sensu/handlers/handler-pagerduty.rb") do
   it { should be_file }
   it { should be_mode 755 }
   it { should be_owned_by "root" }
