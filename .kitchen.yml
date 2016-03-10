@@ -26,9 +26,11 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[sensu-test::ensure_group]
       - recipe[sensu::default]
     attributes:
       sensu:
+        group: nogroup
         windows:
           dism_source: <%= ENV['SENSU_WINDOWS_DISM_SOURCE'] %>
   - name: sysv
