@@ -24,7 +24,7 @@ platforms:
     driver:
       http_proxy: null
       https_proxy: null
-      box: windows_2012_r2
+      box: windows-2012r2
       customize:
         memory: 2048
     provisioner:
