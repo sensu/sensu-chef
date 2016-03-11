@@ -9,4 +9,5 @@ group :integration do
   gem "kitchen-docker"
   gem "librarian-chef"
   gem "windows_chef_zero", ">= 1.0.0"
+  gem "emeril", "~> 0.8"
 end

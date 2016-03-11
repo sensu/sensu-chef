@@ -1,5 +1,14 @@
 #!/usr/bin/env rake
 
+# emeril helps us release the cookbook
+require 'emeril/rake_tasks'
+
+Emeril::RakeTasks.new do |t|
+  # disable git tag prefix string
+  t.config[:tag_prefix] = false
+end
+
+# rspec runs unit tests
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |t|
@@ -8,6 +17,7 @@ begin
 rescue LoadError
 end
 
+# test-kitchen runs integration tests
 begin
   require 'kitchen/rake_tasks'
   Kitchen::RakeTasks.new
@@ -15,8 +25,8 @@ rescue LoadError
   puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
 end
 
-# for now we're blacklisting windows platforms in rake tasks
-# but keeping them in .kitchen.yml so we can still run as needed
+# for now we're blacklisting windows platforms in test-kitchen rake tasks
+# but keeping them in .kitchen.yml so we can still run as needed via `kitchen` command
 %w(
   default-windows-2012-r2
   asset-windows-2012-r2
