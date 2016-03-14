@@ -11,9 +11,7 @@ platforms:
   - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: centos-5.11
-  - name: centos-6.5
-    driver:
-      box: opscode-centos-6.5
+  - name: centos-6.7
   - name: windows-2012-r2
     driver:
       http_proxy: null
