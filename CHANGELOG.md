@@ -2,7 +2,7 @@
 
 This file is used to track changes made in each version of the sensu cookbook.
 
-## Unreleased
+## 2.12.0 - 2016-03-14
 
 ### Project changes
 
@@ -10,11 +10,15 @@ The Sensu cookbook project has adopted a new contribution workflow and a new cod
 
 ### Behavior changes
 
+* Values for `owner` and `group` properties on `sensu_json_file` resources now default to lazy evaluation of node attributes `sensu.admin_user` and `sensu.group` respectively. (#426)
+
 * Data bags remain default source of SSL certificates, but are now optional:
 
 	With the addition of Sensu state helpers in #410 recipes which access credentials via data bags (i.e. `default`, `rabbitmq` and `enterprise` recipes) have been updated to make these data bag items optional.
 
 	Please see the readme and integration test suite for examples of using these helpers.
+
+* Testing notes have been added in `TESTING.md` to describe some of the platform/suite combinations which are disabled or otherwise require special configuration.
 
 ### Features
 
