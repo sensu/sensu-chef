@@ -41,6 +41,8 @@ Berksfile.lock
 vendor/
 .coverage/
 .zero-knife.rb
+Cheffile.lock
+.librarian/
 
 #vagrant stuff
 .vagrant/
