@@ -28,8 +28,8 @@ begin
     enterprise = Sensu::Helpers.data_bag_item(enterprise_item, true, data_bag_name)
     set_sensu_state(node, "enterprise", enterprise)
    end
-rescue =>
-    Chef::Log.warn("Failed to populate Sensu state with Enterprise repository credentials from data bag: " + e.inspect)
+rescue => e
+  Chef::Log.warn("Failed to populate Sensu state with Enterprise repository credentials from data bag: " + e.inspect)
 end
 
 credentials = get_sensu_state(node, "enterprise", "repository", "credentials")
