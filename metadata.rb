@@ -37,3 +37,6 @@ suggests "chef-vault", ">= 1.3.1"
 ].each do |os|
   supports os
 end
+
+source_url 'https://github.com/sensu/sensu-chef' if respond_to?(:source_url)
+issues_url 'https://github.com/sensu/sensu-chef/issues' if respond_to?(:issues_url)
