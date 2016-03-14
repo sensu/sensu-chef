@@ -43,6 +43,7 @@ suites:
     excludes:
       - windows-2012-r2
       - centos-5.11
+      - centos-6.5
   - name: runit
     run_list:
       - recipe[sensu-test::runit]
@@ -58,6 +59,7 @@ suites:
       - recipe[sensu-test]
     excludes:
       - windows-2012-r2
+      - centos-5.11
     attributes:
       sensu:
         rabbitmq:
@@ -67,6 +69,7 @@ suites:
       - recipe[sensu-test]
     excludes:
       - windows-2012-r2
+      - centos-5.11
     attributes:
       dev_mode: true
   - name: asset
