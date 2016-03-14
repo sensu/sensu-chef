@@ -32,6 +32,8 @@ suggests "chef-vault", ">= 1.3.1"
   fedora
   amazon
   windows
+  scientific
+  oracle
 ].each do |os|
   supports os
 end
