@@ -59,6 +59,7 @@ suites:
       - recipe[sensu-test]
     excludes:
       - windows-2012-r2
+      - centos-5.11
     attributes:
       sensu:
         rabbitmq:
@@ -68,6 +69,7 @@ suites:
       - recipe[sensu-test]
     excludes:
       - windows-2012-r2
+      - centos-5.11
     attributes:
       dev_mode: true
   - name: asset
