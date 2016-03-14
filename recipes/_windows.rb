@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-Chef::Recipe.send(:include, Windows::Helper)
+require 'chef/win32/version'
+win_version = Chef::ReservedNames::Win32::Version.new
 
 user "sensu" do
   password Sensu::Helpers.random_password(20, true, true, true, true)

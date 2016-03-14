@@ -19,9 +19,9 @@
 
 include_recipe "sensu::default"
 
-sensu_plugin "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/http/check-http.rb"
+sensu_plugin "https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-http/master/bin/check-http.rb"
 
-sensu_plugin "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/plugins/haproxy/check-haproxy.rb" do
+sensu_plugin "https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-haproxy/master/bin/check-haproxy.rb" do
   action :create_if_missing
 end
 
@@ -35,10 +35,17 @@ sensu_plugin "check-dns.rb" do
   source_directory "plugins"
 end
 
-sensu_plugin "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/handlers/notification/pagerduty.rb" do
+sensu_plugin "https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-pagerduty/master/bin/handler-pagerduty.rb" do
   asset_directory File.join(node.sensu.directory, "handlers")
 end
 
-sensu_asset "https://raw.githubusercontent.com/sensu/sensu-community-plugins/master/extensions/checks/system_profile.rb" do
+profiler_extension = case platform?('windows')
+                     when true
+                        "https://raw.githubusercontent.com/sensu/sensu-community-plugins/36ffb8b92c69065e7e5351a8011497e2c4ffd0e1/extensions/checks/wmi_metrics.rb"
+                     when false
+                       "https://raw.githubusercontent.com/sensu/sensu-community-plugins/36ffb8b92c69065e7e5351a8011497e2c4ffd0e1/extensions/checks/system_profile.rb"
+                     end
+
+sensu_asset profiler_extension do
   asset_directory File.join(node.sensu.directory, "extensions")
 end

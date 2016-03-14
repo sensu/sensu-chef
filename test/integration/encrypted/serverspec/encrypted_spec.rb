@@ -1,9 +1,5 @@
-require "serverspec"
-require "net/http"
-require "uri"
-
-set :backend, :exec
-set :path, "/bin:/usr/bin:/sbin:/usr/sbin"
+require 'spec_helper'
+require 'service_dependency_helper'
 
 describe service("sensu-server") do
   it { should be_enabled }
@@ -22,4 +18,5 @@ end
 
 describe file('/etc/sensu/config.json') do
   its(:content) { should match /encryptedPassword42/ }
+  its(:content) { should_not match /"id": / }
 end

@@ -4,6 +4,11 @@ def load_current_resource
 end
 
 action :create do
+
+  if new_resource.type == 'status'
+    Chef::Log.warn("sensu_check[#{new_resource.name}]: type 'status' is deprecated and will be removed in a future version. Please use type 'standard' instead.")
+  end
+
   # Check attributes that have defaults require merging onto `select_attributes`
   # results. Currently this is only `interval`.
   check = Sensu::Helpers.select_attributes(

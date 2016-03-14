@@ -1,9 +1,4 @@
-require "serverspec"
-require "net/http"
-require "uri"
-
-set :backend, :exec
-set :path, "/bin:/usr/bin:/sbin:/usr/sbin"
+require 'spec_helper'
 
 %w[
   check-http.rb
@@ -20,7 +15,7 @@ set :path, "/bin:/usr/bin:/sbin:/usr/sbin"
   end
 end
 
-describe file("/etc/sensu/handlers/pagerduty.rb") do
+describe file("/etc/sensu/handlers/handler-pagerduty.rb") do
   it { should be_file }
   it { should be_mode 755 }
   it { should be_owned_by "root" }

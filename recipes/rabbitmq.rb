@@ -33,8 +33,14 @@ if node["sensu"]["use_ssl"]
     recursive true
   end
 
-  ssl_item = node["sensu"]["data_bag"]["ssl_item"]
-  ssl = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
+  begin
+    unless get_sensu_state(node, "ssl")
+      ssl_item = node["sensu"]["data_bag"]["ssl_item"]
+      ssl = Sensu::Helpers.data_bag_item(ssl_item, false, data_bag_name)
+    end
+  rescue => e
+    Chef::Log.warn("Failed to populate Sensu state with ssl credentials from data bag: " + e.inspect)
+  end
 
   %w[
     cacert
@@ -43,7 +49,7 @@ if node["sensu"]["use_ssl"]
   ].each do |item|
     path = File.join(ssl_directory, "#{item}.pem")
     file path do
-      content ssl["server"][item]
+      content lazy { get_sensu_state(node, "ssl", "server", item) }
       group "rabbitmq"
       mode 0640
       sensitive true if Chef::Resource::ChefGem.instance_methods(false).include?(:sensitive)
@@ -59,7 +65,7 @@ if node["sensu"]["use_ssl"]
   ].each do |item|
     path = File.join(ssl_directory, "client", "#{item}.pem")
     file path do
-      content ssl["client"][item]
+      content lazy { get_sensu_state(node, "ssl", "client", item) }
       group "rabbitmq"
       mode 0640
       sensitive true if Chef::Resource::ChefGem.instance_methods(false).include?(:sensitive)
