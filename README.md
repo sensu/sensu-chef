@@ -1,7 +1,7 @@
 ## DESCRIPTION
 
 Provides LWRP's and service recipes to install and configure
-[Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
+[Sensu](https://sensuapp.org/docs/latest/overview), a monitoring framework.
 
 This cookbook provides the building blocks for creating a monitoring
 cookbook specific to your environment (wrapper). Without such a
@@ -18,11 +18,11 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
 ## COOKBOOK DEPENDENCIES
 
-* [APT](http://community.opscode.com/cookbooks/apt)
-* [YUM](http://community.opscode.com/cookbooks/yum)
-* [Windows](http://community.opscode.com/cookbooks/windows)
-* [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
-* [RedisIO](http://community.opscode.com/cookbooks/redisio)
+* [APT](https://supermarket.chef.io/cookbooks/apt)
+* [YUM](https://supermarket.chef.io/cookbooks/yum)
+* [Windows](https://supermarket.chef.io/cookbooks/windows)
+* [RabbitMQ](https://supermarket.chef.io/cookbooks/rabbitmq)
+* [RedisIO](https://supermarket.chef.io/cookbooks/redisio)
 
 NOTE: This cookbook either constrains its dependencies optimistically (`>=`) or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
 
