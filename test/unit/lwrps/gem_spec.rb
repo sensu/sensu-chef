@@ -2,7 +2,10 @@ require_relative "../spec_helper"
 
 describe 'sensu-test::gem_lwrp' do
   let(:chef_run) do
-    ChefSpec::SoloRunner.new(:step_into => ['sensu_gem']).converge(described_recipe)
+    ChefSpec::SoloRunner.new(
+      :step_into => ['sensu_gem'],
+      :file_cache_path => '/tmp'
+    ).converge(described_recipe)
   end
 
   it 'defaults to action :install' do
