@@ -123,6 +123,14 @@ Enables and starts the Sensu API.
 
 Enables and starts Sensu Enterprise.
 
+### sensu::enterprise_dashboard
+
+Installs and configures Sensu Enterprise Dashboard.
+
+### sensu::enterprise_dashboard_service
+
+Enables and starts Sensu Enterprise Dashboard.
+
 ## ATTRIBUTES
 
 ### Installation
