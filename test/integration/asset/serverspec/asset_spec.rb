@@ -7,24 +7,26 @@ require 'spec_helper'
   check-socket.rb
   check-dns.rb
 ].each do |plugin|
-  describe file(File.join("/etc/sensu/plugins", plugin)) do
+  describe file(File.join(sensu_directory, "plugins", plugin)) do
     it { should be_file }
-    it { should be_mode 755 }
+    it { should be_mode 755 } unless windows?
     it { should be_owned_by "root" }
-    it { should be_grouped_into "sensu" }
+    it { should be_grouped_into "sensu" } unless windows?
   end
 end
 
-describe file("/etc/sensu/handlers/handler-pagerduty.rb") do
+describe file(File.join(sensu_directory, "handlers", "handler-pagerduty.rb")) do
   it { should be_file }
-  it { should be_mode 755 }
+  it { should be_mode 755 } unless windows?
   it { should be_owned_by "root" }
-  it { should be_grouped_into "sensu" }
+  it { should be_grouped_into "sensu" } unless windows?
 end
 
-describe file("/etc/sensu/extensions/system_profile.rb") do
+profiler_extension = windows? ? 'wmi_metrics.rb' : 'system_profile.rb'
+
+describe file(File.join(sensu_directory , "extensions", profiler_extension)) do
   it { should be_file }
-  it { should be_mode 755 }
+  it { should be_mode 755 } unless windows?
   it { should be_owned_by "root" }
-  it { should be_grouped_into "sensu" }
+  it { should be_grouped_into "sensu" } unless windows?
 end
