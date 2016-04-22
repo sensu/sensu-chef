@@ -1,13 +1,18 @@
 source "https://rubygems.org"
 
-group :integration do
-  gem "chef", "< 12.4"
+group :develop do
+  gem "chef", "~> 12.9"
   gem "chefspec", "~> 4.5"
-  gem "test-kitchen", "= 1.3.1"
-  gem "kitchen-vagrant", "= 0.16.0"
-  gem "winrm-transport", ">= 1.0.3"
-  gem "kitchen-docker"
-  gem "librarian-chef"
-  gem "windows_chef_zero", ">= 1.0.0"
   gem "emeril", "~> 0.8"
+  gem "librarian-chef"
+  gem "rake"
+end
+
+group :integration do
+  gem "chef-zero-scheduled-task"
+  gem "test-kitchen", "~> 1.7"
+  gem "kitchen-docker"
+  gem "kitchen-vagrant"
+  gem "winrm-fs"
+  gem "winrm-transport"
 end
