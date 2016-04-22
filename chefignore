@@ -42,6 +42,7 @@ features/*
 
 ## SCM
 .gitignore
+.github/*
 
 # Berkshelf
 Berksfile
