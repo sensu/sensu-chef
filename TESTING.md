@@ -34,6 +34,4 @@ This tests a number of different suites, some of which require special credentia
 * The centos-511 platform is also excluded from the `sysv` suite because the "rabbitmqctl" executable is not in root's path, which causes rabbitmq configuration to fail.
 * Testing the `enterprise` and `enterprise-dashboard` suites require valid Sensu Enterprise repository credentials exported as the values of `SENSU_ENTERPRISE_USER` and `SENSU_ENTERPRISE_PASS` respectively.
 * Testing the `enterprise` suite requires allocating ~3gb of memory to the test system.
-* Windows tests are currently considered a special case, and therefore ommited when running the `kitchen:all` rake task. You may test them manually via `bundle exec kitchen converge` but `verify` and `test` will fail.
-* Testing Windows platforms requires you to Bring Your Own Basebox. See https://github.com/joefitzgerald/packer-windows for a Packer template that includes OpenSSH.
-* Testing Windows platforms currently uses the converge-only windows_chef_zero provisioner. Running `kitchen verify` or `kitchen test` on instances using this provisioner will fail.
+* Testing Windows platforms requires you to Bring Your Own Basebox.
