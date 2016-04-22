@@ -9,7 +9,7 @@ group :develop do
 end
 
 group :integration do
-  gem "chef-zero-scheduled-task"
+  gem "chef-zero-scheduled-task", "~> 0.1"
   gem "test-kitchen", "~> 1.7"
   gem "kitchen-docker"
   gem "kitchen-vagrant"
