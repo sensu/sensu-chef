@@ -15,14 +15,14 @@ platforms:
     driver:
       box: opscode-centos-6.5
   - name: windows-2012-r2
+    provisioner:
+      name: chef_zero_scheduled_task
     driver:
       http_proxy: null
       https_proxy: null
       box: windows-2012r2
       customize:
         memory: 2048
-    provisioner:
-      windows_chef_zero
     attributes:
       lsb:
         codename: windows
