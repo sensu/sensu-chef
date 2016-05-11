@@ -3,6 +3,8 @@
 # emeril helps us release the cookbook
 require 'emeril/rake_tasks'
 
+task default: [:spec]
+
 Emeril::RakeTasks.new do |t|
   # disable git tag prefix string
   t.config[:tag_prefix] = false
