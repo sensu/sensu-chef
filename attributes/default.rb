@@ -35,6 +35,7 @@ default["sensu"]["add_repo"] = true
 
 # transport
 default["sensu"]["transport"]["reconnect_on_error"] = true
+default["sensu"]["transport"]["name"] = 'rabbitmq'
 
 # rabbitmq
 default["sensu"]["rabbitmq"]["host"] = "localhost"
