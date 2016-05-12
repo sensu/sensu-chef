@@ -55,3 +55,4 @@ cookbooks/*
 # test-kitchen
 .kitchen
 .kitchen*.yml*
+.nellie
