@@ -38,7 +38,7 @@ RSpec.shared_examples 'sensu default recipe' do
       chef_run.node.set["sensu"]["use_ssl"] = false
       chef_run.converge(described_recipe)
     end
-    
+
     it "does not write the certificate chain file" do
       expect(chef_run).to_not create_file(ssl_cert_chain_file)
     end
