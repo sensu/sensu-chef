@@ -191,6 +191,15 @@ for Sensu to start/stop.
 
 `node["sensu"]["api"]["port"]` - Sensu API port.
 
+### Sensu Enterprise
+
+`node["sensu"]["enterprise"]["repo_protocol"]` - Sensu Enterprise repo protocol (e.g. http, https)
+`node["sensu"]["enterprise"]["repo_host"]` - Sensu Enterprise repo host
+`node["sensu"]["enterprise"]["version"]` - Desired Sensu Enterprise package version
+`node["sensu"]["enterprise"]["use_unstable_repo"]` - Toggle use of Sensu Enterprise unstable repository
+`node["sensu"]["enterprise"]["log_level"]` - Configure Sensu Enterprise log level
+`node["sensu"]["enterprise"]["heap_size"]` - Configure Sensu Enterprise heap size
+
 ## LWRP'S
 
 ### Define a client
