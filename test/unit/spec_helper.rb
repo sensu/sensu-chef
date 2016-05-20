@@ -1,6 +1,8 @@
 require 'chefspec'
 require 'chefspec/librarian'
 
+ChefSpec::Coverage.start!
+
 RSpec.shared_context('sensu data bags') do
   let(:ssl_data_bag_item) do
     # JSON.parse(
