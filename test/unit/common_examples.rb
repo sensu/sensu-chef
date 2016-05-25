@@ -48,4 +48,8 @@ RSpec.shared_examples 'sensu default recipe' do
     end
   end
 
+  it "writes a base sensu configuration using sensu_base_config" do
+    expect(chef_run).to create_sensu_base_config(chef_run.node.name)
+  end
+
 end

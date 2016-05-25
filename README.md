@@ -163,6 +163,10 @@ Sensu services, "sysv" and "runit" are currently supported.
 `node["sensu"]["service_max_wait"]` - How long service scripts should wait
 for Sensu to start/stop.
 
+### Transport
+
+`node["sensu"]["transport"]["name"]` - Name of transport to use for Sensu communications. Default "rabbitmq"
+
 ### RabbitMQ
 
 `node["sensu"]["rabbitmq"]["host"]` - RabbitMQ host.
