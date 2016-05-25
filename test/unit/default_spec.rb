@@ -4,11 +4,6 @@ require_relative "common_examples"
 describe "sensu::default" do
   include_context("sensu data bags")
 
-  before do
-    allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).and_call_original
-    allow_any_instance_of(Chef::Recipe).to receive(:include_recipe).with("sensu::_windows")
-  end
-
   context "when running on non-windows platform" do
 
     let(:sensu_directory) { '/etc/sensu' }
@@ -31,17 +26,35 @@ describe "sensu::default" do
 
     let(:sensu_directory) { 'C:\etc\sensu' }
     let(:log_directory) { 'C:\var\log\sensu' }
+    let(:dotnet_recipe) { "ms_dotnet::ms_dotnet3" }
 
     let(:chef_run) do
-      ChefSpec::ServerRunner.new(:platform => "windows", :version => "2003R2") do |node, server|
+      ChefSpec::ServerRunner.new(
+        :platform => "windows",
+        :version => "2008R2"
+      ) do |node, server|
         server.create_data_bag("sensu", ssl_data_bag_item)
         node.set["lsb"] = {}
+        node.set["sensu"]["windows"]["dotnet_major_version"] = 3
       end.converge(described_recipe)
     end
 
     it "includes the sensu::_windows recipe" do
-      expect_any_instance_of(Chef::Recipe).to receive(:include_recipe).with("sensu::_windows")
-      chef_run
+      expect(chef_run).to include_recipe("sensu::_windows")
+    end
+
+    context "when install_dotnet is true" do
+      it "includes the appropriate recipe from the ms_dotnet cookbook" do
+        expect(chef_run).to include_recipe(dotnet_recipe)
+      end
+    end
+
+    context "when install_dotnet is false" do
+      it "includes the appropriate recipe from the ms_dotnet cookbook" do
+        chef_run.node.set["sensu"]["windows"]["install_dotnet"] = false
+        chef_run.converge(described_recipe)
+        expect(chef_run).to_not include_recipe(dotnet_recipe)
+      end
     end
 
     it_behaves_like('sensu default recipe')

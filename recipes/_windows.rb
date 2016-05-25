@@ -17,15 +17,11 @@
 # limitations under the License.
 #
 
-require 'chef/win32/version'
-win_version = Chef::ReservedNames::Win32::Version.new
+windows = node["sensu"]["windows"].dup
 
 user "sensu" do
   password Sensu::Helpers.random_password(20, true, true, true, true)
-  not_if {
-    user = Chef::Util::Windows::NetUser.new("sensu")
-    !!user.get_info rescue false
-  }
+  not_if { Sensu::Helpers.windows_user_exists?("sensu") }
 end
 
 group "sensu" do
@@ -33,19 +29,13 @@ group "sensu" do
   action :manage
 end
 
-if win_version.windows_server_2012? || win_version.windows_server_2012_r2?
-  windows_feature "NetFx3ServerFeatures" do
-    source node["sensu"]["windows"]["dism_source"]
-  end
-end
-
-windows_feature "NetFx3" do
-  source node["sensu"]["windows"]["dism_source"]
+if windows["install_dotnet"]
+  include_recipe "ms_dotnet::ms_dotnet#{windows["dotnet_major_version"]}"
 end
 
 windows_package "Sensu" do
   source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}.msi"
-  options node["sensu"]["windows"]["package_options"]
+  options windows["package_options"]
   version node["sensu"]["version"].gsub("-", ".")
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
@@ -59,6 +49,6 @@ end
 execute "sensu-client.exe install" do
   cwd 'C:\opt\sensu\bin'
   not_if {
-    ::Win32::Service.exists?("sensu-client")
+     Sensu::Helpers.windows_service_exists?("sensu-client")
   }
 end

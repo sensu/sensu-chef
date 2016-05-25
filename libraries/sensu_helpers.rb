@@ -94,6 +94,38 @@ module Sensu
         end
         password
       end
+
+      # Wraps the Chef::Util::Windows::NetUser, returning false if the Win32 constant
+      # is undefined, or returning false if the user does not exist. This indirection
+      # seems like the most expedient way to make the sensu::_windows recipe testable
+      # via chefspec on non-windows platforms.
+      #
+      # @param [String] the name of the user to test for
+      # @return [TrueClass, FalseClass]
+      def windows_user_exists?(user)
+        if defined?(Win32)
+          net_user = Chef::Util::Windows::NetUser.new(user)
+          !!net_user.get_info rescue false
+        else
+          false
+        end
+      end
+
+      # Wraps Win32::Service, returning false if the Win32 constant
+      # is undefined, or returning false if the user does not exist. This indirection
+      # seems like the most expedient way to make the sensu::_windows recipe testable
+      # via chefspec on non-windows platforms.
+      #
+      # @param [String] the name of the service to test for
+      # @return [TrueClass, FalseClass]
+      def windows_service_exists?(service)
+        if defined?(Win32)
+          ::Win32::Service.exists?(service)
+        else
+          false
+        end
+      end
+
     end
   end
 end
