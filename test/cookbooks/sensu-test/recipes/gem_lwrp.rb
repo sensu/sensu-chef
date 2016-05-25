@@ -1,3 +1,5 @@
+include_recipe 'build-essential' unless platform?('windows')
+
 # specify resource without action for testing default action == :install
 sensu_gem 'sensu-plugins-sensu'
 
