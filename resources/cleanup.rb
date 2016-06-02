@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: server_service
+# Recipe:: cleanup
 #
-# Copyright 2014, Sonian Inc.
+# Copyright 2014, Korviakov Andrey, NetBox
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +18,8 @@
 #
 
 
+actions :run, :disable
 
-sensu_service "sensu-server" do
-  init_style node["sensu"]["init_style"]
-  action [:enable, :start]
-end
+default_action :run
 
-sensu_cleanup ::File.join(node.sensu.directory, "conf.d", "checks") do
-	notifies :create, "ruby_block[sensu_service_trigger]", :delayed
-end
+attribute :path, :kind_of => String, :name_attribute => true
