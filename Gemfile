@@ -9,10 +9,10 @@ group :develop do
 end
 
 group :integration do
-  gem "chef-zero-scheduled-task", "~> 0.1"
-  gem "test-kitchen", "~> 1.7"
+  gem "test-kitchen", "~> 1.8"
   gem "kitchen-docker"
   gem "kitchen-vagrant"
   gem "winrm-fs"
   gem "winrm-transport"
+  gem "winrm-elevated"
 end
