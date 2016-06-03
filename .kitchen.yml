@@ -53,6 +53,7 @@ suites:
     run_list:
       - recipe[sensu-test]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
       - centos-5.11
       - centos-6.5
@@ -60,11 +61,13 @@ suites:
     run_list:
       - recipe[sensu-test::runit]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
   - name: encrypted
     run_list:
       - recipe[sensu-test]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
   - name: acls
     run_list:
@@ -80,6 +83,7 @@ suites:
     run_list:
       - recipe[sensu-test]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
       - centos-5.11
     attributes:
@@ -98,6 +102,7 @@ suites:
     run_list:
       - recipe[sensu-test::enterprise]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
   - name: enterprise-dashboard
     attributes:
@@ -107,9 +112,11 @@ suites:
     run_list:
       - recipe[sensu-test::enterprise_dashboard]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
   - name: run-state-helpers
     run_list:
       - recipe[sensu-test::run_state_helpers]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
