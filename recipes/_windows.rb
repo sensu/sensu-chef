@@ -30,13 +30,13 @@ group "sensu" do
 end
 
 if windows["install_dotnet"]
-  include_recipe "ms_dotnet::ms_dotnet#{windows["dotnet_major_version"]}"
+  include_recipe "ms_dotnet::ms_dotnet#{windows['dotnet_major_version']}"
 end
 
 windows_package "Sensu" do
   source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}.msi"
   options windows["package_options"]
-  version node["sensu"]["version"].gsub("-", ".")
+  version node["sensu"]["version"].tr("-", ".")
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
 end
 
@@ -48,7 +48,5 @@ end
 
 execute "sensu-client.exe install" do
   cwd 'C:\opt\sensu\bin'
-  not_if {
-     Sensu::Helpers.windows_service_exists?("sensu-client")
-  }
+  not_if { Sensu::Helpers.windows_service_exists?("sensu-client") }
 end
