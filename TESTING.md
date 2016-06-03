@@ -1,6 +1,6 @@
 ## Testing the cookbook
 
-This cookbook has tests in the source repository. To run the tests:
+This cookbook has tests in the source repository. To run the tests, first install the required gems:
 
 ```
 git clone git://github.com/sensu/sensu-chef.git
@@ -12,7 +12,7 @@ There are two kinds of tests in use: unit and integration tests.
 
 ### Unit Tests
 
-The resource/provider code is unit tested with rspec. To run these tests, use rake:
+The cookbook is unit tested with rspec. To run these tests, use rake:
 
 ```
 bundle exec rake spec
@@ -27,6 +27,10 @@ bundle exec rake kitchen:all
 ```
 
 This tests a number of different suites, some of which require special credentials or virtual machine configurations. Please see the caveats and known issues below for additional details.
+
+### Local development tools
+
+The project includes tools like Rubocop and Foodcritic to help with uniformity and quality of code changes. Because these tools presently report a number of existing violations, they are not enabled as part of our automatic testing as of this writing. During local development it is recommended that you run `bundle exec guard` to automatically test your changes using these tools.
 
 ### Caveats and known issues
 
