@@ -292,7 +292,7 @@ when the resource attribute is available.
 ### Features
 
 Embedded Runit support for Sensu services. The `init_style` defaults to
-"sysv", but can be changed to "runit". The `sensu_service` LWRP is used in
+"sysv", but can be changed to "runit" or "systemd". The `sensu_service` LWRP is used in
 service recipes, eg. `sensu::server_service`.
 
 Data bag item helper, supported plain-text and encrypted Sensu data bag
