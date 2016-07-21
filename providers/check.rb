@@ -14,8 +14,8 @@ action :create do
   check = Sensu::Helpers.select_attributes(
     new_resource,
     %w[
-      type command timeout subscribers standalone aggregate handle handlers
-      publish subdue low_flap_threshold high_flap_threshold
+      type command timeout subscribers standalone aggregate aggregates handle
+      handlers publish subdue low_flap_threshold high_flap_threshold
     ]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
 

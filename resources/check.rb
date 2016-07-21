@@ -7,6 +7,7 @@ attribute :timeout, :kind_of => Integer
 attribute :subscribers, :kind_of => Array
 attribute :standalone, :kind_of => [TrueClass, FalseClass]
 attribute :aggregate, :kind_of => String
+attribute :aggregates, :kind_of => Array
 attribute :interval, :default => 60
 attribute :handle, :kind_of => [TrueClass, FalseClass]
 attribute :handlers, :kind_of => Array
