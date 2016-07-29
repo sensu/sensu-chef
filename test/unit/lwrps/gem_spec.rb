@@ -25,7 +25,7 @@ describe 'sensu_gem' do
 
     context 'source specified' do
       it 'installs the specified gem package from the specified source' do
-        expect(chef_run).to install_gem_package('sensu-plugins-cpu-checks').with(:source => '/tmp/sensu-plugins-cpu-checks.gem')
+        expect(chef_run).to install_gem_package('sensu-plugins-memory-checks').with(:source => '/tmp/sensu-plugins-memory-checks.gem')
       end
     end
   end

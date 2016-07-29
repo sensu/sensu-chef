@@ -19,15 +19,15 @@ sensu_gem 'sensu-plugins-hipchat' do
   action :remove
 end
 
-cpu_checks = ::File.join(Chef::Config[:file_cache_path], 'sensu-plugins-cpu-checks.gem')
+mem_checks = ::File.join(Chef::Config[:file_cache_path], 'sensu-plugins-memory-checks.gem')
 
-remote_file cpu_checks do
-  source 'https://rubygems.org/downloads/sensu-plugins-cpu-checks-0.0.3.gem'
+remote_file mem_checks do
+  source 'https://rubygems.org/downloads/sensu-plugins-memory-checks-1.0.2.gem'
 end
 
 # for testing source property
-sensu_gem 'sensu-plugins-cpu-checks' do
-  source cpu_checks
+sensu_gem 'sensu-plugins-memory-checks' do
+  source mem_checks
   action :install
 end
 
