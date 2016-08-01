@@ -23,6 +23,7 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 * [Windows](http://community.opscode.com/cookbooks/windows)
 * [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
 * [RedisIO](http://community.opscode.com/cookbooks/redisio)
+* [ms_dotnet](http://community.opscode.com/cookbooks/ms_dotnet)
 
 NOTE: This cookbook either constrains its dependencies optimistically (`>=`) or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
 
@@ -162,6 +163,16 @@ Sensu services, "sysv" and "runit" are currently supported.
 
 `node["sensu"]["service_max_wait"]` - How long service scripts should wait
 for Sensu to start/stop.
+
+### Windows
+
+Sensu requires Microsoft's .Net Framework to run on Windows. The following attributes influence the installation of .Net via this cookbook:
+
+`node["sensu"]["windows"]["install_dotnet"]` - Toggles installation of .Net Framework using ms_dotnet cookbook. (default: true)
+
+`node["sensu"]["windows"]["dotnet_major_version"]` - Major version of .Net Framework to install. (default: 4)
+
+Adjusting the value of `dotnet_major_version` attribute will influence which recipe from `ms_dotnet` cookbook will be included. See [`ms_dotnet` cookbook documentation](https://github.com/criteo-cookbooks/ms_dotnet/blob/v2.6.1/README.md) for additional details on using this cookbook.
 
 ### Transport
 

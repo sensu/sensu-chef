@@ -15,6 +15,9 @@ depends "yum"
 # available @ http://supermarket.chef.io/cookbooks/windows
 depends "windows", ">= 1.8.8"
 
+# available @ https://supermarket.chef.io/cookbooks/ms_dotnet
+depends "ms_dotnet", ">= 2.6.1"
+
 # available @ http://supermarket.chef.io/cookbooks/rabbitmq
 depends "rabbitmq", ">= 2.0.0"
 
