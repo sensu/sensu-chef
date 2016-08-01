@@ -1,5 +1,5 @@
 action :create do
-  sensu_service_trigger = !!node.run_context.resource_collection.detect do |r|
+  sensu_service_trigger = !!run_context.resource_collection.detect do |r|
     r.to_s == "ruby_block[sensu_service_trigger]"
   end
 
