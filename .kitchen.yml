@@ -120,3 +120,17 @@ suites:
     excludes:
       - windows-2008-r2
       - windows-2012-r2
+  - name: cleanup
+    driver:
+      name: vagrant
+      provision: true
+      vagrantfiles:
+        - test/files/vagrant.check-to-remove.rb
+    run_list:
+      - recipe[sensu-test]
+      - recipe[sensu-test::cleanup_checks]
+    excludes:
+      - windows-2008-r2
+      - windows-2012-r2
+      - centos-5.11
+      - centos-6.5
