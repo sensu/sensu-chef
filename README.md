@@ -1,22 +1,26 @@
-## DESCRIPTION
+![sensu](https://raw.github.com/sensu/sensu/master/sensu-logo.png)
 
-Provides LWRP's and service recipes to install and configure
-[Sensu](https://sensuapp.org/docs/latest/overview), a monitoring framework.
+[![Build Status](https://img.shields.io/travis/sensu/sensu-chef.svg)](https://travis-ci.org/sensu/sensu-chef) [![Cookbook Version](https://img.shields.io/cookbook/v/sensu.svg)](https://supermarket.chef.io/cookbooks/sensu)
 
-This cookbook provides the building blocks for creating a monitoring
-cookbook specific to your environment (wrapper). Without such a
-wrapper, no Sensu configuration files will be created for your nodes.
+## Description
 
-An example wrapper cookbook can be found
-[HERE](https://github.com/portertech/chef-monitor).
+This cookbook provides custom resources and service recipes to install and configure
+[Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
+
+The custom resources provide building blocks for creating a monitoring
+cookbook specific to your environment (wrapper). **Without such a
+wrapper, no Sensu configuration files will be created for your nodes.**
+
+An example wrapper cookbook can be found [HERE](https://github.com/portertech/chef-monitor).
 
 [How to Write Reusable Chef Cookbooks](http://bit.ly/10r993N)
 
-## CONTRIBUTING
+## Contributing
 
 See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
-## DEPENDENCIES
+
+## Dependencies
 
 ### Platforms
 
@@ -39,19 +43,27 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 * [RedisIO](https://supermarket.chef.io/cookbooks/redisio)
 * [ms_dotnet](https://supermarket.chef.io/cookbooks/ms_dotnet)
 
-NOTE: This cookbook either constrains its dependencies optimistically (`>=`) or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
+**NOTE**: This cookbook either constrains its dependencies optimistically (`>=`) or
+ not at all. You're strongly encouraged to more strictly manage these
+ dependencies in your wrapper cookbook.
 
-## PACKAGES
+## Package versioning
 
-This cookbook makes no attempt to manage the versions of its package dependencies. If you desire or require management of these versions, you should handle these via your wrapper cookbook.
+This cookbook makes no attempt to manage the versions of its package
+dependencies. If you desire or require management of these versions, you should
+handle these via your wrapper cookbook.
 
-## REQUIREMENTS
+## Prerequisites
 
 ### SSL configuration
 
-Running Sensu with SSL is recommended; by default this cookbook attempts to load SSL credentials from a data bag `sensu`, with an item `ssl`, containing the required SSL certificates and keys. These data bag items may be encrypted via native Chef encrypted data bags or via Chef Vault.
+Running Sensu with SSL is recommended; by default this cookbook attempts to load
+SSL credentials from a data bag `sensu`, with an item `ssl`, containing the
+required SSL certificates and keys. These data bag items may be encrypted via
+native Chef encrypted data bags or via Chef Vault.
 
-The data loaded from the data bag by default is expected to be formatted as follows:
+The data loaded from the data bag by default is expected to be formatted as
+follows:
 
 ```json
 {
@@ -67,13 +79,23 @@ The data loaded from the data bag by default is expected to be formatted as foll
 }
 ```
 
-All of the above values are expected to be strings comprised of PEM-formatted credentials with escaped line endings. See `test/integration/data_bags/sensu/ssl.json` for a more literal example.
+All of the above values are expected to be strings comprised of PEM-formatted
+credentials with escaped line endings. See
+`test/integration/data_bags/sensu/ssl.json` for a more literal example.
 
-If the attempt to load SSL credentials from a data bag fails, the cookbook will log a warning but proceed with the rest of the Chef run anyway, on the assumption that credentials will be inserted into the Chef "run state" (i.e. `node.run_state['sensu']['ssl']`) in the same format using the `Sensu::ChefRunState` helper methods, `set_sensu_run_state` and `get_sensu_run_state`.
+If the attempt to load SSL credentials from a data bag fails, the cookbook will
+log a warning but proceed with the rest of the Chef run anyway, on the
+assumption that credentials will be inserted into the Chef "run state" (i.e.
+`node.run_state['sensu']['ssl']`) in the same format using the
+`Sensu::ChefRunState` helper methods, `set_sensu_run_state` and
+`get_sensu_run_state`.
 
-Please see the [documentation for the run state helper methods](#helper-modules-and-methods) for more information.
+Please see the [documentation for the run state helper
+methods](#helper-modules-and-methods) for more information.
 
-This cookbook comes with a tool to generate the certificates and data bag items. If the integrity of the certificates is ever compromised, you must regenerate and redeploy them.
+This cookbook comes with a tool to generate the certificates and data bag items.
+If the integrity of the certificates is ever compromised, you must regenerate
+and redeploy them.
 
 ```
 cd examples/ssl
@@ -87,9 +109,8 @@ Use the plain-text data bag item:
 knife data bag from file sensu ssl.json
 ```
 
-Or, encrypt it with your data bag secret. See [Encrypt a Data
-Bag](https://docs.getchef.com/essentials_data_bags.html#encrypt-a-data-bag-item) for
-more information.
+Or, encrypt it with your data bag secret. See [Encrypt a Data Bag](https://docs.getchef.com/essentials_data_bags.html#encrypt-a-data-bag-item)
+for more information.
 
 ```
 knife data bag --secret-file /path/to/your/secret from file sensu ssl.json
@@ -99,7 +120,7 @@ knife data bag --secret-file /path/to/your/secret from file sensu ssl.json
 ./ssl_certs.sh clean
 ```
 
-## RECIPES
+## Recipes
 
 ### sensu::default
 
@@ -146,7 +167,7 @@ Installs and configures Sensu Enterprise Dashboard.
 
 Enables and starts Sensu Enterprise Dashboard.
 
-## ATTRIBUTES
+## Attributes
 
 ### Installation
 
@@ -186,7 +207,9 @@ Sensu requires Microsoft's .Net Framework to run on Windows. The following attri
 
 `node["sensu"]["windows"]["dotnet_major_version"]` - Major version of .Net Framework to install. (default: 4)
 
-Adjusting the value of `dotnet_major_version` attribute will influence which recipe from `ms_dotnet` cookbook will be included. See [`ms_dotnet` cookbook documentation](https://github.com/criteo-cookbooks/ms_dotnet/blob/v2.6.1/README.md) for additional details on using this cookbook.
+Adjusting the value of `dotnet_major_version` attribute will influence which
+ recipe from `ms_dotnet` cookbook will be included. See [`ms_dotnet` cookbook](https://github.com/criteo-cookbooks/ms_dotnet/blob/v2.6.1/README.md)
+ for additional details on using this cookbook.
 
 ### Transport
 
@@ -236,7 +259,7 @@ Adjusting the value of `dotnet_major_version` attribute will influence which rec
 
 `node["sensu"]["enterprise"]["java_opts"]` - Specify additional Java options when running Sensu Enterprise
 
-## LWRP'S
+## Custom Resources (LWRPs)
 
 ### Define a client
 
@@ -301,7 +324,7 @@ end
 
 The `Sensu::ChefRunState` module provides helper methods which populate `node.run_state['sensu']` with arbitrary key/value pairs. This provides a means for wrapper cookbooks to populate the `node.run_state` with data required by the cookbook, e.g. SSL credentials, without cookbook itself enforcing source for that data.
 
-n.b. The `node.run_state` is not persisted locally nor on a Chef server. Data stored here exists only for the duration of the Chef run.
+**NOTE**: The `node.run_state` is not persisted locally nor on a Chef server. Data stored here exists only for the duration of the Chef run.
 
 #### `set_sensu_state`
 
@@ -332,7 +355,7 @@ When no value is set for a requested path, this method returns `nil`:
 
 `get_sensu_state(node, 'this', 'path', 'is', 'invalid')` returns `nil`
 
-## SUPPORT
+## Support
 
 Please visit [sensuapp.org/support](http://sensuapp.org/support) for details on community and commercial
 support resources, including the official IRC channel.
