@@ -16,7 +16,21 @@ An example wrapper cookbook can be found
 
 See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
-## COOKBOOK DEPENDENCIES
+## DEPENDENCIES
+
+### Platforms
+
+* Ubuntu/Debian
+* RHEL and derivatives
+* Fedora
+* Windows
+
+### Chef
+
+* Chef 12+
+* Earlier versions of Chef (e.g. Chef 11) may work but are not actively supported.
+
+### Cookbooks
 
 * [APT](https://supermarket.chef.io/cookbooks/apt)
 * [YUM](https://supermarket.chef.io/cookbooks/yum)
