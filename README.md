@@ -1,7 +1,7 @@
 ## DESCRIPTION
 
 Provides LWRP's and service recipes to install and configure
-[Sensu](https://github.com/sensu/sensu/wiki), a monitoring framework.
+[Sensu](https://sensuapp.org/docs/latest/overview), a monitoring framework.
 
 This cookbook provides the building blocks for creating a monitoring
 cookbook specific to your environment (wrapper). Without such a
@@ -16,14 +16,28 @@ An example wrapper cookbook can be found
 
 See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
-## COOKBOOK DEPENDENCIES
+## DEPENDENCIES
 
-* [APT](http://community.opscode.com/cookbooks/apt)
-* [YUM](http://community.opscode.com/cookbooks/yum)
-* [Windows](http://community.opscode.com/cookbooks/windows)
-* [RabbitMQ](http://community.opscode.com/cookbooks/rabbitmq)
-* [RedisIO](http://community.opscode.com/cookbooks/redisio)
-* [ms_dotnet](http://community.opscode.com/cookbooks/ms_dotnet)
+### Platforms
+
+* Ubuntu/Debian
+* RHEL and derivatives
+* Fedora
+* Windows
+
+### Chef
+
+* Chef 12+
+* Earlier versions of Chef (e.g. Chef 11) may work but are not actively supported.
+
+### Cookbooks
+
+* [APT](https://supermarket.chef.io/cookbooks/apt)
+* [YUM](https://supermarket.chef.io/cookbooks/yum)
+* [Windows](https://supermarket.chef.io/cookbooks/windows)
+* [RabbitMQ](https://supermarket.chef.io/cookbooks/rabbitmq)
+* [RedisIO](https://supermarket.chef.io/cookbooks/redisio)
+* [ms_dotnet](https://supermarket.chef.io/cookbooks/ms_dotnet)
 
 NOTE: This cookbook either constrains its dependencies optimistically (`>=`) or not at all. You're strongly encouraged to more strictly manage these dependencies in your wrapper cookbook.
 
