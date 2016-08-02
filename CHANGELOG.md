@@ -11,6 +11,14 @@ This file is used to track changes made in each version of the sensu cookbook.
 ### Features
 
 * The `sensu_base_config` provider now honors `node["sensu"]["rabbitmq"]["hosts"]` attribute, providing an array of hosts to use for configuring rabbitmq transport with multiple brokers. When empty, falls back to existing `node["sensu"]["rabbitmq"]["host"]` attribute.
+* The `sensu_client` provider now honors the following additional client attributes, as defined in the [Sensu Client Reference Documentation](https://sensuapp.org/docs/0.25/reference/clients.html#client-attributes):
+  * deregister
+  * deregistration
+  * keepalives
+  * redact
+  * registration
+  * safe_mode
+  * socket
 
 ## 2.12.0 - 2016-03-14
 

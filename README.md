@@ -273,6 +273,17 @@ sensu_client node["name"] do
 end
 ```
 
+The `sensu_client` provider also supports the following optional attributes:
+
+* deregister
+* deregistration
+* keepalive
+* keepalives
+* redact
+* registration
+* safe_mode
+* socket
+
 ### Define a handler
 
 ```ruby
