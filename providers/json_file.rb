@@ -8,7 +8,7 @@ action :create do
       recursive true
       owner lazy { new_resource.owner || node["sensu"]["admin_user"] }
       group lazy { new_resource.group || node["sensu"]["group"] }
-      mode 0750
+      mode lazy { node["sensu"]["directory_mode"] }
     end
 
     f = file new_resource.path do

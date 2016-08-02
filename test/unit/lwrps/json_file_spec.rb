@@ -1,0 +1,20 @@
+require_relative "../spec_helper"
+
+describe 'sensu_json_file' do
+
+  let(:test_directory_mode) { "0755" }
+
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(
+      :step_into => ['sensu_json_file'],
+      :file_cache_path => '/tmp'
+    ) do |node|
+      node.set['sensu']['directory_mode'] = test_directory_mode
+    end.converge('sensu-test::json_file')
+  end
+
+  it 'creates the /etc/sensu directory using value of directory_mode attribute' do
+    expect(chef_run).to create_directory('/etc/sensu').with({ :mode => test_directory_mode })
+  end
+
+end
