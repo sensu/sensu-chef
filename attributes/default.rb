@@ -39,6 +39,7 @@ default["sensu"]["transport"]["reconnect_on_error"] = true
 default["sensu"]["transport"]["name"] = 'rabbitmq'
 
 # rabbitmq
+default["sensu"]["rabbitmq"]["hosts"] = []
 default["sensu"]["rabbitmq"]["host"] = "localhost"
 default["sensu"]["rabbitmq"]["port"] = 5671
 default["sensu"]["rabbitmq"]["vhost"] = "/sensu"

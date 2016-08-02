@@ -194,6 +194,8 @@ Adjusting the value of `dotnet_major_version` attribute will influence which rec
 
 ### RabbitMQ
 
+`node["sensu"]["rabbitmq"]["hosts"]` - Array of RabbitMQ hosts as strings, which will be combined with other RabbitMQ attributes to generate the Sensu RabbitMQ transport configuration as an array of hashes. Falls back to `node["sensu"]["rabbitmq"]["host"]` when empty. Defaults to an empty array.
+
 `node["sensu"]["rabbitmq"]["host"]` - RabbitMQ host.
 
 `node["sensu"]["rabbitmq"]["port"]` - RabbitMQ port, usually for SSL.
