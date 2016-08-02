@@ -11,9 +11,7 @@ platforms:
   - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: centos-5.11
-  - name: centos-6.5
-    driver:
-      box: opscode-centos-6.5
+  - name: centos-6.7
   - name: windows-2008-r2
     transport:
       name: winrm
@@ -56,7 +54,6 @@ suites:
       - windows-2008-r2
       - windows-2012-r2
       - centos-5.11
-      - centos-6.5
   - name: runit
     run_list:
       - recipe[sensu-test::runit]

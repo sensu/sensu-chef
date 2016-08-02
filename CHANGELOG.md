@@ -4,6 +4,10 @@ This file is used to track changes made in each version of the sensu cookbook.
 
 ## Unreleased
 
+### Important
+
+* The `rabbitmq` recipe now installs Erlang via the Erlang Solutions repository on all platforms
+
 ### Features
 
 * The `sensu_base_config` provider now honors `node["sensu"]["rabbitmq"]["hosts"]` attribute, providing an array of hosts to use for configuring rabbitmq transport with multiple brokers. When empty, falls back to existing `node["sensu"]["rabbitmq"]["host"]` attribute.

@@ -34,7 +34,6 @@ The project includes tools like Rubocop and Foodcritic to help with uniformity a
 
 ### Caveats and known issues
 
-* The centos-65 platform is currently excluded from `sysv` suite, as RabbitMQ [disables SSL listeners under the currently installed version of Erlang (R14B04)](http://www.rabbitmq.com/ssl.html#old-erlang).
 * The centos-511 platform is also excluded from the `sysv` suite because the "rabbitmqctl" executable is not in root's path, which causes rabbitmq configuration to fail.
 * Testing the `enterprise` and `enterprise-dashboard` suites require valid Sensu Enterprise repository credentials exported as the values of `SENSU_ENTERPRISE_USER` and `SENSU_ENTERPRISE_PASS` respectively.
 * Testing the `enterprise` suite requires allocating ~3gb of memory to the test system.
