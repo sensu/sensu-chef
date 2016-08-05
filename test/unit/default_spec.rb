@@ -19,6 +19,10 @@ describe "sensu::default" do
       expect(chef_run).to include_recipe("sensu::_linux")
     end
 
+    it "installs the sensu package" do
+      expect(chef_run).to install_package('sensu')
+    end
+
     it_behaves_like('sensu default recipe')
   end
 
@@ -43,6 +47,10 @@ describe "sensu::default" do
       expect(chef_run).to include_recipe("sensu::_windows")
     end
 
+    it "installs the Sensu package" do
+      expect(chef_run).to install_package('Sensu')
+    end
+
     context "when install_dotnet is true" do
       it "includes the appropriate recipe from the ms_dotnet cookbook" do
         expect(chef_run).to include_recipe(dotnet_recipe)
@@ -50,7 +58,7 @@ describe "sensu::default" do
     end
 
     context "when install_dotnet is false" do
-      it "includes the appropriate recipe from the ms_dotnet cookbook" do
+      it "does not include a recipe from the ms_dotnet cookbook" do
         chef_run.node.set["sensu"]["windows"]["install_dotnet"] = false
         chef_run.converge(described_recipe)
         expect(chef_run).to_not include_recipe(dotnet_recipe)
