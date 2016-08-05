@@ -33,7 +33,7 @@ if windows["install_dotnet"]
   include_recipe "ms_dotnet::ms_dotnet#{windows['dotnet_major_version']}"
 end
 
-windows_package "Sensu" do
+package "Sensu" do
   source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}.msi"
   options windows["package_options"]
   version node["sensu"]["version"].tr("-", ".")

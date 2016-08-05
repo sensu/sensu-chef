@@ -70,6 +70,7 @@ suites:
     run_list:
       - recipe[sensu-test]
     excludes:
+      - windows-2008-r2
       - windows-2012-r2
       - centos-5.11
     attributes:

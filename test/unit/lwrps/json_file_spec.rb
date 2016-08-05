@@ -9,7 +9,7 @@ describe 'sensu_json_file' do
       :step_into => ['sensu_json_file'],
       :file_cache_path => '/tmp'
     ) do |node|
-      node.set['sensu']['directory_mode'] = test_directory_mode
+      node.override['sensu']['directory_mode'] = test_directory_mode
     end.converge('sensu-test::json_file')
   end
 

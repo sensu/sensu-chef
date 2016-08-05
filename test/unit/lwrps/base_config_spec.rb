@@ -87,10 +87,10 @@ describe "sensu_base_config" do
       :version => "14.04",
       :step_into => ['sensu_base_config', 'sensu_json_file']
     ) do |node|
-      node.set["sensu"]["transport"]["chefspec"] = true
-      node.set["sensu"]["redis"]["chefspec"] = true
-      node.set["sensu"]["api"]["chefspec"] = true
-      node.set["sensu"]["rabbitmq"] = single_broker_config
+      node.override["sensu"]["transport"]["chefspec"] = true
+      node.override["sensu"]["redis"]["chefspec"] = true
+      node.override["sensu"]["api"]["chefspec"] = true
+      node.override["sensu"]["rabbitmq"] = single_broker_config
     end.converge("sensu::default")
   end
 
@@ -121,7 +121,7 @@ describe "sensu_base_config" do
   context "multiple rabbitmq hosts provided" do
 
     before do
-      chef_run.node.set["sensu"]["rabbitmq"] = multiple_broker_config
+      chef_run.node.override["sensu"]["rabbitmq"] = multiple_broker_config
       chef_run.converge("sensu::default")
     end
 
