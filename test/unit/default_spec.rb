@@ -5,7 +5,7 @@ describe "sensu::default" do
   include_context("sensu data bags")
 
   context "when running on non-windows platform" do
-
+    let(:sensu_pkg_name) { 'sensu' }
     let(:sensu_directory) { '/etc/sensu' }
     let(:log_directory) { '/var/log/sensu' }
 
@@ -27,7 +27,7 @@ describe "sensu::default" do
   end
 
   context "when running on windows platform" do
-
+    let(:sensu_pkg_name) { 'Sensu' }
     let(:sensu_directory) { 'C:\etc\sensu' }
     let(:log_directory) { 'C:\var\log\sensu' }
     let(:dotnet_recipe) { "ms_dotnet::ms_dotnet3" }
@@ -45,10 +45,6 @@ describe "sensu::default" do
 
     it "includes the sensu::_windows recipe" do
       expect(chef_run).to include_recipe("sensu::_windows")
-    end
-
-    it "installs the Sensu package" do
-      expect(chef_run).to install_package('Sensu')
     end
 
     context "when install_dotnet is true" do
