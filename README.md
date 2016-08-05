@@ -331,6 +331,14 @@ sensu_snippet "irc" do
 end
 ```
 
+### Clean up checks that are no longer managed by chef
+
+```ruby
+sensu_cleanup ::File.join(node.sensu.directory, "conf.d", "checks") do
+  notifies :create, "ruby_block[sensu_service_trigger]", :delayed
+end
+```
+
 ## Helper modules and methods
 
 ### Run State Helpers
