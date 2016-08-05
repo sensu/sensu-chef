@@ -39,7 +39,7 @@ RSpec.shared_examples 'sensu default recipe' do
   context 'ssl is disabled' do
 
     before do
-      chef_run.node.set["sensu"]["use_ssl"] = false
+      chef_run.node.override["sensu"]["use_ssl"] = false
       chef_run.converge(described_recipe)
     end
 

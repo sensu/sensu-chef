@@ -41,7 +41,7 @@ describe 'sensu_client with optional attributes' do
     ChefSpec::SoloRunner.new(
       :step_into => %w[sensu_client sensu_json_file]
     ) do |node|
-      node.set["sensu"]["directory"] = sensu_dir
+      node.override["sensu"]["directory"] = sensu_dir
     end.converge('sensu-test::client_lwrp')
   end
 

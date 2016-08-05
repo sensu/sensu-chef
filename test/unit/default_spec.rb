@@ -38,8 +38,8 @@ describe "sensu::default" do
         :version => "2008R2"
       ) do |node, server|
         server.create_data_bag("sensu", ssl_data_bag_item)
-        node.set["lsb"] = {}
-        node.set["sensu"]["windows"]["dotnet_major_version"] = 3
+        node.override["lsb"] = {}
+        node.override["sensu"]["windows"]["dotnet_major_version"] = 3
       end.converge(described_recipe)
     end
 
@@ -55,7 +55,7 @@ describe "sensu::default" do
 
     context "when install_dotnet is false" do
       it "does not include a recipe from the ms_dotnet cookbook" do
-        chef_run.node.set["sensu"]["windows"]["install_dotnet"] = false
+        chef_run.node.override["sensu"]["windows"]["install_dotnet"] = false
         chef_run.converge(described_recipe)
         expect(chef_run).to_not include_recipe(dotnet_recipe)
       end
