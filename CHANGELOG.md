@@ -7,25 +7,64 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ### Important
 
-* The `rabbitmq` recipe now installs Erlang via the Erlang Solutions repository on all platforms
+This cookbook now targets Chef version 12+
+
+The default version of Sensu installed by this cookbook is now 0.25.6-1.
+
+The default value of `node["sensu"]["use_embedded_ruby"]` is now `true`.
+
+The `rabbitmq` recipe now installs Erlang via the Erlang Solutions repository on all platforms.
+
+### Behavior changes
+
+Installation of the .NET Framework is now handled by the [ms_dotnet](https://supermarket.chef.io/cookbooks/ms_dotnet) cookbook.
 
 ### Features
 
+Sensu Enterprise repository URL is now configurable via attributes.
+
+Sensu Enterprise JVM options are now configurable via attributes.
+
+Sensu transport `name` is now configurable via attributes.
+
 The `sensu_base_config` provider now honors `node["rabbitmq"]["hosts"]` attribute,
 providing an array of hosts to use for configuring rabbitmq transport with multiple brokers.
-When `hosts` is empty, we fall back to existing `node["sensu"]["rabbitmq"]["host"]`
+When `hosts` attribute has no value, we fall back to value of `node["sensu"]["rabbitmq"]["host"]`
 attribute.
 
 The `sensu_client` provider now honors the following additional client
 attributes, as defined in the [Sensu Client Reference Documentation](https://sensuapp.org/docs/0.25/reference/clients.html#client-attributes):
 
-  * deregister
-  * deregistration
-  * keepalives
-  * redact
-  * registration
-  * safe_mode
-  * socket
+* deregister
+* deregistration
+* keepalives
+* redact
+* registration
+* safe_mode
+* socket
+
+Check definition LWRP has been updated to support named aggregates (added
+in Sensu 0.25) and multiple named aggregates (coming in Sensu 0.26).
+
+Integration tests for Windows now use the new Chef Zero Scheduled
+Task provider which makes testing this platform much easier.
+
+Expanded unit tests in many areas, including `sensu_base_config`,
+`sensu_client`, `sensu_json_file` and other LWRPs.
+
+### Fixes
+
+Directories created by the `sensu_json_file` provider now assume the mode
+defined by the value of `node["sensu"]["directory_mode"]` attribute.
+
+The method used to look up `sensu_service_trigger` ruby block in the
+resource collection has been updated to eliminate conditions where Sensu
+services may not be notified to restart.
+
+Resources are now created by the `sensu_json_file` provider
+unconditinally, unblocking the use of library cookbooks like [zap](https://supermarket.chef.io/cookbooks/zap) to
+clean up unmanaged files on disk.
+
 
 ## [2.12.0] - 2016-03-14
 
