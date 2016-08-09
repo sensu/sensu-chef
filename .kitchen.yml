@@ -77,6 +77,13 @@ suites:
       sensu:
         rabbitmq:
           user: sensu_client
+  - name: systemd
+    run_list:
+      - recipe[sensu-test]
+    excludes:
+      - windows-2012-r2
+      - centos-5.11
+      - centos-6.5
   - name: vault
     run_list:
       - recipe[sensu-test]
