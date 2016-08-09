@@ -5,9 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [3.0.0] - 2016-08-09
+
 ### Important
 
-This cookbook now targets Chef version 12+
+This cookbook now supports Chef version 12+. Earlier versions may work but
+are not supported.
 
 The default version of Sensu installed by this cookbook is now 0.25.6-1.
 
@@ -110,5 +113,6 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/2.12.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/3.0.0...HEAD
+[3.0.0]: https://github.com/sensu/sensu-chef/compare/2.12.0...3.0.0
 [2.12.0]: https://github.com/sensu/sensu-chef/compare/2.11.0...2.12.0
