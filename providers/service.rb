@@ -64,12 +64,28 @@ def load_current_resource
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
+  when "systemd"
+    template "/etc/systemd/system/#{new_resource.service}.service" do
+      source "systemd/#{new_resource.service}.service.erb"
+      owner 'root'
+      group 'root'
+      mode '755'
+    end
+
+    service new_resource.service do
+      provider Chef::Provider::Service::Systemd
+      supports :status => true, :restart => true
+      retries 3
+      retry_delay 5
+      action :nothing
+      subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
+    end
   end
 end
 
 action :enable do
   case new_resource.init_style
-  when "sysv"
+  when "sysv", "systemd"
     @sensu_svc.run_action(:enable)
     new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
   when "runit"
@@ -111,7 +127,7 @@ end
 
 action :disable do
   case new_resource.init_style
-  when "sysv"
+  when "sysv", "systemd"
     @sensu_svc.run_action(:disable)
     new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
   when "runit"
