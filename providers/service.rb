@@ -92,17 +92,20 @@ action :enable do
     init_path = "/etc/init.d/#{new_resource.service}"
 
     stop_svc = execute 'stop_sysv_services' do
-      command "/etc/init.d/#{new_resource.service} stop"
-      only_if "file -f #{init_path} && /etc/init.d/#{new_resource.service} status"
+      command "#{init_path} stop"
+      only_if "file -f #{init_path} && #{init_path} status"
       action :run
     end
 
-    file init_path do
+    del_init = file init_path do
       action :delete
-      only_if { stop_svc.updated_by_last_action? && File.exists?(init_path) }
-    end   
+      only_if { ::File.exist?(init_path) }
+    end
+    
     @sensu_svc.run_action(:enable)
-    new_resource.updated_by_last_action(true) if stop_svc.updated_by_last_action?
+    if stop_svc.updated_by_last_action? or del_init.updated_by_last_action?
+      new_resource.updated_by_last_action(true)
+    end
   when "runit"
     enable_sensu_runsvdir
 
