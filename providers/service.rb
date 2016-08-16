@@ -85,9 +85,24 @@ end
 
 action :enable do
   case new_resource.init_style
-  when "sysv", "systemd"
+  when "sysv"
     @sensu_svc.run_action(:enable)
     new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
+  when "systemd"
+    init_path = "/etc/init.d/#{new_resource.service}"
+
+    stop_svc = execute 'stop_sysv_services' do
+      command "/etc/init.d/#{new_resource.service} stop"
+      only_if "file -f #{init_path} && /etc/init.d/#{new_resource.service} status"
+      action :run
+    end
+
+    file init_path do
+      action :delete
+      only_if { stop_svc.updated_by_last_action? && File.exists?(init_path) }
+    end   
+    @sensu_svc.run_action(:enable)
+    new_resource.updated_by_last_action(true) if stop_svc.updated_by_last_action?
   when "runit"
     enable_sensu_runsvdir
 

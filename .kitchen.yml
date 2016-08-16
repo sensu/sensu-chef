@@ -65,12 +65,9 @@ suites:
   - name: systemd
     run_list:
       - recipe[sensu-test]
-    excludes:
-      - windows-2008-r2
-      - windows-2012-r2
-      - centos-5.11
-      - ubuntu-12.04
-      - ubuntu-14.04
+    includes:
+      - ubuntu-15.04
+      - ubuntu-16.04
     attributes:
       sensu:
         init_style: systemd
