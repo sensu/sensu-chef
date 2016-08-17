@@ -65,11 +65,18 @@ def load_current_resource
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
   when "systemd"
+    
+    execute 'systemctl-daemon-reload' do
+      command '/bin/systemctl --system daemon-reload'
+      action :nothing
+    end
+
     template "/etc/systemd/system/#{new_resource.service}.service" do
       source "systemd/#{new_resource.service}.service.erb"
       owner 'root'
       group 'root'
       mode '755'
+      notifies :run, 'execute[systemctl-daemon-reload]', :immediately
     end
 
     service new_resource.service do
