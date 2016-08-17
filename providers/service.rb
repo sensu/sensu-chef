@@ -73,6 +73,7 @@ def load_current_resource
 
     template "/etc/systemd/system/#{new_resource.service}.service" do
       source "systemd/#{new_resource.service}.service.erb"
+      cookbook 'sensu'
       owner 'root'
       group 'root'
       mode '755'
