@@ -4,4 +4,4 @@ LOG_LEVEL=<%= node["sensu"]["log_level"] %>
 SERVICE_MAX_WAIT=<%= node["sensu"]["service_max_wait"] %>
 CLIENT_DEREGISTER_ON_STOP=<%= node["sensu"]["client_deregister_on_stop"] %>
 <%= node["sensu"]["client_deregister_handler"] ? %|CLIENT_DEREGISTER_HANDLER=#{node["sensu"]["client_deregister_handler"]}| : nil %>
-export SENSU_LOADED_TEMPFILE_DIR=<%= node["sensu"]["loaded_tempfile_dir"] %>
+<%= node["sensu"]["loaded_tempfile_dir"] ? %|export SENSU_LOADED_TEMPFILE_DIR=#{node["sensu"]["loaded_tempfile_dir"]}| : nil %>
