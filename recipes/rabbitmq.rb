@@ -52,7 +52,7 @@ if node["sensu"]["use_ssl"]
       content lazy { get_sensu_state(node, "ssl", "server", item) }
       group "rabbitmq"
       mode 0640
-      sensitive true if Chef::Resource::ChefGem.instance_methods(false).include?(:sensitive)
+      sensitive true if respond_to?(:sensitive)
     end
     node.override["rabbitmq"]["ssl_#{item}"] = path
   end
@@ -68,7 +68,7 @@ if node["sensu"]["use_ssl"]
       content lazy { get_sensu_state(node, "ssl", "client", item) }
       group "rabbitmq"
       mode 0640
-      sensitive true if Chef::Resource::ChefGem.instance_methods(false).include?(:sensitive)
+      sensitive true if respond_to?(:sensitive)
     end
   end
 end
