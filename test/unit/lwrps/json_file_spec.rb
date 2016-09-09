@@ -6,7 +6,9 @@ describe 'sensu_json_file' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
       :step_into => ['sensu_json_file'],
-      :file_cache_path => '/tmp'
+      :file_cache_path => '/tmp',
+      :platform => "ubuntu",
+      :version => "14.04"
     ) do |node|
       node.override['sensu']['directory_mode'] = test_directory_mode
     end.converge('sensu-test::json_file')

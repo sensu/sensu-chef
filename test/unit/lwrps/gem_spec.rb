@@ -4,7 +4,9 @@ describe 'sensu_gem' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
       :step_into => ['sensu_gem'],
-      :file_cache_path => '/tmp'
+      :file_cache_path => '/tmp',
+      :platform => 'ubuntu',
+      :version => '14.04'
     ).converge('sensu-test::gem_lwrp')
   end
 
