@@ -3,7 +3,9 @@ require_relative '../spec_helper'
 describe 'sensu_client with minimum required attributes' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
-      :step_into => %w[sensu_client sensu_json_file]
+      :step_into => %w[sensu_client sensu_json_file],
+      :platform => "ubuntu",
+      :version => "14.04"
     ).converge('sensu-test::client_lwrp_defaults')
   end
 
@@ -39,7 +41,9 @@ describe 'sensu_client with optional attributes' do
 
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
-      :step_into => %w[sensu_client sensu_json_file]
+      :step_into => %w[sensu_client sensu_json_file],
+      :platform => "ubuntu",
+      :version => "14.04"
     ) do |node|
       node.override["sensu"]["directory"] = sensu_dir
     end.converge('sensu-test::client_lwrp')
