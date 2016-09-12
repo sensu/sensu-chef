@@ -17,7 +17,7 @@ else
 end
 
 # installation
-default["sensu"]["version"] = "0.25.6-1"
+default["sensu"]["version"] = platform_family?("windows") ? "0.25.5-1" : "0.25.6-1"
 default["sensu"]["use_unstable_repo"] = false
 default["sensu"]["log_level"] = "info"
 default["sensu"]["use_ssl"] = true
