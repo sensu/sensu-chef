@@ -20,6 +20,15 @@
 platform_family = node["platform_family"]
 
 case platform_family
+when "aix"
+  bff_path = File.join(Chef::Config[:file_cache_path], 'sensu.bff')
+  remote_file bff_path do
+    source node["sensu"]["aix_download_location"]
+  end
+
+  package "sensu" do
+    source bff_path
+  end
 when "debian"
   include_recipe "apt"
 

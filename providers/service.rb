@@ -37,6 +37,8 @@ def load_current_resource
   @sensu_svc ||= case new_resource.init_style
   when "sysv"
     service_provider = case node["platform_family"]
+    when /aix/
+      Chef::Provider::Service::Aix
     when /debian/
       Chef::Provider::Service::Init::Debian
     when /windows/
