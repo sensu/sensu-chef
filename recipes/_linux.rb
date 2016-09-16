@@ -48,7 +48,7 @@ when "rhel", "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    url "#{node['sensu']['yum_repo_url']}/#{repo}/$basearch/"
+    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/$basearch/"
     action :add
     only_if { node["sensu"]["add_repo"] }
   end
