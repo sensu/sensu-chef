@@ -199,6 +199,8 @@ Sensu services, "sysv" and "runit" are currently supported.
 `node["sensu"]["service_max_wait"]` - How long service scripts should wait
 for Sensu to start/stop.
 
+`node["sensu"]["loaded_tempfile_dir"]` - Where Sensu stores temporary files. Set a persistent directory if you use hardened system that cleans temporary directory regularly.
+
 ### Windows
 
 Sensu requires Microsoft's .Net Framework to run on Windows. The following attributes influence the installation of .Net via this cookbook:
