@@ -87,7 +87,7 @@ if node["sensu"]["use_ssl"]
     owner node["sensu"]["admin_user"]
     group node["sensu"]["group"]
     mode 0640
-    sensitive true if Chef::Resource::ChefGem.instance_methods(false).include?(:sensitive)
+    sensitive true if respond_to?(:sensitive)
   end
 else
   if node["sensu"]["rabbitmq"].port == 5671
