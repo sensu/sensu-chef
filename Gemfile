@@ -21,7 +21,7 @@ group :integration do
   gem "test-kitchen", "~> 1.8"
   gem "kitchen-docker"
   gem "kitchen-vagrant"
+  gem "winrm", "~> 2.0"
   gem "winrm-fs"
-  gem "winrm-transport"
   gem "winrm-elevated"
 end
