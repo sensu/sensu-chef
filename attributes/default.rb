@@ -32,7 +32,7 @@ default["sensu"]["client_deregister_handler"] = nil
 default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
 default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
 default["sensu"]["msi_repo_url"] = "http://repositories.sensuapp.org/msi"
-default["sensu"]["aix_download_location"] = "https://core.sensuapp.com/aix/unstable/sensu-0.26.1-3.powerpc.bff"
+default["sensu"]["aix_download_location"] = "https://core.sensuapp.com/aix-unstable/sensu-0.26.1-3.powerpc.bff"
 default["sensu"]["add_repo"] = true
 
 # transport
