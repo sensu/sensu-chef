@@ -28,6 +28,7 @@ depends "redisio", ">= 1.7.0"
 suggests "chef-vault", ">= 1.3.1"
 
 %w[
+  aix
   ubuntu
   debian
   centos
