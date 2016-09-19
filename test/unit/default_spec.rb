@@ -34,8 +34,8 @@ describe "sensu::default" do
         end.converge(described_recipe)
       end
 
-      it "includes the sensu::_linux recipe" do
-        expect(chef_run).to include_recipe("sensu::_linux")
+      it "includes the sensu::_aix recipe" do
+        expect(chef_run).to include_recipe("sensu::_aix")
       end
 
       it "installs the sensu package" do

@@ -25,8 +25,11 @@ ruby_block "sensu_service_trigger" do
   action :nothing
 end
 
-if platform_family?("windows")
+case node["platform_family"]
+when "windows"
   include_recipe "sensu::_windows"
+when "aix"
+  include_recipe "sensu::_aix"
 else
   include_recipe "sensu::_linux"
 end
