@@ -20,7 +20,7 @@
 bff_path = File.join(Chef::Config[:file_cache_path], 'sensu.bff')
 
 remote_file bff_path do
-  source node["sensu"]["aix_package_url"]
+  source "#{node["sensu"]["aix_package_root_url"]}/sensu-#{node["sensu"]["version"]}.powerpc.bff"
 end
 
 package "sensu" do
