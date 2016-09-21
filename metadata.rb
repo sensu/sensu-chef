@@ -7,10 +7,10 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "3.0.1"
 
 # available @ https://supermarket.chef.io/cookbooks/apt
-depends "apt"
+depends "apt", ">= 2.0"
 
 # available @ https://supermarket.chef.io/cookbooks/yum
-depends "yum"
+depends "yum", ">= 3.0"
 
 # available @ https://supermarket.chef.io/cookbooks/windows
 depends "windows", ">= 1.8.8"
