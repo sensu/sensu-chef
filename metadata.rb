@@ -41,5 +41,6 @@ suggests "chef-vault", ">= 1.3.1"
   supports os
 end
 
-source_url 'https://github.com/sensu/sensu-chef' if respond_to?(:source_url)
-issues_url 'https://github.com/sensu/sensu-chef/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/sensu/sensu-chef'
+issues_url 'https://github.com/sensu/sensu-chef/issues'
+chef_version '>= 12.0'
