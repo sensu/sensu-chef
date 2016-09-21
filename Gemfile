@@ -9,7 +9,7 @@ group :develop do
   gem "chef", "~> 12.9"
   gem "chefspec", "~> 4.5"
   gem "emeril", "~> 0.8"
-  gem "librarian-chef"
+  gem "berkshelf"
   gem "rake"
   gem "guard"
   gem "guard-foodcritic"
