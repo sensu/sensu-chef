@@ -13,7 +13,7 @@ depends "apt", ">= 2.0"
 depends "yum", ">= 3.0"
 
 # available @ https://supermarket.chef.io/cookbooks/windows
-depends "windows", ">= 1.8.8"
+depends "windows", ">= 1.36"
 
 # available @ https://supermarket.chef.io/cookbooks/ms_dotnet
 depends "ms_dotnet", ">= 2.6.1"
