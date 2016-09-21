@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "sensu::_enterprise_repo.rb"
+include_recipe "sensu::_enterprise_repo"
 
 package "sensu-enterprise-dashboard" do
   version node["sensu"]["enterprise-dashboard"]["version"]
