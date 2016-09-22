@@ -49,3 +49,7 @@ profiler_extension = case platform?('windows')
 sensu_asset profiler_extension do
   asset_directory File.join(node.sensu.directory, "extensions")
 end
+
+# adding a simple plugin gem here so we can test gem installation on windows
+# without dealing with the chefspec-oriented gem_lwrp recipe
+sensu_gem 'sensu-plugins-pushover'
