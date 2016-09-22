@@ -28,6 +28,7 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 * RHEL and derivatives
 * Fedora
 * Windows
+* AIX
 
 ### Chef
 
