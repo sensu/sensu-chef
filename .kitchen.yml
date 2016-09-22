@@ -1,8 +1,6 @@
 ---
 driver:
   name: vagrant
-  customize:
-    memory: 512
 
 provisioner:
   name: chef_zero
@@ -10,8 +8,10 @@ provisioner:
 platforms:
   - name: ubuntu-12.04
   - name: ubuntu-14.04
+  - name: ubuntu-16.04
   - name: centos-5.11
-  - name: centos-6.7
+  - name: centos-6.8
+  - name: centos-7.2
   - name: windows-2008-r2
     transport:
       name: winrm
