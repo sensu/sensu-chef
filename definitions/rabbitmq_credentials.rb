@@ -1,5 +1,5 @@
 define :rabbitmq_credentials do
-  unless get_sensu_state(node, :rabbitmq_credentials, params[:vhost], params[:user], key)
+  unless get_sensu_state(node, :rabbitmq_credentials, params[:vhost], params[:user])
     rabbitmq_vhost params[:vhost] do
       action :add
     end
@@ -11,6 +11,6 @@ define :rabbitmq_credentials do
       action [:add, :set_permissions]
     end
 
-    set_sensu_state(node, :rabbitmq_credentials, params[:vhost], params[:user], key, true)
+    set_sensu_state(node, :rabbitmq_credentials, params[:vhost], params[:user], true)
   end
 end
