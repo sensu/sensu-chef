@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: sensu
-# Recipe:: client_service
+# Recipe:: _aix
 #
-# Copyright 2014, Sonian Inc.
+# Copyright 2016, Heavy Water Operations, LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,17 @@
 # limitations under the License.
 #
 
-service_actions = case node['platform_family']
-when 'aix'
-  [:start]
-else
-  [:enable, :start]
+bff_path = File.join(Chef::Config[:file_cache_path], 'sensu.bff')
+
+remote_file bff_path do
+  source "#{node["sensu"]["aix_package_root_url"]}/sensu-#{node["sensu"]["version"]}.powerpc.bff"
 end
 
+package "sensu" do
+  source bff_path
+end
 
-sensu_service "sensu-client" do
-  init_style node["sensu"]["init_style"]
-  action service_actions
+template "/etc/default/sensu" do
+  source "sensu.default.erb"
+  notifies :create, "ruby_block[sensu_service_trigger]"
 end

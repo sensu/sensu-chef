@@ -4,26 +4,46 @@ require_relative "common_examples"
 describe "sensu::default" do
   include_context("sensu data bags")
 
-  context "when running on non-windows platform" do
+  context "when running on unix-like platforms" do
     let(:sensu_pkg_name) { 'sensu' }
     let(:sensu_directory) { '/etc/sensu' }
     let(:log_directory) { '/var/log/sensu' }
 
-    let(:chef_run) do
-      ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "12.04") do |node, server|
-        server.create_data_bag("sensu", ssl_data_bag_item)
-      end.converge(described_recipe)
+    context "when running on ubuntu linux" do
+      let(:chef_run) do
+        ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "12.04") do |node, server|
+          server.create_data_bag("sensu", ssl_data_bag_item)
+        end.converge(described_recipe)
+      end
+
+      it "includes the sensu::_linux recipe" do
+        expect(chef_run).to include_recipe("sensu::_linux")
+      end
+
+      it "installs the sensu package" do
+        expect(chef_run).to install_package('sensu')
+      end
+
+      it_behaves_like('sensu default recipe')
     end
 
-    it "includes the sensu::_linux recipe" do
-      expect(chef_run).to include_recipe("sensu::_linux")
-    end
+    context "when running on aix" do
+      let(:chef_run) do
+        ChefSpec::ServerRunner.new(:platform => "aix", :version => "7.1") do |node, server|
+          server.create_data_bag("sensu", ssl_data_bag_item)
+        end.converge(described_recipe)
+      end
 
-    it "installs the sensu package" do
-      expect(chef_run).to install_package('sensu')
-    end
+      it "includes the sensu::_aix recipe" do
+        expect(chef_run).to include_recipe("sensu::_aix")
+      end
 
-    it_behaves_like('sensu default recipe')
+      it "installs the sensu package" do
+        expect(chef_run).to install_package('sensu')
+      end
+
+      it_behaves_like('sensu default recipe')
+    end
   end
 
   context "when running on windows platform" do
