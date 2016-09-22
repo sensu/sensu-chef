@@ -5,6 +5,32 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Changes
+
+Eliminated CHEF-3694 warnings when calling rabbitmq_credentials definition
+
+Replaced librarian-chef with Berkshelf
+
+Updated test-kitchen configuration for windows platforms
+
+Updated metadata to depend on Chef >= 12
+
+Updated metadata to depend on "more modern" versions of yum, apt and windows cookbooks
+
+### Features
+
+Added support for AIX platform
+
+Added support for configuring SENSU_LOADED_TEMPFILE_DIR via `node["sensu"]["loaded_tempfile_dir"]`
+
+Added logic for detecting gem binary path on Windows platform
+
+### Fixes
+
+Using `baseurl` attribute for yum_repository instead of `url` property
+
+Fixed broken tests for availability of `sensitive` attribute
+
 ## [3.0.0] - 2016-08-09
 
 ### Important
