@@ -64,6 +64,30 @@ def load_current_resource
       action :nothing
       subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
     end
+  when "systemd"
+    
+    execute 'systemctl-daemon-reload' do
+      command '/bin/systemctl --system daemon-reload'
+      action :nothing
+    end
+
+    template "/etc/systemd/system/#{new_resource.service}.service" do
+      source "systemd/#{new_resource.service}.service.erb"
+      cookbook 'sensu'
+      owner 'root'
+      group 'root'
+      mode '755'
+      notifies :run, 'execute[systemctl-daemon-reload]', :immediately
+    end
+
+    service new_resource.service do
+      provider Chef::Provider::Service::Systemd
+      supports :status => true, :restart => true
+      retries 3
+      retry_delay 5
+      action :nothing
+      subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
+    end
   end
 end
 
@@ -72,6 +96,24 @@ action :enable do
   when "sysv"
     @sensu_svc.run_action(:enable)
     new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
+  when "systemd"
+    init_path = "/etc/init.d/#{new_resource.service}"
+
+    stop_svc = execute 'stop_sysv_services' do
+      command "#{init_path} stop"
+      only_if "file -f #{init_path} && #{init_path} status"
+      action :run
+    end
+
+    del_init = file init_path do
+      action :delete
+      only_if { ::File.exist?(init_path) }
+    end
+    
+    @sensu_svc.run_action(:enable)
+    if stop_svc.updated_by_last_action? or del_init.updated_by_last_action?
+      new_resource.updated_by_last_action(true)
+    end
   when "runit"
     enable_sensu_runsvdir
 
@@ -111,7 +153,7 @@ end
 
 action :disable do
   case new_resource.init_style
-  when "sysv"
+  when "sysv", "systemd"
     @sensu_svc.run_action(:disable)
     new_resource.updated_by_last_action(@sensu_svc.updated_by_last_action?)
   when "runit"
