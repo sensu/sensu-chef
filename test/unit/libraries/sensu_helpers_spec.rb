@@ -5,7 +5,8 @@ require_relative '../../../libraries/sensu_helpers.rb'
 describe Sensu::Helpers do
 
   let(:node) { Fauxhai.mock(:platform => 'ubuntu', :version => '14.04').data }
-  let(:omnibus_gem_path) { '/opt/sensu/embedded/bin/gem' }
+  let(:unix_omnibus_gem_path) { '/opt/sensu/embedded/bin/gem' }
+  let(:windows_omnibus_gem_path) { 'c:\opt\sensu\embedded\bin\gem.bat' }
 
   describe ".select_attributes" do
     context 'when the requested attribute exists' do
@@ -40,26 +41,59 @@ describe Sensu::Helpers do
   end
 
   describe ".gem_binary" do
-    context 'with omnibus ruby available' do
-      before do
-        allow(File).to receive(:exists?).with(omnibus_gem_path).and_return(true)
+    context 'on unix-like platforms' do
+      context 'with omnibus ruby available' do
+        before do
+          allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(true)
+          allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)
+        end
+
+        it 'returns the full path to the omnibus ruby gem binary' do
+          gem_binary = Sensu::Helpers.gem_binary
+          expect(gem_binary).to eq(unix_omnibus_gem_path)
+        end
       end
 
-      it 'returns the full path to the omnibus ruby gem binary' do
-        gem_binary = Sensu::Helpers.gem_binary
-        expect(gem_binary).to eq(omnibus_gem_path)
+      context 'without omnibus ruby available' do
+
+        before do
+          allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
+          allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)
+        end
+
+        it 'returns an unqualified path to the gem binary' do
+          gem_binary = Sensu::Helpers.gem_binary
+          expect(gem_binary).to eq('gem')
+        end
       end
     end
 
-    context 'without omnibus ruby available' do
+    context 'on windows platforms' do
+      let(:node) { Fauxhai.mock(:platform => 'windows', :version => '2012R2').data }
 
-      before do
-        allow(File).to receive(:exists?).with(omnibus_gem_path).and_return(false)
+      context 'with omnibus ruby available' do
+        before do
+          allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
+          allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(true)
+        end
+
+        it 'returns the full path to the omnibus ruby gem binary' do
+          gem_binary = Sensu::Helpers.gem_binary
+          expect(gem_binary).to eq(windows_omnibus_gem_path)
+        end
       end
 
-      it 'returns an unqualified path to the gem binary' do
-        gem_binary = Sensu::Helpers.gem_binary
-        expect(gem_binary).to eq('gem')
+      context 'without omnibus ruby available' do
+
+        before do
+          allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
+          allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)
+        end
+
+        it 'returns an unqualified path to the gem binary' do
+          gem_binary = Sensu::Helpers.gem_binary
+          expect(gem_binary).to eq('gem')
+        end
       end
     end
   end
