@@ -32,7 +32,6 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 ### Chef
 
 * Chef 12+
-* Earlier versions of Chef (e.g. Chef 11) may work but are not actively supported.
 
 ### Cookbooks
 
