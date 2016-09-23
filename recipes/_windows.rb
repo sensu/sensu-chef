@@ -17,36 +17,36 @@
 # limitations under the License.
 #
 
-windows = node["sensu"]["windows"].dup
+windows = node['sensu']['windows'].dup
 
-user "sensu" do
+user 'sensu' do
   password Sensu::Helpers.random_password(20, true, true, true, true)
-  not_if { Sensu::Helpers.windows_user_exists?("sensu") }
+  not_if { Sensu::Helpers.windows_user_exists?('sensu') }
 end
 
-group "sensu" do
-  members "sensu"
+group 'sensu' do
+  members 'sensu'
   action :manage
 end
 
-if windows["install_dotnet"]
+if windows['install_dotnet']
   include_recipe "ms_dotnet::ms_dotnet#{windows['dotnet_major_version']}"
 end
 
-package "Sensu" do
+package 'Sensu' do
   source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}.msi"
-  options windows["package_options"]
-  version node["sensu"]["version"].tr("-", ".")
-  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+  options windows['package_options']
+  version node['sensu']['version'].tr('-', '.')
+  notifies :create, 'ruby_block[sensu_service_trigger]', :immediately
 end
 
 template 'C:\opt\sensu\bin\sensu-client.xml' do
-  source "sensu.xml.erb"
-  variables :service => "sensu-client", :name => "Sensu Client"
-  notifies :create, "ruby_block[sensu_service_trigger]", :immediately
+  source 'sensu.xml.erb'
+  variables service: 'sensu-client', name: 'Sensu Client'
+  notifies :create, 'ruby_block[sensu_service_trigger]', :immediately
 end
 
-execute "sensu-client.exe install" do
+execute 'sensu-client.exe install' do
   cwd 'C:\opt\sensu\bin'
-  not_if { Sensu::Helpers.windows_service_exists?("sensu-client") }
+  not_if { Sensu::Helpers.windows_service_exists?('sensu-client') }
 end

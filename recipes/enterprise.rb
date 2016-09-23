@@ -17,13 +17,13 @@
 # limitations under the License.
 #
 
-include_recipe "sensu"
-include_recipe "sensu::_enterprise_repo"
+include_recipe 'sensu'
+include_recipe 'sensu::_enterprise_repo'
 
-package "sensu-enterprise" do
-  version node["sensu"]["enterprise"]["version"]
+package 'sensu-enterprise' do
+  version node['sensu']['enterprise']['version']
 end
 
-template "/etc/default/sensu-enterprise" do
-  source "sensu-enterprise.default.erb"
+template '/etc/default/sensu-enterprise' do
+  source 'sensu-enterprise.default.erb'
 end

@@ -1,14 +1,14 @@
-require "net/http"
+require 'net/http'
 require 'serverspec'
-require "uri"
+require 'uri'
 
 # h/t to @martinb3 for http://martinb3.io/testkitchen-serverspec-windows/
 if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM).nil?
   set :backend, :exec
-  set :path, "/bin:/usr/bin:/sbin:/usr/sbin:$PATH"
+  set :path, '/bin:/usr/bin:/sbin:/usr/sbin:$PATH'
 else
   set :backend, :cmd
-  set :os, :family => "windows"
+  set :os, family: 'windows'
 end
 
 puts "os: #{os}"
@@ -27,6 +27,6 @@ def sensu_directory
   when true
     'C:\etc\sensu'
   else
-    "/etc/sensu"
+    '/etc/sensu'
   end
 end

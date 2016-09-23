@@ -1,8 +1,8 @@
-require "openssl"
+require 'openssl'
 
 module Sensu
   class Helpers
-    extend ChefVaultCookbook if Kernel.const_defined?("ChefVaultCookbook")
+    extend ChefVaultCookbook if Kernel.const_defined?('ChefVaultCookbook')
     class << self
       def select_attributes(attributes, keys)
         attributes.to_hash.reject do |key, value|
@@ -11,7 +11,7 @@ module Sensu
       end
 
       def sanitize(raw_hash)
-        sanitized = Hash.new
+        sanitized = {}
         raw_hash.each do |key, value|
           # Expand Chef::DelayedEvaluator (lazy)
           value = value.call if value.respond_to?(:call)
@@ -29,21 +29,19 @@ module Sensu
       end
 
       def gem_binary
-        if File.exists?("/opt/sensu/embedded/bin/gem")
-          "/opt/sensu/embedded/bin/gem"
-        elsif File.exists?('c:\opt\sensu\embedded\bin\gem.bat')
+        if File.exist?('/opt/sensu/embedded/bin/gem')
+          '/opt/sensu/embedded/bin/gem'
+        elsif File.exist?('c:\opt\sensu\embedded\bin\gem.bat')
           'c:\opt\sensu\embedded\bin\gem.bat'
         else
-          "gem"
+          'gem'
         end
       end
 
-      def data_bag_item(item, missing_ok=false, data_bag_name="sensu")
-        raw_hash = Chef::DataBagItem.load(data_bag_name, item).delete_if { |k,v| k == "id" }
-        encrypted = raw_hash.detect do |key, value|
-          if value.is_a?(Hash)
-            value.has_key?("encrypted_data")
-          end
+      def data_bag_item(item, missing_ok = false, data_bag_name = 'sensu')
+        raw_hash = Chef::DataBagItem.load(data_bag_name, item).delete_if { |k, _v| k == 'id' }
+        encrypted = raw_hash.detect do |_key, value|
+          value.key?('encrypted_data') if value.is_a?(Hash)
         end
         if encrypted
           if Chef::DataBag.load(data_bag_name).key? "#{item}_keys"
@@ -56,13 +54,13 @@ module Sensu
           raw_hash
         end
       rescue Chef::Exceptions::ValidationFailed,
-        Chef::Exceptions::InvalidDataBagPath,
-        Net::HTTPServerException => error
+             Chef::Exceptions::InvalidDataBagPath,
+             Net::HTTPServerException => error
         missing_ok ? nil : raise(error)
       end
 
-      def random_password(length=20, number=false, upper=false, lower=false, special=false)
-        password = ""
+      def random_password(length = 20, number = false, upper = false, lower = false, special = false)
+        password = ''
         requiredOffset = 0
         requiredOffset += 1 if number
         requiredOffset += 1 if upper
@@ -74,7 +72,7 @@ module Sensu
         while limit || requiredOffset > 0
           push = false
           c = ::OpenSSL::Random.random_bytes(1).gsub(/\W/, '')
-          if c != ""
+          if c != ''
             if c =~ /[[:digit:]]/
               requiredOffset -= 1 if number
               number = false
@@ -90,9 +88,7 @@ module Sensu
             end
           end
           limit = password.length < (length - requiredOffset)
-          if limit
-            password << c
-          end
+          password << c if limit
         end
         password
       end
@@ -107,7 +103,11 @@ module Sensu
       def windows_user_exists?(user)
         if defined?(Win32)
           net_user = Chef::Util::Windows::NetUser.new(user)
-          !!net_user.get_info rescue false
+          begin
+            !!net_user.get_info
+          rescue
+            false
+          end
         else
           false
         end
@@ -127,7 +127,6 @@ module Sensu
           false
         end
       end
-
     end
   end
 end

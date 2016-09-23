@@ -3,12 +3,11 @@ require 'fauxhai'
 require_relative '../../../libraries/sensu_helpers.rb'
 
 describe Sensu::Helpers do
-
-  let(:node) { Fauxhai.mock(:platform => 'ubuntu', :version => '14.04').data }
+  let(:node) { Fauxhai.mock(platform: 'ubuntu', version: '14.04').data }
   let(:unix_omnibus_gem_path) { '/opt/sensu/embedded/bin/gem' }
   let(:windows_omnibus_gem_path) { 'c:\opt\sensu\embedded\bin\gem.bat' }
 
-  describe ".select_attributes" do
+  describe '.select_attributes' do
     context 'when the requested attribute exists' do
       it 'returns the requested key/value pair' do
         results = Sensu::Helpers.select_attributes(node, 'platform')
@@ -25,22 +24,22 @@ describe Sensu::Helpers do
 
     context 'when multiple attributes are requested and all exist' do
       it 'returns a hash containing the requested key/value pairs' do
-        results = Sensu::Helpers.select_attributes(node, ['fqdn', 'ipaddress'])
-        expect(results.keys).to eq(['fqdn', 'ipaddress'])
+        results = Sensu::Helpers.select_attributes(node, %w(fqdn ipaddress))
+        expect(results.keys).to eq(%w(fqdn ipaddress))
         expect(results.values).to eq(['fauxhai.local', '10.0.0.2'])
       end
     end
 
     context 'when multiple attributes are requested and only a subset exist' do
       it 'returns a hash containing the existing key/value pairs' do
-        results = Sensu::Helpers.select_attributes(node, ['platform_version', 'platform_lasagna'])
+        results = Sensu::Helpers.select_attributes(node, %w(platform_version platform_lasagna))
         expect(results.keys).to eq(['platform_version'])
         expect(results.values).to eq(['14.04'])
       end
     end
   end
 
-  describe ".gem_binary" do
+  describe '.gem_binary' do
     context 'on unix-like platforms' do
       context 'with omnibus ruby available' do
         before do
@@ -55,7 +54,6 @@ describe Sensu::Helpers do
       end
 
       context 'without omnibus ruby available' do
-
         before do
           allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
           allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)
@@ -69,7 +67,7 @@ describe Sensu::Helpers do
     end
 
     context 'on windows platforms' do
-      let(:node) { Fauxhai.mock(:platform => 'windows', :version => '2012R2').data }
+      let(:node) { Fauxhai.mock(platform: 'windows', version: '2012R2').data }
 
       context 'with omnibus ruby available' do
         before do
@@ -84,7 +82,6 @@ describe Sensu::Helpers do
       end
 
       context 'without omnibus ruby available' do
-
         before do
           allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
           allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)

@@ -1,6 +1,6 @@
 actions :create, :delete
 
-attribute :content, :required => true
+attribute :content, required: true
 
 def initialize(*args)
   super

@@ -7,7 +7,7 @@ define :rabbitmq_credentials do
     rabbitmq_user params[:user] do
       password params[:password]
       vhost params[:vhost]
-      permissions params[:permissions] || ".* .* .*"
+      permissions params[:permissions] || '.* .* .*'
       action [:add, :set_permissions]
     end
 

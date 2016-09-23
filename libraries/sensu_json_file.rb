@@ -2,7 +2,9 @@ module Sensu
   class JSONFile
     class << self
       def load_json(path)
-        JSON.parse(File.read(path)) rescue Hash.new
+        JSON.parse(File.read(path))
+      rescue
+        {}
       end
 
       def dump_json(raw_hash)

@@ -17,27 +17,25 @@
 # limitations under the License.
 #
 
-include_recipe "logrotate"
+include_recipe 'logrotate'
 
 # the attributes in this hash are populated from environment variables by test-kitchen
 enterprise_hash = {
-  "repository" => {
-    "credentials" => {
-      "user" => node['sensu_test']['enterprise_repo_user'],
-      "password" => node['sensu_test']['enterprise_repo_pass']
+  'repository' => {
+    'credentials' => {
+      'user' => node['sensu_test']['enterprise_repo_user'],
+      'password' => node['sensu_test']['enterprise_repo_pass']
     }
   }
 }
 
-set_sensu_state(node, "enterprise", enterprise_hash)
+set_sensu_state(node, 'enterprise', enterprise_hash)
 
-include_recipe "sensu::enterprise"
-include_recipe "sensu::rabbitmq"
-include_recipe "sensu::redis"
-include_recipe "sensu::enterprise_service"
+include_recipe 'sensu::enterprise'
+include_recipe 'sensu::rabbitmq'
+include_recipe 'sensu::redis'
+include_recipe 'sensu::enterprise_service'
 
 # ServerSpec dependencies
 
-if platform?("ubuntu")
-  package "net-tools"
-end
+package 'net-tools' if platform?('ubuntu')
