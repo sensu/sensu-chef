@@ -4,7 +4,7 @@ maintainer_email "chefs@sonian.net"
 license          "Apache 2.0"
 description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "3.0.1"
+version          "3.1.0"
 
 # available @ https://supermarket.chef.io/cookbooks/apt
 depends "apt", ">= 2.0"
