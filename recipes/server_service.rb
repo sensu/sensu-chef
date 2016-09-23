@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-sensu_service "sensu-server" do
-  init_style node["sensu"]["init_style"]
+sensu_service 'sensu-server' do
+  init_style node['sensu']['init_style']
   action [:enable, :start]
 end

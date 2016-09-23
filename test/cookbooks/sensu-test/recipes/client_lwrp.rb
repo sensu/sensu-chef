@@ -9,5 +9,5 @@ sensu_client 'lwrp_client' do
   registration('handler' => 'register_client')
   deregister true
   deregistration('handler' => 'deregister_client')
-  additional('bacon' => true, 'beer' => {'variety' => 'cold'})
+  additional('bacon' => true, 'beer' => { 'variety' => 'cold' })
 end

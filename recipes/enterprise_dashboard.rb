@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-include_recipe "sensu::_enterprise_repo"
+include_recipe 'sensu::_enterprise_repo'
 
-package "sensu-enterprise-dashboard" do
-  version node["sensu"]["enterprise-dashboard"]["version"]
+package 'sensu-enterprise-dashboard' do
+  version node['sensu']['enterprise-dashboard']['version']
 end
 
 sensu_dashboard_config node.name

@@ -11,14 +11,12 @@ action :create do
     # add path, timestamp and owner to the payload
     # when we look at the stash later, these bits helps us know how old a stash is and how it got there
     # allow to overwrite payload completely
-    payload = {'path' => new_resource.name, 'content' => { 'timestamp' => Time.now.to_i, 'owner' => 'chef'}}
+    payload = { 'path' => new_resource.name, 'content' => { 'timestamp' => Time.now.to_i, 'owner' => 'chef' } }
 
-    if new_resource.expire != nil
-      payload['expire'] = new_resource.expire
-    end
+    payload['expire'] = new_resource.expire unless new_resource.expire.nil?
 
     merged_payload = payload.merge(new_resource.payload)
-    if api.post("/stashes", merged_payload)
+    if api.post('/stashes', merged_payload)
       new_resource.updated_by_last_action(true)
     end
   end

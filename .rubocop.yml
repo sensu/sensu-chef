@@ -7,12 +7,13 @@ LineLength:
 StringLiterals:
   Enabled: false
 
-Style/HashSyntax:
-  EnforcedStyle: hash_rockets
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Style/VariableName:
+  Enabled: false
 
 AllCops:
   Exclude:
     - 'Guardfile'
-    - 'tmp/**/*'
-    - 'cookbooks/**/*'
     - 'test/cookbooks/**/files/**/*'

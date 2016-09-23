@@ -1,16 +1,16 @@
 def load_current_resource
-  definition_directory = ::File.join(node["sensu"]["directory"], "conf.d", "filters")
+  definition_directory = ::File.join(node['sensu']['directory'], 'conf.d', 'filters')
   @definition_path = ::File.join(definition_directory, "#{new_resource.name}.json")
 end
 
 action :create do
   filter = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[attributes negate]
+    %w(attributes negate)
   )
 
   definition = {
-    "filters" => {
+    'filters' => {
       new_resource.name => Sensu::Helpers.sanitize(filter)
     }
   }

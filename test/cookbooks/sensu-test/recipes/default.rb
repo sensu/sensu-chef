@@ -17,33 +17,31 @@
 # limitations under the License.
 #
 
-include_recipe "logrotate"
+include_recipe 'logrotate'
 
-include_recipe "chef-vault"
+include_recipe 'chef-vault'
 
-include_recipe "sensu::default"
+include_recipe 'sensu::default'
 
 sensu_client node.name do
-  address node["ipaddress"]
-  subscriptions ["all"]
+  address node['ipaddress']
+  subscriptions ['all']
 end
 
-sensu_check "test" do
-  command "true"
+sensu_check 'test' do
+  command 'true'
   interval 10
-  subscribers ["all"]
+  subscribers ['all']
 end
 
-include_recipe "sensu::rabbitmq"
-include_recipe "sensu::redis"
-include_recipe "sensu::server_service"
-include_recipe "sensu::api_service"
-include_recipe "sensu::client_service"
+include_recipe 'sensu::rabbitmq'
+include_recipe 'sensu::redis'
+include_recipe 'sensu::server_service'
+include_recipe 'sensu::api_service'
+include_recipe 'sensu::client_service'
 
 # ServerSpec dependencies
 
-if platform?("ubuntu")
-  package "net-tools"
-end
+package 'net-tools' if platform?('ubuntu')
 
-include_recipe "sensu-test::gem_lwrp"
+include_recipe 'sensu-test::gem_lwrp'

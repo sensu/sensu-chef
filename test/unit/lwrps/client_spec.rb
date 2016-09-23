@@ -3,9 +3,9 @@ require_relative '../spec_helper'
 describe 'sensu_client with minimum required attributes' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
-      :step_into => %w[sensu_client sensu_json_file],
-      :platform => "ubuntu",
-      :version => "14.04"
+      step_into: %w(sensu_client sensu_json_file),
+      platform: 'ubuntu',
+      version: '14.04'
     ).converge('sensu-test::client_lwrp_defaults')
   end
 
@@ -29,23 +29,22 @@ describe 'sensu_client with minimum required attributes' do
   end
 
   it 'does not provide configuration for unconfigured optional attributes' do
-    %w[ deregister deregistration keepalive keepalives redact registration safe_mode socket ].each do
-      |attr|
+    %w( deregister deregistration keepalive keepalives redact registration safe_mode socket ).each do |attr|
       expect(minimal_client_content.key?(attr)).to eq(false)
     end
   end
 end
 
 describe 'sensu_client with optional attributes' do
-  let(:sensu_dir) { "/opt/sensu/etc" }
+  let(:sensu_dir) { '/opt/sensu/etc' }
 
   let(:chef_run) do
     ChefSpec::SoloRunner.new(
-      :step_into => %w[sensu_client sensu_json_file],
-      :platform => "ubuntu",
-      :version => "14.04"
+      step_into: %w(sensu_client sensu_json_file),
+      platform: 'ubuntu',
+      version: '14.04'
     ) do |node|
-      node.override["sensu"]["directory"] = sensu_dir
+      node.override['sensu']['directory'] = sensu_dir
     end.converge('sensu-test::client_lwrp')
   end
 
@@ -111,5 +110,4 @@ describe 'sensu_client with optional attributes' do
     expect(client_content['bacon']).to eq(true)
     expect(client_content['beer']).to eq('variety' => 'cold')
   end
-
 end

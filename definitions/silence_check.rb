@@ -1,10 +1,7 @@
-define :sensu_silence_check, :action => :create, :expire => nil, :payload => {} do
+define :sensu_silence_check, action: :create, expire: nil, payload: {} do
+  params[:client] = node.name if params[:client].nil?
 
-  if params[:client].nil?
-    params[:client] = node.name
-  end
-
-  if params[:action] == :create or params[:action] == :silence
+  if params[:action] == :create || params[:action] == :silence
     sensu_api_stash "silence/#{params[:client]}/#{params[:name]}" do
       api_uri params[:api_uri]
       expire params[:expire]
@@ -13,7 +10,7 @@ define :sensu_silence_check, :action => :create, :expire => nil, :payload => {} 
     end
   end
 
-  if params[:action] == :delete or params[:action] == :unsilence
+  if params[:action] == :delete || params[:action] == :unsilence
     sensu_api_stash "silence/#{params[:client]}/#{params[:name]}" do
       api_uri params[:api_uri]
       action :delete

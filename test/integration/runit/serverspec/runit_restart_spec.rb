@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-service = "sensu-client"
+service = 'sensu-client'
 
 pid_file = "/opt/sensu/sv/#{service}/supervise/pid"
 

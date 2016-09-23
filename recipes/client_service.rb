@@ -18,14 +18,13 @@
 #
 
 service_actions = case node['platform_family']
-when 'aix'
-  [:start]
-else
-  [:enable, :start]
+                  when 'aix'
+                    [:start]
+                  else
+                    [:enable, :start]
 end
 
-
-sensu_service "sensu-client" do
-  init_style node["sensu"]["init_style"]
+sensu_service 'sensu-client' do
+  init_style node['sensu']['init_style']
   action service_actions
 end
