@@ -7,15 +7,17 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ### Changes
 
-Eliminated CHEF-3694 warnings when calling rabbitmq_credentials definition
+The default version of Sensu installed by this cookbook is now 0.26.3-1.
 
-Replaced librarian-chef with Berkshelf
+Eliminated resource cloning warnings when calling rabbitmq_credentials definition.
 
-Updated test-kitchen configuration for windows platforms
+Replaced librarian-chef with Berkshelf.
 
-Updated metadata to depend on Chef >= 12
+Updated test-kitchen configuration for windows platforms.
 
-Updated metadata to depend on "more modern" versions of yum, apt and windows cookbooks
+Updated metadata to depend on Chef >= 12.
+
+Updated dependencies for yum, apt and windows cookbooks to make sense for Chef >= 12.
 
 ### Features
 
