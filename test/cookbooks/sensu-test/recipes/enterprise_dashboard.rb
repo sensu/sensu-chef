@@ -30,6 +30,7 @@ enterprise_hash = {
 set_sensu_state(node, "enterprise", enterprise_hash)
 
 include_recipe "sensu::enterprise_dashboard"
+include_recipe "sensu::enterprise_dashboard_service"
 
 # ServerSpec dependencies
 

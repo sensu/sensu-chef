@@ -69,6 +69,13 @@ describe "sensu::_enterprise_repo" do
             :gpgcheck => false
           )
         end
+
+        it "creates sensu-enterprise-dashboard yum #{repo_designation} repository definition" do
+          expect(chef_run).to add_yum_repository("sensu-enterprise-dashboard").with(
+            :url => "http://chefspec:moartests!@enterprise.sensuapp.com/#{yum_repo_designation}/$basearch/",
+            :gpgcheck => false
+          )
+        end
       end
 
       context "using custom host with #{repo_designation} repo" do
