@@ -5,6 +5,8 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [3.1.2] - 2016-09-29
+
 ### Changes
 
 The `_enterprise_repo` recipe now configures yum repos for both `noarch`
@@ -152,7 +154,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/3.1.2...HEAD
+[3.1.2]: https://github.com/sensu/sensu-chef/compare/3.1.0...3.1.2
 [3.1.0]: https://github.com/sensu/sensu-chef/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/sensu/sensu-chef/compare/2.12.0...3.0.0
 [2.12.0]: https://github.com/sensu/sensu-chef/compare/2.11.0...2.12.0
