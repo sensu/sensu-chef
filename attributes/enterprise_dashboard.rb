@@ -1,5 +1,5 @@
 # installation
-default["sensu"]["enterprise-dashboard"]["version"] = "1:1.4.0-1"
+default["sensu"]["enterprise-dashboard"]["version"] = "1.4.0-1"
 
 # data bag
 default["sensu"]["enterprise-dashboard"]["data_bag"]["name"] = "sensu"
