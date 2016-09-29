@@ -5,6 +5,15 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Changes
+
+The `_enterprise_repo` recipe now configures yum repos for both `noarch`
+and `$basearch` so that `sensu-enterprise-dashboard` package can be installed.
+
+Due to upstream repository changes, the default value of
+`node['sensu']['enterprise-dashboard]['version']` has changed from
+`1:1.4.0-1` to `1.4.0-1`.
+
 ## [3.1.0] - 2016-09-23
 
 ### Changes
