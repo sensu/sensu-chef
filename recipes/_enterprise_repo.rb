@@ -31,11 +31,13 @@ when "debian"
     action :add
   end
 else
-  repo = yum_repository "sensu-enterprise" do
-    description "sensu enterprise"
-    repo = node["sensu"]["enterprise"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    url "#{repository_url}/#{repo}/noarch/"
-    action :add
+  { "sensu-enterprise" => "noarch", "sensu-enterprise-dashboard" => "$basearch" }.each_pair do |repo_name, arch|
+    repo = yum_repository repo_name do
+      description repo_name
+      channel = node["sensu"]["enterprise"]["use_unstable_repo"] ? "yum-unstable" : "yum"
+      url "#{repository_url}/#{channel}/#{arch}/"
+      action :add
+    end
+    repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
   end
-  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 end
