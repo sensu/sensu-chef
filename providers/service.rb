@@ -19,6 +19,11 @@ def sensu_runit_service_enabled?
 end
 
 def enable_sensu_runsvdir
+  log "sensu_embedded_runit_deprecated" do
+    message 'sensu.init_style "runit" is deprecated and will be removed in version 4.0 of this cookbook'
+    level :warn
+  end
+
   execute "configure_sensu_runsvdir_#{new_resource.service}" do
     command "#{sensu_ctl} configure"
     not_if "#{sensu_ctl} configured?"
