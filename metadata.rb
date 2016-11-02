@@ -1,6 +1,6 @@
 name             "sensu"
-maintainer       "Sonian, Inc."
-maintainer_email "chefs@sonian.net"
+maintainer       "Heavy Water Operations"
+maintainer_email "support@sensuapp.com"
 license          "Apache 2.0"
 description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
