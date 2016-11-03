@@ -1,13 +1,13 @@
 #!/usr/bin/env rake
 
-# emeril helps us release the cookbook
-require 'emeril/rake_tasks'
-
 task default: [:spec]
 
-Emeril::RakeTasks.new do |t|
-  # disable git tag prefix string
-  t.config[:tag_prefix] = false
+# stove helps us ship the cookbook
+begin
+  require 'stove/rake_task'
+  Stove::RakeTask.new
+rescue LoadError
+  puts '>>>>> Stove gem not loaded, omitting tasks' unless ENV['CI']
 end
 
 # rspec runs unit tests
