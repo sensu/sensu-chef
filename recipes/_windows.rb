@@ -21,7 +21,7 @@ windows = node["sensu"]["windows"].dup
 
 user node["sensu"]["user"] do
   password Sensu::Helpers.random_password(20, true, true, true, true)
-  not_if { Sensu::Helpers.windows_user_exists?(node["sensu"]["user"].to_s) }
+  not_if { Sensu::Helpers.windows_user_exists?(node["sensu"]["user"]) }
 end
 
 group node["sensu"]["group"] do
