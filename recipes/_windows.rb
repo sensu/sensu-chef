@@ -19,13 +19,13 @@
 
 windows = node["sensu"]["windows"].dup
 
-user node["sensu"]["user"].to_s do
+user node["sensu"]["user"] do
   password Sensu::Helpers.random_password(20, true, true, true, true)
   not_if { Sensu::Helpers.windows_user_exists?(node["sensu"]["user"].to_s) }
 end
 
-group node["sensu"]["group"].to_s do
-  members node["sensu"]["user"].to_s
+group node["sensu"]["group"] do
+  members node["sensu"]["user"]
   action :manage
 end
 
