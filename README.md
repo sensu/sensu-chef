@@ -261,7 +261,11 @@ Adjusting the value of `dotnet_major_version` attribute will influence which
 
 `node["sensu"]["enterprise"]["heap_size"]` - Configure Sensu Enterprise heap size
 
+`node["sensu"]["enterprise"]["heap_dump_path"]` - Configure path where Sensu Enterprise will store heap dumps. Directory path will be managed by Chef. Honored by Enterprise version 2.0.0 and newer.
+
 `node["sensu"]["enterprise"]["java_opts"]` - Specify additional Java options when running Sensu Enterprise
+
+`node["sensu"]["enterprise"]["max_open_files"]` - Specify maxiumum number of file handles. Honored by Enterprise version 1.7.2 and newer.
 
 ## Custom Resources (LWRPs)
 
