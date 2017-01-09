@@ -97,6 +97,9 @@ suites:
       sensu_test:
         enterprise_repo_user: <%= ENV['SENSU_ENTERPRISE_USER'] %>
         enterprise_repo_pass: <%= ENV['SENSU_ENTERPRISE_PASS'] %>
+      sensu:
+        enterprise:
+          heap_dump_path: /var/cache/sensu-enterprise-nondefault
     run_list:
       - recipe[sensu-test::enterprise]
     excludes:
