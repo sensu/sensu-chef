@@ -6,8 +6,11 @@ end
 action :create do
   filter = Sensu::Helpers.select_attributes(
     new_resource,
-    %w[attributes negate]
+    %w(attributes negate days)
   )
+  if filter.keys.map(&:to_s).include?('days')
+    filter[:when] = { :days => (filter.delete(:days) || filter.delete('days')) }
+  end
 
   definition = {
     "filters" => {
