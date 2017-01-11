@@ -317,6 +317,11 @@ end
 ```ruby
 sensu_filter "environment" do
   attributes(:client => {:environment => "development"})
+  days(
+    :all => [{ :begin => "05:00 PM", :end => "09:00 AM" }}],
+    :saturday => [{ :begin => "09:00 AM", :end => "05:00 PM" }],
+    :sunday => [{ :begin => "09:00 AM", :end => "05:00 PM" }]
+  )
   negate true
 end
 ```
