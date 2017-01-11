@@ -5,6 +5,39 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [3.2.0] - 2017-01-10
+
+### Important
+
+The `runit` init_style is now deprecated and will be removed in the next
+major version of this cookbook.
+
+### Features
+
+Added `days` parameter to `sensu_filter` resources. This parameter accepts
+a hash of time windows passed as the value of a filter's `when`
+attribute. See the [filter reference
+doc](https://sensuapp.org/docs/0.26/reference/filters.html#when-attributes)
+for more detail on time windows.
+
+Added new attributes added for configuring Sensu Enterprise max open files
+and heap dump path parameters.
+
+### Changes
+
+The default version of Sensu is now 0.26.5
+
+The default version of Sensu Enterprise is now 1.14.10
+
+The default version of Sensu Enterprise Dashboard is now 1.12.0
+
+The account created for Sensu on Windows now uses the
+`node["sensu"]["user"]` attribute instead of a hard-coded value.
+
+### Project changes
+
+For purposes of releasing this cookbook, emeril has been replaced with stove.
+
 ## [3.1.2] - 2016-09-29
 
 ### Changes
@@ -154,7 +187,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/3.1.2...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/3.2.0...HEAD
+[3.2.0]: https://github.com/sensu/sensu-chef/compare/3.1.2...3.2.0
 [3.1.2]: https://github.com/sensu/sensu-chef/compare/3.1.0...3.1.2
 [3.1.0]: https://github.com/sensu/sensu-chef/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/sensu/sensu-chef/compare/2.12.0...3.0.0
