@@ -26,7 +26,7 @@ when "debian"
   apt_repository "sensu" do
     uri node["sensu"]['apt_repo_url']
     key "#{node['sensu']['apt_repo_url']}/pubkey.gpg"
-    distribution "sensu"
+    distribution node["lsb"]["codename"]
     components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
     action :add
     only_if { node["sensu"]["add_repo"] }
@@ -48,7 +48,7 @@ when "rhel", "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/$basearch/"
+    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/$releasever/$basearch/"
     action :add
     only_if { node["sensu"]["add_repo"] }
   end
