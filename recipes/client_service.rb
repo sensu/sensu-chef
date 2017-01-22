@@ -26,6 +26,5 @@ end
 
 
 sensu_service "sensu-client" do
-  init_style node["sensu"]["init_style"]
   action service_actions
 end

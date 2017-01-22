@@ -5,6 +5,10 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Important
+
+The `init_style` attribute from `sensu_service` resources have been removed.
+
 ## [3.2.0] - 2017-01-10
 
 ### Important
