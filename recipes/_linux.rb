@@ -54,8 +54,10 @@ when "rhel", "fedora"
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 
+  # As of 0.27 we need to suffix the version string with the Centos major version.
+  # Override via node["sensu"]["version_suffix"] attribute
   yum_package "sensu" do
-    version node["sensu"]["version"]
+    version lazy { node["sensu"]["version"] + (node["sensu"]["version_suffix"].nil? ? ".el#{node["platform_version"][0]}" : node["sensu"]["version_suffix"]) }
     allow_downgrade true
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
