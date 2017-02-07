@@ -7,7 +7,23 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ### Important
 
-The `init_style` attribute from `sensu_service` resources have been removed.
+As required to support Sensu 0.27:
+
+* Configuration of yum and apt package repositories have changed to target
+  per-platform version packages, using `$releasever` or release codename,
+  respectively.
+
+* The `init_style` attribute has been removed from `sensu_service` resource.
+  The `sensu_service` resource will now use Chef's default `service`
+  provider on each platform.
+
+### Changes
+
+The default version of Sensu is now 0.27.0
+
+The default version of Sensu Enterprise is now 2.3.1
+
+The default version of Sensu Enterprise Dashboard is now 2.2.1
 
 ## [3.2.0] - 2017-01-10
 
