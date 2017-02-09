@@ -97,4 +97,46 @@ describe Sensu::Helpers do
       end
     end
   end
+
+  describe ".redhat_version_string" do
+    let(:platform_version) { "6.8" }
+    let(:platform_major_version) { "6" }
+    let(:suffix_override) { nil }
+
+    context "the desired version is prior to 0.27" do
+      let(:sensu_version) { "0.26.5-2" }
+      it "returns the version string unaltered" do
+        version = Sensu::Helpers.redhat_version_string(
+          sensu_version,
+          platform_version,
+          suffix_override
+        )
+        expect(version).to eq(sensu_version)
+      end
+    end
+
+    context "the desired version is 0.27.0 or newer" do
+      let(:sensu_version) { "0.27.0-1" }
+      it "returns the version string with the Redhat platform major version suffix" do
+        version = Sensu::Helpers.redhat_version_string(
+          sensu_version,
+          platform_version,
+          suffix_override
+        )
+        expect(version).to eq("#{sensu_version}.el#{platform_major_version}")
+      end
+
+      context "when a suffix override is provided" do
+        let(:suffix_override) { ".lol" }
+        it "returns the version string with the custom suffix" do
+          version = Sensu::Helpers.redhat_version_string(
+            sensu_version,
+            platform_version,
+            suffix_override
+          )
+          expect(version).to eq([sensu_version, suffix_override].join)
+        end
+      end
+    end
+  end
 end
