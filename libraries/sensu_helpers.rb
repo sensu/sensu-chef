@@ -128,6 +128,24 @@ module Sensu
         end
       end
 
+      # Derives Sensu package version strings for Redhat platforms.
+      # When the desired Sensu version is '0.27.0' or later, the package
+      # requires a '.elX' suffix.
+      #
+      # @param [String] Sensu version string
+      # @param [String] Platform version
+      # @param [String,NilClass] Suffix to override default '.elX'
+      def redhat_version_string(sensu_version, platform_version, suffix_override = nil)
+        bare_version = sensu_version.split('-').first
+        if Gem::Version.new(bare_version) < Gem::Version.new('0.27.0')
+          sensu_version
+        else
+          platform_major = Gem::Version.new(platform_version).segments.first
+          suffix = suffix_override || ".el#{platform_major}"
+          [sensu_version, suffix].join
+        end
+      end
+
     end
   end
 end

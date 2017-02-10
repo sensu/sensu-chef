@@ -47,7 +47,7 @@ suites:
     attributes:
       sensu:
         group: nogroup
-  - name: sysv
+  - name: stack
     run_list:
       - recipe[sensu-test]
     excludes:

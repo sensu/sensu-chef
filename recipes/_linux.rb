@@ -26,7 +26,7 @@ when "debian"
   apt_repository "sensu" do
     uri node["sensu"]['apt_repo_url']
     key "#{node['sensu']['apt_repo_url']}/pubkey.gpg"
-    distribution "sensu"
+    distribution node["lsb"]["codename"]
     components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
     action :add
     only_if { node["sensu"]["add_repo"] }
@@ -48,14 +48,21 @@ when "rhel", "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/$basearch/"
+    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/$releasever/$basearch/"
     action :add
     only_if { node["sensu"]["add_repo"] }
   end
   repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
 
+  # As of 0.27 we need to suffix the version string with the platform major
+  # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
+  # attribute.
   yum_package "sensu" do
-    version node["sensu"]["version"]
+    version lazy { Sensu::Helpers.redhat_version_string(
+      node["sensu"]["version"],
+      node["platform_version"],
+      node["sensu"]["version_suffix"]
+    )}
     allow_downgrade true
     notifies :create, "ruby_block[sensu_service_trigger]"
   end

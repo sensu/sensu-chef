@@ -17,12 +17,8 @@ else
 end
 
 # installation
-default["sensu"]["version"] = case node["platform_family"]
-                              when "windows", "aix"
-                                "0.26.5-1"
-                              else
-                                "0.26.5-2"
-                              end
+default["sensu"]["version"] = "0.27.0-2"
+default["sensu"]["version_suffix"] = nil
 default["sensu"]["use_unstable_repo"] = false
 default["sensu"]["log_level"] = "info"
 default["sensu"]["use_ssl"] = true
