@@ -27,5 +27,7 @@ def after_created
     raise Chef::Exceptions::ValidationFailed, "Sensu check #{name}: name cannot contain spaces or special characters"
   end
 
-  raise Chef::Exceptions::ValidationFailed, "Sensu check #{name}: must either define subscribers, or has to be standalone." unless (subscribers || standalone)
+  if action == :create
+     raise Chef::Exceptions::ValidationFailed, "Sensu check #{name}: must either define subscribers, or has to be standalone." unless (subscribers || standalone)
+  end
 end

@@ -15,6 +15,13 @@ describe 'sensu-test::good_checks' do
     expect(chef_run).to create_sensu_check("valid_pubsub_check").with(:subscribers => ['all'])
   end
 
+  it "deletes removed_check without specifying subscriptions/standalone" do
+    expect(chef_run).to delete_sensu_check("removed_check").with(
+      :subscribers => nil,
+      :standalone => nil
+    )
+  end
+
 end
 
 describe 'sensu-test::bad_check_name' do
