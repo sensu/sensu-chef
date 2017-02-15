@@ -26,6 +26,7 @@ end
 
 group node["sensu"]["group"] do
   members node["sensu"]["user"]
+  append true
   action :manage
 end
 
