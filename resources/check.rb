@@ -1,4 +1,5 @@
 actions :create, :delete
+default_action :create
 
 # 'standard' and 'status' types are synonymous
 attribute :type, :kind_of => String, :equal_to => %w[standard status metric]
@@ -16,11 +17,6 @@ attribute :subdue, :kind_of => Hash
 attribute :low_flap_threshold, :kind_of => Integer
 attribute :high_flap_threshold, :kind_of => Integer
 attribute :additional, :kind_of => Hash, :default => Hash.new
-
-def initialize(*args)
-  super
-  @action = :create
-end
 
 def after_created
   unless name =~ /^[\w\.-]+$/

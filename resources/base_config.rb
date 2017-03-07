@@ -1,6 +1,2 @@
 actions :create
-
-def initialize(*args)
-  super
-  @action = :create
-end
+default_action :create

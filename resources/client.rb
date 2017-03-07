@@ -1,4 +1,5 @@
 actions :create
+default_action :create
 
 attribute :address, :kind_of => String, :required => true
 attribute :subscriptions, :kind_of => Array, :default => []
@@ -11,11 +12,6 @@ attribute :registration, :kind_of => Hash, :default => {}
 attribute :deregister, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :deregistration, :kind_of => Hash, :default => {}
 attribute :additional, :kind_of => Hash, :default => {}
-
-def initialize(*args)
-  super
-  @action = :create
-end
 
 def after_created
   raise Chef::Exceptions::ValidationFailed, "Sensu client name cannot contain spaces or special characters" unless name =~ /^[\w\.-]+$/
