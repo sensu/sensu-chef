@@ -19,11 +19,11 @@ As required to support Sensu 0.27:
 
 ### Changes
 
-The default version of Sensu is now 0.27.0
+The default version of Sensu is now 0.28.4
 
-The default version of Sensu Enterprise is now 2.3.1
+The default version of Sensu Enterprise is now 2.5.1
 
-The default version of Sensu Enterprise Dashboard is now 2.2.1
+The default version of Sensu Enterprise Dashboard is now 2.3.0
 
 ## [3.2.0] - 2017-01-10
 
