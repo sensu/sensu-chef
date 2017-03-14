@@ -5,6 +5,8 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [4.0.0] - 2017-03-14
+
 ### Important
 
 As required to support Sensu 0.27:
@@ -24,6 +26,14 @@ The default version of Sensu is now 0.28.4
 The default version of Sensu Enterprise is now 2.5.1
 
 The default version of Sensu Enterprise Dashboard is now 2.3.0
+
+### Fixed
+
+* sensu_check resources can now be deleted without requiring
+  `standalone` or `subscriptions` attributes
+
+* The built-in Administrator group should now be usable for the value
+  of `node["sensu"]["group"]` on Windows platforms.
 
 ## [3.2.0] - 2017-01-10
 
@@ -207,7 +217,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/3.2.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/sensu/sensu-chef/compare/3.2.0...4.0.0
 [3.2.0]: https://github.com/sensu/sensu-chef/compare/3.1.2...3.2.0
 [3.1.2]: https://github.com/sensu/sensu-chef/compare/3.1.0...3.1.2
 [3.1.0]: https://github.com/sensu/sensu-chef/compare/3.0.0...3.1.0
