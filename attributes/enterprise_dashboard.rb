@@ -2,7 +2,7 @@
 # "1:", which is not present on the rpm packages. As a result, we use the
 # platform_family to determine correct default version.
 #
-default["sensu"]["enterprise-dashboard"]["version"] = node['platform_family'] == 'debian' ? "1:2.2.1-1" : "2.2.1-1"
+default["sensu"]["enterprise-dashboard"]["version"] = node['platform_family'] == 'debian' ? "1:2.3.0-1" : "2.3.0-1"
 
 # data bag
 default["sensu"]["enterprise-dashboard"]["data_bag"]["name"] = "sensu"
