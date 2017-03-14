@@ -25,6 +25,14 @@ The default version of Sensu Enterprise is now 2.3.1
 
 The default version of Sensu Enterprise Dashboard is now 2.2.1
 
+### Fixed
+
+* sensu_check resources can now be deleted without requiring
+  `standalone` or `subscriptions` attributes
+
+* The built-in Administrator group should now be usable for the value
+  of `node["sensu"]["group"]` on Windows platforms.
+
 ## [3.2.0] - 2017-01-10
 
 ### Important
