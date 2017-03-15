@@ -9,7 +9,13 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ### Important
 
-As required to support Sensu 0.27:
+* Due to sysv init scripts being replaced with systemd unit files on
+  select platforms, upgrading Sensu package from version < 0.27 to >=
+  0.27 may leave Sensu services in an unexpected state. This cookbook does not
+  attempt to address this condition. See the
+  [Sensu 0.27 changelog][027-changelog] for further details.
+
+As required to support Sensu 0.27 and later:
 
 * Configuration of yum and apt package repositories have changed to target
   per-platform version packages, using `$releasever` or release codename,
@@ -224,3 +230,4 @@ Allow "standard" as a value of type attribute on `sensu_check` resources, [as de
 [3.1.0]: https://github.com/sensu/sensu-chef/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/sensu/sensu-chef/compare/2.12.0...3.0.0
 [2.12.0]: https://github.com/sensu/sensu-chef/compare/2.11.0...2.12.0
+[027-changelog]: https://sensuapp.org/docs/0.27/overview/changelog.html#core-v0-27-0-important
