@@ -26,7 +26,7 @@ when "debian"
   apt_repository "sensu" do
     uri node["sensu"]['apt_repo_url']
     key "#{node['sensu']['apt_repo_url']}/pubkey.gpg"
-    distribution node["lsb"]["codename"]
+    distribution node["sensu"]["apt_repo_codename"] || node["lsb"]["codename"]
     components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
     action :add
     only_if { node["sensu"]["add_repo"] }
