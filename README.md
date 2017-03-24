@@ -176,6 +176,9 @@ Enables and starts Sensu Enterprise Dashboard.
 `node["sensu"]["use_unstable_repo"]` - If the build resides on the
 "unstable" repository.
 
+`node["sensu"]["apt_repo_codename"]` - Override LSB release codename
+detected by ohai for purposes of configuring the apt repository definition.
+
 `node["sensu"]["directory"]` - Sensu configuration directory.
 
 `node["sensu"]["log_directory"]` - Sensu log directory.
