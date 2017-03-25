@@ -48,7 +48,7 @@ end
   extensions
 ].each do |dir|
   directory File.join(node["sensu"]["directory"], dir) do
-    owner node["sensu"]["admin_user"]
+    owner node["sensu"]["user"]
     group node["sensu"]["group"]
     recursive true
     mode node["sensu"]["directory_mode"]
