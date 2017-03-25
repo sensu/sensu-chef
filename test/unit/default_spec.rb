@@ -24,7 +24,24 @@ describe "sensu::default" do
         expect(chef_run).to install_package('sensu')
       end
 
+      it "configures the apt repo definition with the default codename" do
+        expect(chef_run).to add_apt_repository("sensu").with(:distribution => "precise")
+      end
+
       it_behaves_like('sensu default recipe')
+
+      context "when overriding the apt repository codename" do
+        let(:chef_run) do
+          ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "12.04") do |node, server|
+            server.create_data_bag("sensu", ssl_data_bag_item)
+            node.set["sensu"]["apt_repo_codename"] = "dory"
+          end.converge(described_recipe)
+        end
+
+        it "configures the apt repo definition with the provided codename" do
+          expect(chef_run).to add_apt_repository("sensu").with(:distribution => "dory")
+        end
+      end
     end
 
     context "when running on aix" do
