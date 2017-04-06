@@ -21,7 +21,7 @@ describe 'sensu_gem' do
 
     context 'version specified' do
       it 'installs the specified version of the gem package' do
-        expect(chef_run).to install_gem_package('sensu-plugins-chef').with(:version => '0.0.5')
+        expect(chef_run).to install_gem_package('sensu-plugins-chef').with(:version => '2.0.0')
       end
     end
 
