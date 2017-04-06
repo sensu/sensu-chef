@@ -9,7 +9,7 @@ group :develop do
   gem "chef", "~> 12.9"
   gem "chefspec", "~> 6.0"
   gem "stove", "~> 4.1"
-  gem "berkshelf", "= 4.3.0", "< 6.0"
+  gem "berkshelf", "~> 5.6"
   gem "rake"
   gem "guard"
   gem "guard-foodcritic"
