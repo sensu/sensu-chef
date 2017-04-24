@@ -93,7 +93,7 @@ if node["sensu"]["use_ssl"]
     sensitive true if respond_to?(:sensitive)
   end
 else
-  if node["sensu"]["rabbitmq"].port == 5671
+  if node["sensu"]["rabbitmq"]["port"] == 5671
     Chef::Log.warn("Setting Sensu RabbitMQ port to 5672 as you have disabled SSL.")
     node.override["sensu"]["rabbitmq"]["port"] = 5672
   end
