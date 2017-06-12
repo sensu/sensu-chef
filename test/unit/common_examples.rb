@@ -1,7 +1,4 @@
 RSpec.shared_examples 'sensu default recipe' do
-  it "installs the Sensu package" do
-    expect(chef_run).to install_package(sensu_pkg_name)
-  end
 
   it "creates the log directory" do
     expect(chef_run).to create_directory(log_directory).with(
