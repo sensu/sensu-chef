@@ -17,7 +17,7 @@ describe "sensu::_enterprise_repo" do
   %w(stable unstable).each do |repo_designation|
     context "apt platforms" do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "12.04") do |node, server|
+        ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "16.04") do |node, server|
           node.override["sensu"]["enterprise"]["use_unstable_repo"] = true unless repo_designation == "stable"
           server.create_data_bag("sensu", data_bag_item)
         end.converge(described_recipe)
