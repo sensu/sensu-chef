@@ -11,7 +11,7 @@ describe "sensu::default" do
 
     context "when running on ubuntu linux" do
       let(:chef_run) do
-        ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "12.04") do |node, server|
+        ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "16.04") do |node, server|
           server.create_data_bag("sensu", ssl_data_bag_item)
         end.converge(described_recipe)
       end
@@ -25,16 +25,16 @@ describe "sensu::default" do
       end
 
       it "configures the apt repo definition with the default codename" do
-        expect(chef_run).to add_apt_repository("sensu").with(:distribution => "precise")
+        expect(chef_run).to add_apt_repository("sensu").with(:distribution => "xenial")
       end
 
       it_behaves_like('sensu default recipe')
 
       context "when overriding the apt repository codename" do
         let(:chef_run) do
-          ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "12.04") do |node, server|
+          ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "16.04") do |node, server|
             server.create_data_bag("sensu", ssl_data_bag_item)
-            node.set["sensu"]["apt_repo_codename"] = "dory"
+            node.override["sensu"]["apt_repo_codename"] = "dory"
           end.converge(described_recipe)
         end
 
@@ -72,7 +72,7 @@ describe "sensu::default" do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
         :platform => "windows",
-        :version => "2008R2"
+        :version => "2012R2"
       ) do |node, server|
         server.create_data_bag("sensu", ssl_data_bag_item)
         node.override["lsb"] = {}

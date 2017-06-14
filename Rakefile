@@ -10,6 +10,15 @@ rescue LoadError
   puts '>>>>> Stove gem not loaded, omitting tasks' unless ENV['CI']
 end
 
+begin
+  require 'foodcritic'
+  FoodCritic::Rake::LintTask.new do |t|
+    t.options = { :tags => ['any'] }
+  end
+rescue LoadError
+  puts ">>> Gem load error. Omitting #{task.name}" unless ENV['CI']
+end
+
 # rspec runs unit tests
 begin
   require 'rspec/core/rake_task'
@@ -23,6 +32,6 @@ end
 begin
   require 'kitchen/rake_tasks'
   Kitchen::RakeTasks.new
-rescue LoadError
-  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
+rescue StandardError => e
+  puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
 end

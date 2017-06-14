@@ -1,27 +1,15 @@
+# This gemfile provides additional gems for testing and releasing this cookbook
+# It is meant to be installed on top of ChefDK which provides the majority
+# of the necessary gems for testing this cookbook
+#
+# Run 'chef exec bundle install' to install these dependencies
+
 source "https://rubygems.org"
 
-group :lint do
-  gem 'foodcritic', '~> 6.2'
-  gem 'rubocop', '~> 0.39.0'
-end
-
 group :develop do
-  gem "chef", "~> 12.9"
-  gem "chefspec", "~> 6.0"
-  gem "stove", "~> 4.1"
-  gem "berkshelf", ">= 5.6.4", "< 6.0"
-  gem "rake"
+  gem "stove", "~> 5.0"
   gem "guard"
   gem "guard-foodcritic"
   gem "guard-rspec"
   gem "guard-rubocop"
-end
-
-group :integration do
-  gem "test-kitchen", "~> 1.8"
-  gem "kitchen-docker"
-  gem "kitchen-vagrant"
-  gem "winrm", "~> 2.0"
-  gem "winrm-fs"
-  gem "winrm-elevated"
 end
