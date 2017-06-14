@@ -16,7 +16,7 @@ begin
     t.options = { :tags => ['any'] }
   end
 rescue LoadError
-  puts "foodcritic gem not found. Skipping"
+  puts ">>> Gem load error. Omitting #{task.name}" unless ENV['CI']
 end
 
 # rspec runs unit tests
@@ -32,6 +32,6 @@ end
 begin
   require 'kitchen/rake_tasks'
   Kitchen::RakeTasks.new
-rescue LoadError
-  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
+rescue StandardError => e
+  puts ">>> Gem load error: #{e}, omitting #{task.name}" unless ENV['CI']
 end
