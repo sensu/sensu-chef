@@ -10,6 +10,15 @@ rescue LoadError
   puts '>>>>> Stove gem not loaded, omitting tasks' unless ENV['CI']
 end
 
+begin
+  require 'foodcritic'
+  FoodCritic::Rake::LintTask.new do |t|
+    t.options = { :tags => ['any'] }
+  end
+rescue LoadError
+  puts "foodcritic gem not found. Skipping"
+end
+
 # rspec runs unit tests
 begin
   require 'rspec/core/rake_task'
