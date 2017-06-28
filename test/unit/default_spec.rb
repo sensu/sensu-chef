@@ -44,6 +44,41 @@ describe "sensu::default" do
       end
     end
 
+    context "when running on rhel linux" do
+      let(:chef_run) do
+        ChefSpec::ServerRunner.new(:platform => "redhat", :version => "7.3") do |node, server|
+          server.create_data_bag("sensu", ssl_data_bag_item)
+        end.converge(described_recipe)
+      end
+
+      it "includes the sensu::_linux recipe" do
+        expect(chef_run).to include_recipe("sensu::_linux")
+      end
+
+      it "installs the sensu package" do
+        expect(chef_run).to install_yum_package('sensu')
+      end
+
+      it "configures the yum repo definition" do
+        expect(chef_run).to add_yum_repository("sensu").with(:baseurl => "http://repositories.sensuapp.org/yum/$releasever/$basearch/")
+      end
+
+      it_behaves_like('sensu default recipe')
+
+      context "when overriding the yum repository releasever" do
+        let(:chef_run) do
+          ChefSpec::ServerRunner.new(:platform => "redhat", :version => "7.3") do |node, server|
+            server.create_data_bag("sensu", ssl_data_bag_item)
+            node.set["sensu"]["yum_repo_releasever"] = "dory"
+          end.converge(described_recipe)
+        end
+
+        it "configures the yum repo definition with the provided releasever" do
+          expect(chef_run).to add_yum_repository("sensu").with(:baseurl => "http://repositories.sensuapp.org/yum/dory/$basearch/")
+        end
+      end
+    end
+
     context "when running on aix" do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(:platform => "aix", :version => "7.1") do |node, server|
@@ -96,6 +131,10 @@ describe "sensu::default" do
         chef_run.converge(described_recipe)
         expect(chef_run).to_not include_recipe(dotnet_recipe)
       end
+    end
+
+    it "installs the Sensu package" do
+      expect(chef_run).to install_package(sensu_pkg_name)
     end
 
     it_behaves_like('sensu default recipe')

@@ -20,6 +20,7 @@ end
 default["sensu"]["version"] = "0.28.4-1"
 default["sensu"]["version_suffix"] = nil
 default["sensu"]["apt_repo_codename"] = nil
+default["sensu"]["yum_repo_releasever"] = nil
 default["sensu"]["use_unstable_repo"] = false
 default["sensu"]["log_level"] = "info"
 default["sensu"]["use_ssl"] = true
