@@ -30,6 +30,7 @@ if node["sensu"]["use_ssl"]
   ssl_directory = "/etc/rabbitmq/ssl"
 
   directory ssl_directory do
+    mode '0755'
     recursive true
   end
 
@@ -57,7 +58,9 @@ if node["sensu"]["use_ssl"]
     node.override["rabbitmq"]["ssl_#{item}"] = path
   end
 
-  directory File.join(ssl_directory, "client")
+  directory File.join(ssl_directory, "client") do
+    mode '0755'
+  end
 
   %w[
     cert
