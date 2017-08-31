@@ -44,6 +44,26 @@ when "debian"
     options package_options
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
+when "suse"
+  repo = zypper_repo 'sensu' do
+    repo_name 'sensu'
+    repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
+    uri "#{node['sensu']['yum_repo_url']}/#{repo}/7/x86_64/"
+  end
+
+  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
+
+  # As of 0.27 we need to suffix the version string with the platform major
+  # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
+  # attribute.
+  zypper_package "sensu" do
+    version lazy { "1:" + Sensu::Helpers.redhat_version_string(
+      node["sensu"]["version"],
+      7,
+      node["sensu"]["version_suffix"]
+    )}
+    notifies :create, "ruby_block[sensu_service_trigger]"
+  end
 when "rhel", "fedora", "amazon"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
