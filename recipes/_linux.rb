@@ -44,7 +44,7 @@ when "debian"
     options package_options
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
-when "rhel", "fedora", "amazon"
+when "rhel", "fedora", "amazon", "suse"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"

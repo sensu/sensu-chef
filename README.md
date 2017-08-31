@@ -29,6 +29,7 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 * Fedora
 * Windows
 * AIX
+* Suse Linux
 
 ### Chef
 
