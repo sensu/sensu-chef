@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Added
+* support for suse linux (@majormoses)
+
 ## [4.0.2] - 2017-07-06
 
 ### Changes
