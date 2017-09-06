@@ -345,6 +345,49 @@ sensu_snippet "irc" do
 end
 ```
 
+### Install plugins
+```ruby
+# define a hash of plugins (gems) WITH VERSIONS PINNED
+default['MY_CUSTOM_NAMESPACE']['sensu']['plugins'] = {
+  ## pretty much all checks rely on this
+  'sensu-plugin' => '2.1.0',
+  ## check consul
+  'sensu-plugins-consul' => '1.4.1',
+  ## check cpu
+  'sensu-plugins-cpu-checks' => '1.1.2',
+  ## check disks
+  'sensu-plugins-disk-checks' => '2.4.0',
+  ## check disks
+  'sensu-plugins-http' => '2.6.0',
+  ## check elasticsearch
+  'sensu-plugins-elasticsearch' => '1.5.1',
+  ## check load
+  'sensu-plugins-load-checks' => '3.0.0',
+  ## check memory
+  'sensu-plugins-memory-checks' => '3.0.2',
+  ## check network
+  'sensu-plugins-network-checks' => '2.0.1',
+  ## check processes
+  'sensu-plugins-process-checks' => '2.4.0',
+  ## check rabbitmq
+  'sensu-plugins-rabbitmq' => '3.2.0',
+  ## check redis
+  'sensu-plugins-redis' => '2.0.0',
+  ## check chef
+  'sensu-plugins-chef' => '3.0.2',
+  'hashie' => '3.5.6',
+  ## check nginx
+  'sensu-plugins-nginx' => '2.2.0'
+}
+
+# loop over each gem and install it into the sensu embedded ruby
+node['MY_CUSTOM_NAMESPACE']['sensu']['plugins'].each do |plugin, version|
+  sensu_gem plugin do
+    version version
+  end
+end
+```
+
 ## Helper modules and methods
 
 ### Run State Helpers
