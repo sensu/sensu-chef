@@ -5,6 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [4.0.5] - 2017-09-12
+
+### Fixed
+
+* `client.json` should now be used by `node['sensu']['user']` rather than `node['sensu']['admin_user']`
+
 ## [4.0.4] - 2017-09-12
 
 ### Features
@@ -255,7 +261,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.4...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.5...HEAD
+[4.0.5]: https://github.com/sensu/sensu-chef/compare/v4.0.4...v4.0.5
 [4.0.4]: https://github.com/sensu/sensu-chef/compare/v4.0.3...v4.0.4
 [4.0.3]: https://github.com/sensu/sensu-chef/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/sensu/sensu-chef/compare/v4.0.0...v4.0.2
