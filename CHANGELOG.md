@@ -5,6 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [4.0.3] - 2017-09-12
+
+### Features
+
+* added support for suse linux (@runningman84)
+
 ## [4.0.2] - 2017-07-06
 
 ### Changes
@@ -243,7 +249,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.2...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.3...HEAD
+[4.0.3:] https://github.com/sensu/sensu-chef/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/sensu/sensu-chef/compare/v4.0.0...v4.0.2
 [4.0.0]: https://github.com/sensu/sensu-chef/compare/3.2.0...v4.0.0
 [3.2.0]: https://github.com/sensu/sensu-chef/compare/3.1.2...3.2.0
