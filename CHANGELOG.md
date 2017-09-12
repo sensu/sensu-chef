@@ -5,6 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [4.0.6] - 2017-09-12
+
+### Fixed
+
+* on systems with restrictive umasks the permissions for rabbitmq ssl directories ended up with permissions that made it non functional. This sets them to the required permissions to make things work (@jessebolson)
+
 ## [4.0.5] - 2017-09-12
 
 ### Fixed
@@ -261,7 +267,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.5...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.6...HEAD
+[4.0.6]: https://github.com/sensu/sensu-chef/compare/v4.0.5..v4.0.6
 [4.0.5]: https://github.com/sensu/sensu-chef/compare/v4.0.4...v4.0.5
 [4.0.4]: https://github.com/sensu/sensu-chef/compare/v4.0.3...v4.0.4
 [4.0.3]: https://github.com/sensu/sensu-chef/compare/v4.0.2...v4.0.3
