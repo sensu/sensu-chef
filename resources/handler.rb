@@ -1,7 +1,7 @@
 actions :create, :delete
 default_action :create
 
-attribute :type, :kind_of => String, :equal_to => %w[set pipe tcp udp transport]
+attribute :type, :kind_of => String, :equal_to => %w(set pipe tcp udp transport)
 attribute :filters, :kind_of => Array
 attribute :mutator, :kind_of => String
 attribute :severities, :kind_of => Array

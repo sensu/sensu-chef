@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-sensu_service "sensu-api" do
+sensu_service 'sensu-api' do
   action [:enable, :start]
 end

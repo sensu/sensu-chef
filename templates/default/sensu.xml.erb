@@ -9,13 +9,13 @@
   <executable>C:\opt\sensu\embedded\bin\ruby</executable>
   <argument>C:\opt\sensu\embedded\bin\<%= @service %></argument>
   <argument>-c</argument>
-  <argument><%= node["sensu"]["directory"] %>\config.json</argument>
+  <argument><%= node['sensu']['directory'] %>\config.json</argument>
   <argument>-d</argument>
-  <argument><%= node["sensu"]["directory"] %>\conf.d</argument>
+  <argument><%= node['sensu']['directory'] %>\conf.d</argument>
   <argument>-e</argument>
-  <argument><%= node["sensu"]["directory"] %>\extensions</argument>
+  <argument><%= node['sensu']['directory'] %>\extensions</argument>
   <argument>-l</argument>
-  <argument><%= node["sensu"]["log_directory"] %>\<%= @service %>.log</argument>
+  <argument><%= node['sensu']['log_directory'] %>\<%= @service %>.log</argument>
   <argument>-L</argument>
-  <argument><%= node["sensu"]["log_level"] %></argument>
+  <argument><%= node['sensu']['log_level'] %></argument>
 </service>

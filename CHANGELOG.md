@@ -47,11 +47,11 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ### Features
 
-* When given a value, `node["sensu"]["yum_repo_releasever"]` attribute will be
+* When given a value, `node['sensu']['yum_repo_releasever']` attribute will be
 used in lieu of `$releasever` yum variable, restoring support for RHEL
 derivatives, e.g. Amazon Linux.
 
-* When given a value, `node["sensu"]["apt_repo_codename"]` attribute will be
+* When given a value, `node['sensu']['apt_repo_codename']` attribute will be
 used in lieu of the LSB codename detected by ohai on Debian and Ubuntu.
 
 ## [4.0.0] - 2017-03-14
@@ -88,7 +88,7 @@ The default version of Sensu Enterprise Dashboard is now 2.3.0
   `standalone` or `subscriptions` attributes
 
 * The built-in Administrator group should now be usable for the value
-  of `node["sensu"]["group"]` on Windows platforms.
+  of `node['sensu']['group']` on Windows platforms.
 
 ## [3.2.0] - 2017-01-10
 
@@ -117,7 +117,7 @@ The default version of Sensu Enterprise is now 1.14.10
 The default version of Sensu Enterprise Dashboard is now 1.12.0
 
 The account created for Sensu on Windows now uses the
-`node["sensu"]["user"]` attribute instead of a hard-coded value.
+`node['sensu']['user']` attribute instead of a hard-coded value.
 
 ### Project changes
 
@@ -154,7 +154,7 @@ Updated dependencies for yum, apt and windows cookbooks to make sense for Chef >
 
 Added support for AIX platform
 
-Added support for configuring SENSU_LOADED_TEMPFILE_DIR via `node["sensu"]["loaded_tempfile_dir"]`
+Added support for configuring SENSU_LOADED_TEMPFILE_DIR via `node['sensu']['loaded_tempfile_dir']`
 
 Added logic for detecting gem binary path on Windows platform
 
@@ -173,7 +173,7 @@ are not supported.
 
 The default version of Sensu installed by this cookbook is now 0.25.6-1.
 
-The default value of `node["sensu"]["use_embedded_ruby"]` is now `true`.
+The default value of `node['sensu']['use_embedded_ruby']` is now `true`.
 
 The `rabbitmq` recipe now installs Erlang via the Erlang Solutions repository on all platforms.
 
@@ -189,9 +189,9 @@ Sensu Enterprise JVM options are now configurable via attributes.
 
 Sensu transport `name` is now configurable via attributes.
 
-The `sensu_base_config` provider now honors `node["rabbitmq"]["hosts"]` attribute,
+The `sensu_base_config` provider now honors `node['rabbitmq']['hosts']` attribute,
 providing an array of hosts to use for configuring rabbitmq transport with multiple brokers.
-When `hosts` attribute has no value, we fall back to value of `node["sensu"]["rabbitmq"]["host"]`
+When `hosts` attribute has no value, we fall back to value of `node['sensu']['rabbitmq']['host']`
 attribute.
 
 The `sensu_client` provider now honors the following additional client
@@ -217,7 +217,7 @@ Expanded unit tests in many areas, including `sensu_base_config`,
 ### Fixes
 
 Directories created by the `sensu_json_file` provider now assume the mode
-defined by the value of `node["sensu"]["directory_mode"]` attribute.
+defined by the value of `node['sensu']['directory_mode']` attribute.
 
 The method used to look up `sensu_service_trigger` ruby block in the
 resource collection has been updated to eliminate conditions where Sensu

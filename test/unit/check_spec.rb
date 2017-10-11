@@ -21,7 +21,6 @@ describe 'sensu-test::good_checks' do
       :standalone => nil
     )
   end
-
 end
 
 describe 'sensu-test::bad_check_name' do

@@ -14,5 +14,5 @@ attribute :deregistration, :kind_of => Hash, :default => {}
 attribute :additional, :kind_of => Hash, :default => {}
 
 def after_created
-  raise Chef::Exceptions::ValidationFailed, "Sensu client name cannot contain spaces or special characters" unless name =~ /^[\w\.-]+$/
+  fail Chef::Exceptions::ValidationFailed, 'Sensu client name cannot contain spaces or special characters' unless name =~ /^[\w\.-]+$/
 end

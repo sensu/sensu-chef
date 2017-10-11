@@ -171,48 +171,48 @@ Enables and starts Sensu Enterprise Dashboard.
 
 ### Installation
 
-`node["sensu"]["version"]` - Sensu build to install.
+`node['sensu']['version']` - Sensu build to install.
 
-`node["sensu"]["use_unstable_repo"]` - If the build resides on the
+`node['sensu']['use_unstable_repo']` - If the build resides on the
 "unstable" repository.
 
-`node["sensu"]["apt_repo_codename"]` - Override LSB release codename
+`node['sensu']['apt_repo_codename']` - Override LSB release codename
 detected by ohai for purposes of configuring the apt repository definition.
 
-`node["sensu"]["yum_repo_releasever"]` - Override `$releasever` string
+`node['sensu']['yum_repo_releasever']` - Override `$releasever` string
 used in yum repository definition.
 
 `node['sensu']['yum_flush_cache']` - Override chefs in memory cache of yum cache during a `chef-client` run. For more information see [here](https://docs.chef.io/resource_yum.html).
 
 `node["sensu"]["directory"]` - Sensu configuration directory.
 
-`node["sensu"]["log_directory"]` - Sensu log directory.
+`node['sensu']['log_directory']` - Sensu log directory.
 
-`node["sensu"]["log_level"]` - Sensu log level (eg. "warn").
+`node['sensu']['log_level']` - Sensu log level (eg. "warn").
 
-`node["sensu"]["use_ssl"]` - If Sensu and RabbitMQ are to use SSL.
+`node['sensu']['use_ssl']` - If Sensu and RabbitMQ are to use SSL.
 
-`node["sensu"]["user"]` - The user who owns all sensu files and directories. Default
+`node['sensu']['user']` - The user who owns all sensu files and directories. Default
 "sensu".
 
-`node["sensu"]["group"]` - The group that owns all sensu files and directories.
+`node['sensu']['group']` - The group that owns all sensu files and directories.
 Default "sensu".
 
-`node["sensu"]["use_embedded_ruby"]` - If Sensu Ruby handlers and plugins
+`node['sensu']['use_embedded_ruby']` - If Sensu Ruby handlers and plugins
 use the embedded Ruby in the Sensu package (default: true).
 
-`node["sensu"]["service_max_wait"]` - How long service scripts should wait
+`node['sensu']['service_max_wait']` - How long service scripts should wait
 for Sensu to start/stop.
 
-`node["sensu"]["loaded_tempfile_dir"]` - Where Sensu stores temporary files. Set a persistent directory if you use hardened system that cleans temporary directory regularly.
+`node['sensu']['loaded_tempfile_dir']` - Where Sensu stores temporary files. Set a persistent directory if you use hardened system that cleans temporary directory regularly.
 
 ### Windows
 
 Sensu requires Microsoft's .Net Framework to run on Windows. The following attributes influence the installation of .Net via this cookbook:
 
-`node["sensu"]["windows"]["install_dotnet"]` - Toggles installation of .Net Framework using ms_dotnet cookbook. (default: true)
+`node['sensu']['windows']['install_dotnet']` - Toggles installation of .Net Framework using ms_dotnet cookbook. (default: true)
 
-`node["sensu"]["windows"]["dotnet_major_version"]` - Major version of .Net Framework to install. (default: 4)
+`node['sensu']['windows']['dotnet_major_version']` - Major version of .Net Framework to install. (default: 4)
 
 Adjusting the value of `dotnet_major_version` attribute will influence which
  recipe from `ms_dotnet` cookbook will be included. See [`ms_dotnet` cookbook](https://github.com/criteo-cookbooks/ms_dotnet/blob/v2.6.1/README.md)
@@ -220,64 +220,64 @@ Adjusting the value of `dotnet_major_version` attribute will influence which
 
 ### Transport
 
-`node["sensu"]["transport"]["name"]` - Name of transport to use for Sensu communications. Default "rabbitmq"
+`node['sensu']['transport']['name']` - Name of transport to use for Sensu communications. Default "rabbitmq"
 
 ### RabbitMQ
 
-`node["sensu"]["rabbitmq"]["hosts"]` - Array of RabbitMQ hosts as strings, which will be combined with other RabbitMQ attributes to generate the Sensu RabbitMQ transport configuration as an array of hashes. Falls back to `node["sensu"]["rabbitmq"]["host"]` when empty. Defaults to an empty array.
+`node['sensu']['rabbitmq']['hosts']` - Array of RabbitMQ hosts as strings, which will be combined with other RabbitMQ attributes to generate the Sensu RabbitMQ transport configuration as an array of hashes. Falls back to `node['sensu']['rabbitmq']['host']` when empty. Defaults to an empty array.
 
-`node["sensu"]["rabbitmq"]["host"]` - RabbitMQ host.
+`node['sensu']['rabbitmq']['host']` - RabbitMQ host.
 
-`node["sensu"]["rabbitmq"]["port"]` - RabbitMQ port, usually for SSL.
+`node['sensu']['rabbitmq']['port']` - RabbitMQ port, usually for SSL.
 
-`node["sensu"]["rabbitmq"]["ssl"]` - RabbitMQ SSL configuration, DO NOT EDIT THIS.
+`node['sensu']['rabbitmq']['ssl']` - RabbitMQ SSL configuration, DO NOT EDIT THIS.
 
-`node["sensu"]["rabbitmq"]["vhost"]` - RabbitMQ vhost for Sensu.
+`node['sensu']['rabbitmq']['vhost']` - RabbitMQ vhost for Sensu.
 
-`node["sensu"]["rabbitmq"]["user"]` - RabbitMQ user for Sensu.
+`node['sensu']['rabbitmq']['user']` - RabbitMQ user for Sensu.
 
-`node["sensu"]["rabbitmq"]["password"]` - RabbitMQ password for Sensu.
+`node['sensu']['rabbitmq']['password']` - RabbitMQ password for Sensu.
 
 ### Redis
 
-`node["sensu"]["redis"]["host"]` - Redis host.
+`node['sensu']['redis']['host']` - Redis host.
 
-`node["sensu"]["redis"]["port"]` - Redis port.
+`node['sensu']['redis']['port']` - Redis port.
 
 ### Sensu API
 
-`node["sensu"]["api"]["host"]` - Sensu API host, for other services to reach it.
+`node['sensu']['api']['host']` - Sensu API host, for other services to reach it.
 
-`node["sensu"]["api"]["bind"]` - Sensu API bind address.
+`node['sensu']['api']['bind']` - Sensu API bind address.
 
-`node["sensu"]["api"]["port"]` - Sensu API port.
+`node['sensu']['api']['port']` - Sensu API port.
 
 ### Sensu Enterprise
 
-`node["sensu"]["enterprise"]["repo_protocol"]` - Sensu Enterprise repo protocol (e.g. http, https)
+`node['sensu']['enterprise']['repo_protocol']` - Sensu Enterprise repo protocol (e.g. http, https)
 
-`node["sensu"]["enterprise"]["repo_host"]` - Sensu Enterprise repo host
+`node['sensu']['enterprise']['repo_host']` - Sensu Enterprise repo host
 
-`node["sensu"]["enterprise"]["version"]` - Desired Sensu Enterprise package version
+`node['sensu']['enterprise']['version']` - Desired Sensu Enterprise package version
 
-`node["sensu"]["enterprise"]["use_unstable_repo"]` - Toggle use of Sensu Enterprise unstable repository
+`node['sensu']['enterprise']['use_unstable_repo']` - Toggle use of Sensu Enterprise unstable repository
 
-`node["sensu"]["enterprise"]["log_level"]` - Configure Sensu Enterprise log level
+`node['sensu']['enterprise']['log_level']` - Configure Sensu Enterprise log level
 
-`node["sensu"]["enterprise"]["heap_size"]` - Configure Sensu Enterprise heap size
+`node['sensu']['enterprise']['heap_size']` - Configure Sensu Enterprise heap size
 
-`node["sensu"]["enterprise"]["heap_dump_path"]` - Configure path where Sensu Enterprise will store heap dumps. Directory path will be managed by Chef. Honored by Enterprise version 2.0.0 and newer.
+`node['sensu']['enterprise']['heap_dump_path']` - Configure path where Sensu Enterprise will store heap dumps. Directory path will be managed by Chef. Honored by Enterprise version 2.0.0 and newer.
 
-`node["sensu"]["enterprise"]["java_opts"]` - Specify additional Java options when running Sensu Enterprise
+`node['sensu']['enterprise']['java_opts']` - Specify additional Java options when running Sensu Enterprise
 
-`node["sensu"]["enterprise"]["max_open_files"]` - Specify maxiumum number of file handles. Honored by Enterprise version 1.7.2 and newer.
+`node['sensu']['enterprise']['max_open_files']` - Specify maxiumum number of file handles. Honored by Enterprise version 1.7.2 and newer.
 
 ## Custom Resources (LWRPs)
 
 ### Define a client
 
 ```ruby
-sensu_client node["name"] do
+sensu_client node['name'] do
   address node["ipaddress"]
   subscriptions node["roles"] + ["all"]
   additional(:cluster => node["cluster"])
@@ -311,7 +311,7 @@ end
 sensu_check "redis_process" do
   command "check-procs.rb -p redis-server -C 1"
   handlers ["default"]
-  subscribers ["redis"]
+  subscribers ['redis']
   interval 30
   additional(:notification => "Redis is not running", :occurrences => 5)
 end

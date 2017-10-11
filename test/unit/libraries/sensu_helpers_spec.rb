@@ -3,7 +3,6 @@ require 'fauxhai'
 require_relative '../../../libraries/sensu_helpers.rb'
 
 describe Sensu::Helpers do
-
   let(:node) { Fauxhai.mock(:platform => 'ubuntu', :version => '14.04').data }
   let(:unix_omnibus_gem_path) { '/opt/sensu/embedded/bin/gem' }
   let(:windows_omnibus_gem_path) { 'c:\opt\sensu\embedded\bin\gem.bat' }
@@ -55,7 +54,6 @@ describe Sensu::Helpers do
       end
 
       context 'without omnibus ruby available' do
-
         before do
           allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
           allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)
@@ -84,7 +82,6 @@ describe Sensu::Helpers do
       end
 
       context 'without omnibus ruby available' do
-
         before do
           allow(File).to receive(:exists?).with(unix_omnibus_gem_path).and_return(false)
           allow(File).to receive(:exists?).with(windows_omnibus_gem_path).and_return(false)

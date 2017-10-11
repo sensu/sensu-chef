@@ -41,7 +41,7 @@ end
 
 profiler_extension = case platform?('windows')
                      when true
-                        "https://raw.githubusercontent.com/sensu/sensu-community-plugins/36ffb8b92c69065e7e5351a8011497e2c4ffd0e1/extensions/checks/wmi_metrics.rb"
+                       "https://raw.githubusercontent.com/sensu/sensu-community-plugins/36ffb8b92c69065e7e5351a8011497e2c4ffd0e1/extensions/checks/wmi_metrics.rb"
                      when false
                        "https://raw.githubusercontent.com/sensu/sensu-community-plugins/36ffb8b92c69065e7e5351a8011497e2c4ffd0e1/extensions/checks/system_profile.rb"
                      end

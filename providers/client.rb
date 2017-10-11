@@ -31,12 +31,12 @@ action :create do
   ).merge(new_resource.additional)
 
   definition = {
-    "client" => Sensu::Helpers.sanitize(client)
+    'client' => Sensu::Helpers.sanitize(client)
   }
 
-  f = sensu_json_file ::File.join(node["sensu"]["directory"], "conf.d", "client.json") do
+  f = sensu_json_file ::File.join(node['sensu']['directory'], "conf.d", "client.json") do
     content definition
-    owner node["sensu"]["user"]
+    owner node['sensu']['user']
   end
 
   new_resource.updated_by_last_action(f.updated_by_last_action?)

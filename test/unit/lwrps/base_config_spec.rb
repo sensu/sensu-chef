@@ -2,7 +2,6 @@ require_relative "../spec_helper"
 require 'json'
 
 describe "sensu_base_config" do
-
   let(:single_broker_config) do
     {
       "host" => "10.0.0.6",
@@ -22,7 +21,7 @@ describe "sensu_base_config" do
 
   let(:multiple_broker_config) do
     {
-      "hosts" => [ "10.0.0.6", "10.0.0.7", "10.0.0.8" ],
+      "hosts" => ["10.0.0.6", "10.0.0.7", "10.0.0.8"],
       "host" => "192.168.1.1",
       "port" => 5671,
       "vhost" => "/sensu",
@@ -85,12 +84,12 @@ describe "sensu_base_config" do
     ChefSpec::SoloRunner.new(
       :platform => "ubuntu",
       :version => "14.04",
-      :step_into => ['sensu_base_config', 'sensu_json_file']
+      :step_into => %w(sensu_base_config sensu_json_file)
     ) do |node|
-      node.override["sensu"]["transport"]["chefspec"] = true
-      node.override["sensu"]["redis"]["chefspec"] = true
-      node.override["sensu"]["api"]["chefspec"] = true
-      node.override["sensu"]["rabbitmq"] = single_broker_config
+      node.override['sensu']['transport']["chefspec"] = true
+      node.override['sensu']['redis']["chefspec"] = true
+      node.override['sensu']['api']["chefspec"] = true
+      node.override['sensu']['rabbitmq'] = single_broker_config
     end.converge("sensu::default")
   end
 
@@ -101,7 +100,7 @@ describe "sensu_base_config" do
   end
 
   context "base configuration is derived from node attributes" do
-    %w[ transport redis api ].each do |kw|
+    %w( transport redis api ).each do |kw|
       it "#{kw} node attributes are present in base configuration" do
         content = JSON.parse(base_config_json.content)
         expect(content[kw]["chefspec"]).to eq(true)
@@ -112,24 +111,22 @@ describe "sensu_base_config" do
   context "single rabbitmq host provided" do
     it "yields a rabbitmq array with a single hash" do
       content = JSON.parse(base_config_json.content)
-      expect(content["rabbitmq"].is_a?(Array)).to eq(true)
-      expect(content["rabbitmq"][0].is_a?(Hash)).to eq(true)
-      expect(content["rabbitmq"][0]).to eq(single_broker_config)
+      expect(content['rabbitmq'].is_a?(Array)).to eq(true)
+      expect(content['rabbitmq'][0].is_a?(Hash)).to eq(true)
+      expect(content['rabbitmq'][0]).to eq(single_broker_config)
     end
   end
 
   context "multiple rabbitmq hosts provided" do
-
     before do
-      chef_run.node.override["sensu"]["rabbitmq"] = multiple_broker_config
+      chef_run.node.override['sensu']['rabbitmq'] = multiple_broker_config
       chef_run.converge("sensu::default")
     end
 
     it "yields a rabbitmq array containing multiple brokers" do
       content = JSON.parse(base_config_json.content)
-      expect(content["rabbitmq"].is_a?(Array)).to eq(true)
-      expect(content["rabbitmq"]).to eq(multiple_broker_json)
+      expect(content['rabbitmq'].is_a?(Array)).to eq(true)
+      expect(content['rabbitmq']).to eq(multiple_broker_json)
     end
   end
-
 end

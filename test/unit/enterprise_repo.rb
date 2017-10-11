@@ -18,7 +18,7 @@ describe "sensu::_enterprise_repo" do
     context "apt platforms" do
       let(:chef_run) do
         ChefSpec::ServerRunner.new(:platform => "ubuntu", :version => "16.04") do |node, server|
-          node.override["sensu"]["enterprise"]["use_unstable_repo"] = true unless repo_designation == "stable"
+          node.override['sensu']['enterprise']['use_unstable_repo'] = true unless repo_designation == 'stable'
           server.create_data_bag("sensu", data_bag_item)
         end.converge(described_recipe)
       end
@@ -29,14 +29,14 @@ describe "sensu::_enterprise_repo" do
             :uri => "http://chefspec:moartests!@enterprise.sensuapp.com/apt",
             :key => "http://chefspec:moartests!@enterprise.sensuapp.com/apt/pubkey.gpg",
             :distribution => "sensu-enterprise",
-            :components => repo_designation == "unstable" ?  ["unstable"] : ["main"]
+            :components => repo_designation == "unstable" ? ['unstable'] : ['main']
           )
         end
       end
 
       context "using custom host with #{repo_designation} repo" do
         before do
-          chef_run.node.override["sensu"]["enterprise"]["repo_host"] = "chefspec.example.com"
+          chef_run.node.override['sensu']['enterprise']['repo_host'] = 'chefspec.example.com'
           chef_run.converge(described_recipe)
         end
 
@@ -45,17 +45,16 @@ describe "sensu::_enterprise_repo" do
             :uri => "http://chefspec:moartests!@chefspec.example.com/apt",
             :key => "http://chefspec:moartests!@chefspec.example.com/apt/pubkey.gpg",
             :distribution => "sensu-enterprise",
-            :components => repo_designation == "unstable" ?  ["unstable"] : ["main"]
+            :components => repo_designation == "unstable" ? ['unstable'] : ['main']
           )
         end
       end
     end
 
     context "yum platforms" do
-
       let(:chef_run) do
         ChefSpec::ServerRunner.new(:platform => "centos", :version => "6.6") do |node, server|
-          node.override["sensu"]["enterprise"]["use_unstable_repo"] = true unless repo_designation == "stable"
+          node.override['sensu']['enterprise']['use_unstable_repo'] = true unless repo_designation == 'stable'
           server.create_data_bag("sensu", data_bag_item)
         end.converge(described_recipe)
       end
@@ -80,7 +79,7 @@ describe "sensu::_enterprise_repo" do
 
       context "using custom host with #{repo_designation} repo" do
         before do
-          chef_run.node.override["sensu"]["enterprise"]["repo_host"] = "chefspec.example.com"
+          chef_run.node.override['sensu']['enterprise']['repo_host'] = 'chefspec.example.com'
           chef_run.converge(described_recipe)
         end
 
@@ -92,6 +91,5 @@ describe "sensu::_enterprise_repo" do
         end
       end
     end
-
   end
 end

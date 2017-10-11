@@ -49,5 +49,4 @@ describe 'sensu_gem' do
       expect(chef_run).to upgrade_gem_package('sensu-plugins-disk-checks').with(:version => '1.1.2')
     end
   end
-
 end

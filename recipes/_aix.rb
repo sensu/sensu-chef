@@ -20,14 +20,14 @@
 bff_path = File.join(Chef::Config[:file_cache_path], 'sensu.bff')
 
 remote_file bff_path do
-  source "#{node["sensu"]["aix_package_root_url"]}/sensu-#{node["sensu"]["version"]}.powerpc.bff"
+  source "#{node['sensu']['aix_package_root_url']}/sensu-#{node['sensu']['version']}.powerpc.bff"
 end
 
-package "sensu" do
+package 'sensu' do
   source bff_path
 end
 
-template "/etc/default/sensu" do
-  source "sensu.default.erb"
-  notifies :create, "ruby_block[sensu_service_trigger]"
+template '/etc/default/sensu' do
+  source 'sensu.default.erb'
+  notifies :create, 'ruby_block[sensu_service_trigger]'
 end

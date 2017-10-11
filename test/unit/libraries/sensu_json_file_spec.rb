@@ -2,10 +2,9 @@ require 'chefspec'
 require_relative '../../../libraries/sensu_json_file.rb'
 
 describe 'Sensu::JSONFile' do
-
   let(:config) do
     {
-      "client" => { "name" => "test", "address" => "localhost", "subscriptions" => [ "test" ] },
+      "client" => { "name" => "test", "address" => "localhost", "subscriptions" => ["test"] },
       "rabbitmq" => { "host" => "172.16.100.100", "port" => 5671, "vhost" => "/sensu", "user" => "sensu", "password" => "sensu" }
     }
   end
@@ -18,7 +17,6 @@ describe 'Sensu::JSONFile' do
   end
 
   describe ".load_json" do
-   
     it 'returns a non-empty hash' do
       result = Sensu::JSONFile.load_json(stubbed_file_path)
       expect(result).to be_a(Hash)
@@ -59,5 +57,4 @@ describe 'Sensu::JSONFile' do
       expect(result).to eq(true)
     end
   end
-
 end
