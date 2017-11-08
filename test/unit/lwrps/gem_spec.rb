@@ -29,6 +29,12 @@ describe 'sensu_gem' do
       it 'installs the specified gem package from the specified source' do
         expect(chef_run).to install_gem_package('sensu-plugins-memory-checks').with(:source => '/tmp/sensu-plugins-memory-checks.gem')
       end
+     it 'upgrades the specified gem package from the specified source' do
+        expect(chef_run).to upgrade_gem_package('sensu-plugins-memory-checks').with(
+          :source => '/tmp/sensu-plugins-memory-checks.gem',
+          :version => '1.1.2'
+        )
+      end
     end
   end
 

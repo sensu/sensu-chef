@@ -13,6 +13,7 @@ action :upgrade do
   g = gem_package new_resource.name do
     gem_binary Sensu::Helpers.gem_binary
     version new_resource.version
+    source  new_resource.source
     options new_resource.options
     action :upgrade
   end
