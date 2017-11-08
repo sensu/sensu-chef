@@ -31,6 +31,13 @@ sensu_gem 'sensu-plugins-memory-checks' do
   action :install
 end
 
+# for testing upgrade action with source
+sensu_gem 'sensu-plugins-memory-checks' do
+  source mem_checks
+  version '1.1.2'
+  action :upgrade
+end
+
 # for testing upgrade action
 sensu_gem 'sensu-plugins-disk-checks' do
   version '1.1.2'
