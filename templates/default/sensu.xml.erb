@@ -14,8 +14,11 @@
   <argument><%= node["sensu"]["directory"] %>\conf.d</argument>
   <argument>-e</argument>
   <argument><%= node["sensu"]["directory"] %>\extensions</argument>
-  <argument>-l</argument>
-  <argument><%= node["sensu"]["log_directory"] %>\<%= @service %>.log</argument>
   <argument>-L</argument>
   <argument><%= node["sensu"]["log_level"] %></argument>
+  <logpath><%= node["sensu"]["log_directory"] %>\</logpath>
+  <log mode="roll-by-size">
+        <sizeThreshold><%= node["sensu"]["log_rotate_file_size"] %></sizeThreshold>
+        <keepFiles><%= node["sensu"]["log_rotate_file_keep"] %></keepFiles>
+  </log>   
 </service>
