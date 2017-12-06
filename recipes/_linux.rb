@@ -85,6 +85,7 @@ when "rhel", "fedora", "amazon"
       node["sensu"]["version_suffix"]
     )}
     allow_downgrade true
+    flush_cache [ :before ]
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
 else
