@@ -5,6 +5,7 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [4.1.0] - 2017-12-14
 ### Added
 * ability to control `yum_package`'s `flush_cache` parameter by specifying `node['sensu']['yum_flush_cache']`. This allows you to control chefs in memory cache during a `chef-client` run. For more information see [here](https://docs.chef.io/resource_yum.html).
 * `sensu_gem` now optionally accepts a `source` parameter of `String` or `Array` when using an action of `:upgrade`.This could be a local file or a URL. For more information see [here](https://docs.chef.io/resource_gem_package.html)
@@ -271,7 +272,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.0.6...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.1.0...HEAD
+[4.1.0]: https://github.com/sensu/sensu-chef/compare/v4.0.6...v4.1.0
 [4.0.6]: https://github.com/sensu/sensu-chef/compare/v4.0.5..v4.0.6
 [4.0.5]: https://github.com/sensu/sensu-chef/compare/v4.0.4...v4.0.5
 [4.0.4]: https://github.com/sensu/sensu-chef/compare/v4.0.3...v4.0.4
