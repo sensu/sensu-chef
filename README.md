@@ -182,6 +182,8 @@ detected by ohai for purposes of configuring the apt repository definition.
 `node["sensu"]["yum_repo_releasever"]` - Override `$releasever` string
 used in yum repository definition.
 
+`node['sensu']['yum_flush_cache']` - Override chefs in memory cache of yum cache during a `chef-client` run. For more information see [here](https://docs.chef.io/resource_yum.html).
+
 `node["sensu"]["directory"]` - Sensu configuration directory.
 
 `node["sensu"]["log_directory"]` - Sensu log directory.
