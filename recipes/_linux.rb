@@ -85,7 +85,7 @@ when "rhel", "fedora", "amazon"
       node["sensu"]["version_suffix"]
     )}
     allow_downgrade true
-    flush_cache [ :before ]
+    flush_cache node['sensu']['yum_flush_cache'] unless node['sensu']['yum_flush_cache'].nil?
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
 else
