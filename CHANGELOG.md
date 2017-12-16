@@ -5,7 +5,7 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 ### Changed
-Switched the default attributes for the Sensu (non-enterprise) repos to use HTTPS instead of HTTP (@thomasriley)
+* Switched the default attributes for the Sensu (non-enterprise) repos to use HTTPS instead of HTTP (@thomasriley)
 
 ## [4.1.0] - 2017-12-14
 ### Added
