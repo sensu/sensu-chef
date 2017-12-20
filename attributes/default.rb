@@ -1,0 +1,5 @@
+default['sensu']['repositories']['packagecloud']['token'] = '70278819b302f501c363631edebd4f62c6c9987db8ac9649'
+default['sensu']['repositories']['yum']['url'] = 'https://repositories.sensuapp.org'
+default['sensu']['repositories']['apt']['url'] = 'https://repositories.sensuapp.org/apt'
+default['sensu']['repositories']['msi']['url'] = 'https://repositories.sensuapp.org/msi'
+default['sensu']['repositories']['aix']['url'] = 'https://sensu.global.ssl.fastly.net/aix'
