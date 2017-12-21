@@ -1,5 +1,5 @@
 def sensu_path
-  "/opt/sensu"
+  '/opt/sensu'
 end
 
 def load_current_resource
@@ -9,7 +9,7 @@ def load_current_resource
     retries 3
     retry_delay 5
     action :nothing
-    subscribes :restart, resources("ruby_block[sensu_service_trigger]"), :delayed
+    subscribes :restart, resources('ruby_block[sensu_service_trigger]'), :delayed
   end
 end
 

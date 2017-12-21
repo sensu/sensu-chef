@@ -15,7 +15,7 @@ describe 'sensu_json_file' do
   end
 
   it 'creates the /etc/sensu directory using value of directory_mode attribute' do
-    expect(chef_run).to create_directory('/etc/sensu').with({ :mode => test_directory_mode })
+    expect(chef_run).to create_directory('/etc/sensu').with(:mode => test_directory_mode)
   end
 
   it 'creates a "pretty" json file with the provided content' do
@@ -23,5 +23,4 @@ describe 'sensu_json_file' do
       JSON.pretty_generate(test_content)
     )
   end
-
 end

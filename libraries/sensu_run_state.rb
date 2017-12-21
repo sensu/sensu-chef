@@ -5,7 +5,7 @@ module Sensu
     #
     # @param node [Chef::Node] node object to mutate
     def init_sensu_state(node)
-      node.run_state["sensu"] ||= Mash.new
+      node.run_state['sensu'] ||= Mash.new
     end
 
     # Get value at given path
@@ -14,7 +14,7 @@ module Sensu
     # @param keys [String, Symbol] key path to walk
     def get_sensu_state(node, *keys)
       init_sensu_state(node)
-      keys.inject(node.run_state["sensu"]) do |memo,  key|
+      keys.inject(node.run_state['sensu']) do |memo,  key|
         if memo.is_a?(Hash) && Mash.new(memo).has_key?(key.to_s)
           memo[key]
         else
@@ -47,7 +47,7 @@ module Sensu
       real_value = value.is_a?(Chef::DataBagItem) ? value.to_hash.reject { |k,v| bag_item_headers.include?(k) } : value
 
       set_key = args.pop
-      leaf = args.inject(node.run_state["sensu"]) do |memo, key|
+      leaf = args.inject(node.run_state['sensu']) do |memo, key|
         unless memo[key].is_a?(Hash)
           memo[key] = Mash.new
         end

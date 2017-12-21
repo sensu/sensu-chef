@@ -12,7 +12,6 @@ set :backend, :exec
   '/etc/rabbitmq/ssl/client/cert.pem' => 'e29124436dec99a0a3126f61a742605d9c3cbf77',
   '/etc/rabbitmq/ssl/client/key.pem' => '43caa67add519458b1580dcc3a29b16335d49a15'
 }.each_pair do |pem, fingerprint|
-
   # The INVALID strings from sensu::ssl data bag item fixture should not be present.
   describe file(pem) do
     its(:content) { should_not match /INVALID/ }

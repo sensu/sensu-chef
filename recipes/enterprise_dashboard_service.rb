@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-service "sensu-enterprise-dashboard" do
-  subscribes :restart, resources("package[sensu-enterprise-dashboard]"), :delayed
+service 'sensu-enterprise-dashboard' do
+  subscribes :restart, resources('package[sensu-enterprise-dashboard]'), :delayed
   supports :status => true, :start => true, :stop => true, :restart => true, :reload => false
   action [:enable, :start]
 end

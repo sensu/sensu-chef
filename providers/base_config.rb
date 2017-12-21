@@ -1,11 +1,11 @@
 action :create do
   definitions = Sensu::Helpers.select_attributes(
-    node["sensu"],
+    node['sensu'],
     %w[transport rabbitmq redis api]
   )
 
-  data_bag_name = node["sensu"]["data_bag"]["name"]
-  config_item = node["sensu"]["data_bag"]["config_item"]
+  data_bag_name = node['sensu']['data_bag']['name']
+  config_item = node['sensu']['data_bag']['config_item']
 
   config = Sensu::Helpers.data_bag_item(config_item, true, data_bag_name)
 
@@ -56,19 +56,19 @@ action :create do
   def generate_rabbitmq_array(definitions, hosts)
     hosts.map do |host|
       config = { "host" => host }
-      config.merge!(definitions["rabbitmq"].reject { |k| k == "host" || k == "hosts" })
+      config.merge!(definitions['rabbitmq'].reject { |k| k == "host" || k == "hosts" })
     end
   end
 
-  rabbitmq_config_array = if definitions["rabbitmq"]["hosts"].empty?
-                            generate_rabbitmq_array(definitions, [definitions["rabbitmq"]["host"]])
+  rabbitmq_config_array = if definitions['rabbitmq']['hosts'].empty?
+                            generate_rabbitmq_array(definitions, [definitions['rabbitmq']['host']])
                           else
-                            generate_rabbitmq_array(definitions, definitions["rabbitmq"]["hosts"])
+                            generate_rabbitmq_array(definitions, definitions['rabbitmq']['hosts'])
                           end
 
-  definitions["rabbitmq"] = rabbitmq_config_array
+  definitions['rabbitmq'] = rabbitmq_config_array
 
-  f = sensu_json_file ::File.join(node["sensu"]["directory"], "config.json") do
+  f = sensu_json_file ::File.join(node['sensu']['directory'], 'config.json') do
     content Sensu::Helpers.sanitize(definitions)
   end
 

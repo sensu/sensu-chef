@@ -2,13 +2,20 @@ def manage_sensu_asset(resource_action)
   attributes = Sensu::Helpers.select_attributes(
     new_resource,
     %w[
-      cookbook source source_directory checksum
-      path mode owner group rights
+      checksum
+      cookbook
+      group
+      mode
+      owner
+      path
+      rights
+      source
+      source_directory
     ]
   )
 
   a = sensu_asset new_resource.name do
-    asset_directory new_resource.asset_directory || ::File.join(node["sensu"]["directory"], "plugins")
+    asset_directory new_resource.asset_directory || ::File.join(node['sensu']['directory'], "plugins")
     attributes.each do |key, value|
       send(key.to_sym, value)
     end
@@ -19,9 +26,9 @@ def manage_sensu_asset(resource_action)
 end
 
 [
- :create,
- :create_if_missing,
- :delete
+  :create,
+  :create_if_missing,
+  :delete
 ].each do |resource_action|
   action resource_action do
     manage_sensu_asset(resource_action)

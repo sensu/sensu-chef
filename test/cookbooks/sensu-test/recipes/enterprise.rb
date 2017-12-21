@@ -37,7 +37,4 @@ include_recipe "sensu::redis"
 include_recipe "sensu::enterprise_service"
 
 # ServerSpec dependencies
-
-if platform?("ubuntu")
-  package "net-tools"
-end
+package "net-tools" if platform?("ubuntu")

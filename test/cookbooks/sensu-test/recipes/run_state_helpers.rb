@@ -1,3 +1,4 @@
+# rubocop:disable LineLength
 #
 # Cookbook Name:: sensu-test
 # Recipe:: run_state_helpers

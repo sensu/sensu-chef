@@ -1,5 +1,4 @@
 RSpec.shared_examples 'sensu default recipe' do
-
   it "creates the log directory" do
     expect(chef_run).to create_directory(log_directory).with(
       :owner => 'sensu',
@@ -9,12 +8,7 @@ RSpec.shared_examples 'sensu default recipe' do
     )
   end
 
-  %w[
-      conf.d
-      plugins
-      handlers
-      extensions
-    ].each do |dir|
+  %w(conf.d plugins handlers extensions).each do |dir|
     it "creates the #{dir} directory" do
       expect(chef_run).to create_directory(File.join(sensu_directory, dir))
     end
@@ -34,9 +28,8 @@ RSpec.shared_examples 'sensu default recipe' do
   end
 
   context 'ssl is disabled' do
-
     before do
-      chef_run.node.override["sensu"]["use_ssl"] = false
+      chef_run.node.override['sensu']['use_ssl'] = false
       chef_run.converge(described_recipe)
     end
 
@@ -52,5 +45,4 @@ RSpec.shared_examples 'sensu default recipe' do
   it "writes a base sensu configuration using sensu_base_config" do
     expect(chef_run).to create_sensu_base_config(chef_run.node.name)
   end
-
 end
