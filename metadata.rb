@@ -1,20 +1,27 @@
-name 'sensu'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'All Rights Reserved'
-description 'Installs/Configures sensu'
-long_description 'Installs/Configures sensu'
-version '0.1.0'
-chef_version '>= 12.1' if respond_to?(:chef_version)
+name             "sensu"
+maintainer       "Sensu Community"
+maintainer_email "support@sensuapp.com"
+license          "Apache-2.0"
+description      "Installs/Configures Sensu"
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          "5.0.0"
 
-# The `issues_url` points to the location where issues for this cookbook are
-# tracked.  A `View Issues` link will be displayed on this cookbook's page when
-# uploaded to a Supermarket.
-#
-# issues_url 'https://github.com/<insert_org_here>/sensu/issues'
+%w[
+  aix
+  ubuntu
+  debian
+  centos
+  redhat
+  fedora
+  scientific
+  oracle
+  amazon
+  suse
+  windows
+].each do |os|
+  supports os
+end
 
-# The `source_url` points to the development repository for this cookbook.  A
-# `View Source` link will be displayed on this cookbook's page when uploaded to
-# a Supermarket.
-#
-# source_url 'https://github.com/<insert_org_here>/sensu'
+source_url 'https://github.com/sensu/sensu-chef'
+issues_url 'https://github.com/sensu/sensu-chef/issues'
+chef_version '>= 12.1'
