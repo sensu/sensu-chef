@@ -5,6 +5,10 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Added
+* native support for proxy client checks (formerly known as JIT) to the `check` provider by accepting a `source` parameter (@majormoses)
+* misc development dependencies that were missing (@majormoses)
+
 ## [4.1.0] - 2017-12-14
 ### Added
 * ability to control `yum_package`'s `flush_cache` parameter by specifying `node['sensu']['yum_flush_cache']`. This allows you to control chefs in memory cache during a `chef-client` run. For more information see [here](https://docs.chef.io/resource_yum.html).

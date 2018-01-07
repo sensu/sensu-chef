@@ -13,3 +13,11 @@ end
 sensu_check "removed_check" do
   action :delete
 end
+
+# proxy client
+sensu_check "valid_proxy_client_check" do
+  interval 20
+  command 'true'
+  standalone true
+  source 'some-site-being-monitored'
+end

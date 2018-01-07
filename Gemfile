@@ -7,9 +7,18 @@
 source "https://rubygems.org"
 
 group :develop do
-  gem "stove", "~> 5.0"
-  gem "guard"
-  gem "guard-foodcritic"
-  gem "guard-rspec"
-  gem "guard-rubocop"
+  gem 'berkshelf', '~> 6.3'
+  gem 'guard'
+  gem 'guard-foodcritic'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'kitchen-docker', '~> 2.6'
+  gem 'kitchen-localhost', '~> 0.3'
+  gem 'kitchen-vagrant', '~> 1.2'
+  gem 'serverspec', '~> 2.36.1'
+  gem 'stove', '~> 5.0'
+  gem 'test-kitchen', '~> 1.6'
+  gem 'winrm'
+  gem 'winrm-fs'
+  gem 'winrm-elevated'
 end
