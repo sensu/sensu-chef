@@ -8,6 +8,7 @@ source "https://rubygems.org"
 
 group :develop do
   gem 'berkshelf', '~> 6.3'
+  gem 'chefspec'
   gem 'guard'
   gem 'guard-foodcritic'
   gem 'guard-rspec'
