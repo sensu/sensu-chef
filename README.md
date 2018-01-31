@@ -390,6 +390,9 @@ node['MY_CUSTOM_NAMESPACE']['sensu']['plugins'].each do |plugin, version|
 end
 ```
 
+To install gems with a Ruby other than the Sensu embedded Ruby, use Chef's [gem_package](https://docs.chef.io/resource_gem_package.html) in stead of `sensu_gem`.
+
+
 ## Helper modules and methods
 
 ### Run State Helpers
