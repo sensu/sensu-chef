@@ -25,7 +25,7 @@ when "debian"
 
   apt_repository "sensu" do
     uri node["sensu"]['apt_repo_url']
-    key "#{node['sensu']['apt_repo_url']}/pubkey.gpg"
+    key node['sensu']['apt_key_url']
     distribution node["sensu"]["apt_repo_codename"] || node["lsb"]["codename"]
     components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
     action :add
@@ -49,9 +49,9 @@ when "suse"
     repo_name 'sensu'
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
     uri "#{node['sensu']['yum_repo_url']}/#{repo}/7/x86_64/"
+    gpgkey node['sensu']['yum_key_url']
   end
-
-  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
+  repo.gpgcheck(true) if repo.respond_to?(:gpgcheck)
 
   # As of 0.27 we need to suffix the version string with the platform major
   # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
@@ -70,10 +70,11 @@ when "rhel", "fedora", "amazon"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
     releasever_string = node["sensu"]["yum_repo_releasever"] || "$releasever"
     baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/#{releasever_string}/$basearch/"
+    gpgkey node['sensu']['yum_key_url']
     action :add
     only_if { node["sensu"]["add_repo"] }
   end
-  repo.gpgcheck(false) if repo.respond_to?(:gpgcheck)
+  repo.gpgcheck(true) if repo.respond_to?(:gpgcheck)
 
   # As of 0.27 we need to suffix the version string with the platform major
   # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
