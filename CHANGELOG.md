@@ -4,6 +4,8 @@ This file is used to track changes made in recent versions of the Sensu
 cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
+### Security
+* Enable gpg check for all linux repo installs using a key downloaded over HTTPS. Download windows MSI over HTTPS. #578 (@mike-stewart)
 
 ## [4.2.0] - 2018-02-16
 ### Added
