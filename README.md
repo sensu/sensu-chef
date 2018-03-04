@@ -419,6 +419,37 @@ To install gems with a Ruby other than the Sensu embedded Ruby, use Chef's [gem_
 
 ## Helper modules and methods
 
+### Get Embedded Ruby Version
+
+The `Sensu::Helpers` module provides a `sensu_ruby_version` funtion that takes an optional ruby path and returns the major and minor version of ruby associated. It does not return a patch version because it really is intended to be used in file paths and ruby does not add patch versions to file paths.
+
+Example:
+```
+# if this is being done in a recipe you need to include the sensu helper functions: ::Chef::Recipe.send(:include, Sensu::Helpers)
+
+# fixup our sensu ruby gem specs
+chmod_files("#{sensu_embeded_ruby}/lib/ruby/gems/#{sensu_ruby_version}/specifications/*.gemspec", 644
+
+```
+
+### Permission Fixup
+
+The `Sensu::Helpers` module provides a `chmod_files` function that takes a file path (with or without globs) and walks the path(s) inspects the file permissions and only runs a chmod if files are not what they should be. You might as why this exists, there could be many but the most common reason is when you have restrictive a umask and `gem install` complies with the umask leaving files not executable that need to be in order to function. This function is immutable.
+
+Some real world examples:
+```
+# if this is being done in a recipe you need to include the sensu helper functions: ::Chef::Recipe.send(:include, Sensu::Helpers)
+
+sensu_embeded_ruby = '/opt/sensu/embedded'
+chmod_files("#{sensu_embeded_ruby}/bin/*.rb", 755)
+
+# fixup our sensu ruby gem specs
+chmod_files("#{sensu_embeded_ruby}/lib/ruby/gems/#{sensu_ruby_version}/specifications/*.gemspec", 644)
+
+# fixup our gem folders (the files inside are executable but they can't get to the dir)
+chmod_files("#{sensu_embeded_ruby}/lib/ruby/gems/#{sensu_ruby_version}/gems/*", 755)
+```
+
 ### Run State Helpers
 
 The `Sensu::ChefRunState` module provides helper methods which populate `node.run_state['sensu']` with arbitrary key/value pairs. This provides a means for wrapper cookbooks to populate the `node.run_state` with data required by the cookbook, e.g. SSL credentials, without cookbook itself enforcing source for that data.

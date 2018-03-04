@@ -1,6 +1,7 @@
 ---
 driver:
   name: vagrant
+  chef_version: 12.21.24
 
 provisioner:
   name: chef_zero
@@ -45,6 +46,7 @@ suites:
       - recipe[sensu-test::ensure_group]
       - recipe[sensu::default]
       - recipe[sensu-test::good_checks]
+      - recipe[sensu-test::chmod_permissions]
     attributes:
       sensu:
         group: nogroup

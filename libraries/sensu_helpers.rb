@@ -174,6 +174,65 @@ module Sensu
           [sensu_version, suffix].join
         end
       end
+      require 'mixlib/shellout'
+      require 'chef/provider/ruby_block'
+      # This function supports both files/dirs (at least on *nix),
+      # assumes recursive changes, and does account for globbing
+      # such as './**/*.rb'. I am not sure the feasibility of
+      # doing non recursive changes and still supporting globbing
+      # as the number of edgecases increase drastically.
+      #
+      # @param [String] A file path which supports globbing
+      # @param [Integer] The file permissions you want to set
+      def chmod_files(files, permissions = 644)
+        ruby_block "chmod files: #{files} with permissions: #{permissions}" do
+          block do
+            Chef::Log.info "context: #{files}, permissions: #{permissions}, exist: #{!::Dir.glob(files).empty?}"
+            chmod = Mixlib::ShellOut.new("chmod -R #{permissions} #{files}")
+            chmod.run_command
+            chmod.error!
+          end
+          action :run
+          # we expand the list of files that might be used for globbing
+          # purposes and test if the array is not empty.
+          only_if { !::Dir.glob(files).empty? }
+          # make me idempotent damn it!
+          only_if do
+            needs_change = []
+            ::Dir.glob(files).each do |f|
+              # we take the file stats and ask for the mode,
+              # convert it to octal, and then take the last 4 chars.
+              perm = ::File.stat(f).mode.to_s(8)[-4..-1]
+              # rather than a normal string comparison we check
+              # the substring to ensure that account for lack of
+              # prepended 0 for permissions.
+              unless perm.include?(permissions.to_s)
+                needs_change << "file: #{f}, current_perm: #{perm}, target_perm: #{permissions}"
+              end
+            end
+            if needs_change.any?
+              Chef::Log.info "We needed to change the following files: #{needs_change}"
+              true
+            else
+              false
+            end
+          end
+        end
+      end
+
+      def sensu_ruby_version(path = '/opt/sensu/embedded/bin/ruby')
+        if ::File.exist?(path)
+          ruby_version = Mixlib::ShellOut.new("#{path} --version")
+          ruby_version.run_command
+          ruby_version.error!
+          # extract major.minor.patch from full text version
+          version = ruby_version.stdout.split(' ')[1].split('p')[0]
+          # set patch to 0 as we only care about major & minor
+          version.gsub(/\.\d{1,}$/, '.0')
+        end
+      end
+
+      # end of functions
     end
   end
 end
