@@ -4,6 +4,8 @@ This file is used to track changes made in recent versions of the Sensu
 cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
+### Changed
+* Switched the default attributes for the Sensu (non-enterprise) repos to use HTTPS instead of HTTP (@thomasriley)
 
 ## [2.2.1] - 2018-03-04
 ### Security

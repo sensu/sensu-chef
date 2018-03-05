@@ -31,8 +31,8 @@ default["sensu"]["log_directory_mode"] = "0750"
 default["sensu"]["client_deregister_on_stop"] = false
 default["sensu"]["client_deregister_handler"] = nil
 
-default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
-default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
+default["sensu"]["apt_repo_url"] = "https://repositories.sensuapp.org/apt"
+default["sensu"]["yum_repo_url"] = "https://repositories.sensuapp.org"
 default['sensu']['yum_flush_cache'] = nil
 default["sensu"]["msi_repo_url"] = "https://repositories.sensuapp.org/msi"
 default["sensu"]["aix_package_root_url"] = "https://sensu.global.ssl.fastly.net/aix"
