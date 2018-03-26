@@ -5,7 +5,7 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
-## [2.2.1] - 2018-03-04
+## [4.2.1] - 2018-03-04
 ### Security
 * Enable gpg check for all linux repo installs using a key downloaded over HTTPS. Download windows MSI over HTTPS. #578 (@mike-stewart)
 
@@ -281,7 +281,7 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.2.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v4.2.1...HEAD
 [4.2.1]: https://github.com/sensu/sensu-chef/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/sensu/sensu-chef/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/sensu/sensu-chef/compare/v4.0.6...v4.1.0
