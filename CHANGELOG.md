@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Added
+- pulling in latest release `redisio` cookbook to fix chef 13 compatibility (@majormoses)
+
 ## [4.2.1] - 2018-03-04
 ### Security
 * Enable gpg check for all linux repo installs using a key downloaded over HTTPS. Download windows MSI over HTTPS. #578 (@mike-stewart)
