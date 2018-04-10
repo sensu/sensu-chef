@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Fixed
+- reverted #468 per #564 (@majormoses)
+
 ## [4.3.0] - 2018-03-28
 ### Added
 - pulling in latest release `redisio` cookbook to fix chef 13 compatibility (@majormoses)

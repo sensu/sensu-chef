@@ -1,5 +1,5 @@
 action :create do
-  sensu_service_trigger = !!run_context.resource_collection.detect do |r|
+  sensu_service_trigger = !!node.run_context.resource_collection.detect do |r|
     r.to_s == "ruby_block[sensu_service_trigger]"
   end
 
@@ -26,7 +26,6 @@ action :delete do
   sensu_service_trigger = !!node.run_context.resource_collection.detect do |r|
     r.to_s == "ruby_block[sensu_service_trigger]"
   end
-
   f = file new_resource.path do
     action :delete
     notifies :create, "ruby_block[sensu_service_trigger]", :delayed if sensu_service_trigger
