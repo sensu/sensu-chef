@@ -17,12 +17,14 @@ else
 end
 
 # installation
-default["sensu"]["version"] = "0.28.4-1"
+default["sensu"]["version"] = "1.2.0-1"
 default["sensu"]["version_suffix"] = nil
 default["sensu"]["apt_repo_codename"] = nil
 default["sensu"]["yum_repo_releasever"] = nil
 default["sensu"]["use_unstable_repo"] = false
 default["sensu"]["log_level"] = "info"
+default["sensu"]["log_rotate_file_size"] = '10240'
+default["sensu"]["log_rotate_file_keep"] = '10'
 default["sensu"]["use_ssl"] = true
 default["sensu"]["use_embedded_ruby"] = true
 default["sensu"]["service_max_wait"] = 10
@@ -34,7 +36,7 @@ default["sensu"]["client_deregister_handler"] = nil
 default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
 default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
 default['sensu']['yum_flush_cache'] = nil
-default["sensu"]["msi_repo_url"] = "https://repositories.sensuapp.org/msi"
+default["sensu"]["msi_repo_url"] = "https://repositories.sensuapp.org/msi/2012r2"
 default["sensu"]["aix_package_root_url"] = "https://sensu.global.ssl.fastly.net/aix"
 default["sensu"]["add_repo"] = true
 default['sensu']['apt_key_url'] = 'https://sensu.global.ssl.fastly.net/apt/pubkey.gpg'
