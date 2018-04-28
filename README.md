@@ -32,12 +32,10 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
 ### Chef
 
-* Chef 12+
+* Chef 12.14+
 
 ### Cookbooks
 
-* [APT](https://supermarket.chef.io/cookbooks/apt)
-* [YUM](https://supermarket.chef.io/cookbooks/yum)
 * [Windows](https://supermarket.chef.io/cookbooks/windows)
 * [RabbitMQ](https://supermarket.chef.io/cookbooks/rabbitmq)
 * [RedisIO](https://supermarket.chef.io/cookbooks/redisio)

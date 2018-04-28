@@ -21,7 +21,7 @@ platform_family = node["platform_family"]
 
 case platform_family
 when "debian"
-  include_recipe "apt"
+  package "apt-transport-https"
 
   apt_repository "sensu" do
     uri node["sensu"]['apt_repo_url']
