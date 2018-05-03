@@ -13,7 +13,8 @@ unless windows?
                'command' => 'true',
                'standalone' => true,
                'source' => 'some-site-being-monitored',
-               'interval' => 20
+               'interval' => 20,
+               'ttl' => 40
              )))
     end
   end

@@ -20,4 +20,5 @@ sensu_check "valid_proxy_client_check" do
   command 'true'
   standalone true
   source 'some-site-being-monitored'
+  ttl 40
 end

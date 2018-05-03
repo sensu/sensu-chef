@@ -27,6 +27,7 @@ action :create do
       subdue
       subscribers
       timeout
+      ttl
       type
     ]
   ).merge("interval" => new_resource.interval).merge(new_resource.additional)
