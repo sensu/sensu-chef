@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Added
+- native support for `ttl` checks (@majormoses)
+
 ## [4.3.1] - 2018-04-11
 ### Fixed
 - reverted #468 per #564 (@majormoses)

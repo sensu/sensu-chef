@@ -317,6 +317,26 @@ sensu_check "redis_process" do
 end
 ```
 
+The `sensu_check` provider supports the following attributes:
+
+* additional
+* aggregate
+* aggregates
+* command
+* handle
+* handlers
+* high_flap_threshold
+* low_flap_threshold
+* publish
+* source
+* subdue
+* standalone
+* subscribers
+* timeout
+* ttl
+* type
+
+
 ### Define a filter
 
 ```ruby
