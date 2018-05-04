@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Breaking Changes
+- removed legacy `apt` and `yum` dependencies and require chef client `>= 12.14` (@tas50)
+
 ## [4.4.0] - 2018-05-04
 ### Added
 - native support for `ttl` checks (@majormoses)
