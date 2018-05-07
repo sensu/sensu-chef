@@ -25,6 +25,16 @@ else
   kernel = 'x86'
 end
 
+if node['platform_version'].to_f == 6.1
+  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2008r2'
+elsif node['platform_version'].to_f == 6.2
+  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2012'
+elsif node['platform_version'].to_f == 6.3
+  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2012r2'
+elsif node['platform_version'].to_f == 10.0
+  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2016'
+end
+
 user node["sensu"]["user"] do
   password Sensu::Helpers.random_password(20, true, true, true, true)
   not_if { Sensu::Helpers.windows_user_exists?(node["sensu"]["user"]) }
