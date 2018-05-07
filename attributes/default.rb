@@ -36,7 +36,6 @@ default["sensu"]["client_deregister_handler"] = nil
 default["sensu"]["apt_repo_url"] = "http://repositories.sensuapp.org/apt"
 default["sensu"]["yum_repo_url"] = "http://repositories.sensuapp.org"
 default['sensu']['yum_flush_cache'] = nil
-default["sensu"]["msi_repo_url"] = "https://repositories.sensuapp.org/msi/2012r2"
 default["sensu"]["aix_package_root_url"] = "https://sensu.global.ssl.fastly.net/aix"
 default["sensu"]["add_repo"] = true
 default['sensu']['apt_key_url'] = 'https://sensu.global.ssl.fastly.net/apt/pubkey.gpg'
