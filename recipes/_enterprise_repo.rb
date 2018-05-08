@@ -21,7 +21,7 @@ repository_url = case credentials.nil?
 
 case node["platform_family"]
 when "debian"
-  include_recipe "apt"
+  package "apt-transport-https"
 
   apt_repository "sensu-enterprise" do
     uri File.join(repository_url, "apt")

@@ -4,13 +4,7 @@ maintainer_email "support@sensuapp.com"
 license          "Apache-2.0"
 description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "4.3.1"
-
-# available @ https://supermarket.chef.io/cookbooks/apt
-depends "apt", ">= 2.0"
-
-# available @ https://supermarket.chef.io/cookbooks/yum
-depends "yum", ">= 3.0"
+version          "5.0.0"
 
 # available @ https://supermarket.chef.io/cookbooks/windows
 depends "windows", ">= 1.36"
@@ -48,4 +42,4 @@ end
 
 source_url 'https://github.com/sensu/sensu-chef'
 issues_url 'https://github.com/sensu/sensu-chef/issues'
-chef_version '>= 12.0'
+chef_version '>= 12.14'

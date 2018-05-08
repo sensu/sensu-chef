@@ -32,12 +32,10 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
 ### Chef
 
-* Chef 12+
+* Chef 12.14+
 
 ### Cookbooks
 
-* [APT](https://supermarket.chef.io/cookbooks/apt)
-* [YUM](https://supermarket.chef.io/cookbooks/yum)
 * [Windows](https://supermarket.chef.io/cookbooks/windows)
 * [RabbitMQ](https://supermarket.chef.io/cookbooks/rabbitmq)
 * [RedisIO](https://supermarket.chef.io/cookbooks/redisio)
@@ -316,6 +314,26 @@ sensu_check "redis_process" do
   additional(:notification => "Redis is not running", :occurrences => 5)
 end
 ```
+
+The `sensu_check` provider supports the following attributes:
+
+* additional
+* aggregate
+* aggregates
+* command
+* handle
+* handlers
+* high_flap_threshold
+* low_flap_threshold
+* publish
+* source
+* subdue
+* standalone
+* subscribers
+* timeout
+* ttl
+* type
+
 
 ### Define a filter
 
