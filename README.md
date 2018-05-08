@@ -188,6 +188,10 @@ used in yum repository definition.
 
 `node["sensu"]["log_level"]` - Sensu log level (eg. "warn").
 
+`node["sensu"]["log_rotate_file_size"]` - Windows only attribute to tell [winsw](https://github.com/kohsuke/winsw) to rotate log file when size reaches this.
+
+`node["sensu"]["log_rotate_file_keep"]` - Windows only attribute to tell [winsw](https://github.com/kohsuke/winsw) to keep x number of log files on disk.
+
 `node["sensu"]["use_ssl"]` - If Sensu and RabbitMQ are to use SSL.
 
 `node["sensu"]["user"]` - The user who owns all sensu files and directories. Default
