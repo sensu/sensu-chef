@@ -26,13 +26,13 @@ else
 end
 
 if node['platform_version'].to_f == 6.1
-  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2008r2'
+  version = '2008r2'
 elsif node['platform_version'].to_f == 6.2
-  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2012'
+  version = '2012'
 elsif node['platform_version'].to_f == 6.3
-  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2012r2'
+  version = '2012r2'
 elsif node['platform_version'].to_f == 10.0
-  node.default['sensu']['msi_repo_url'] = 'https://repositories.sensuapp.org/msi/2016'
+  version = '2016'
 end
 
 user node["sensu"]["user"] do
@@ -51,7 +51,7 @@ if windows["install_dotnet"]
 end
 
 package "Sensu" do
-  source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}-#{kernel}.msi"
+  source "#{node['sensu']['msi_repo_url']}/#{version}/sensu-#{node['sensu']['version']}-#{kernel}.msi"
   options windows["package_options"]
   version node["sensu"]["version"].tr("-", ".")
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
