@@ -5,11 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
-### Added
-- logrotate in windows (@ridiculousness)
-
+## [5.1.0] - 2018-05-08
 ### Fixed
 - fixed pulling newer sensu packages on windows as the repo structure changed and needs to include the os version (@ridiculousness)
+
+### Added
+- logrotate in windows (@ridiculousness)
 
 ## [5.0.0] - 2018-05-04
 ### Breaking Changes
@@ -304,6 +305,7 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
 [Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.0.0...HEAD
+[6.0.0]: https://github.com/sensu/sensu-chef/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/sensu/sensu-chef/compare/v4.4.0...v5.0.0
 [4.4.0]: https://github.com/sensu/sensu-chef/compare/v4.3.1...v4.4.0
 [4.3.1]: https://github.com/sensu/sensu-chef/compare/v4.3.0...v4.3.1
