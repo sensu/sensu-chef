@@ -5,6 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Added
+- logrotate in windows (@ridiculousness)
+
+### Fixed
+- fixed pulling newer sensu packages on windows as the repo structure changed and needs to include the os version (@ridiculousness)
+
 ## [5.0.0] - 2018-05-04
 ### Breaking Changes
 - removed legacy `apt` and `yum` dependencies and require chef client `>= 12.14` (@tas50)
