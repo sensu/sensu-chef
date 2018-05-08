@@ -19,6 +19,22 @@
 
 windows = node["sensu"]["windows"].dup
 
+if node['kernel']['machine'] =~ /x86_64/
+  kernel = 'x64'
+else
+  kernel = 'x86'
+end
+
+if node['platform_version'].to_f == 6.1
+  version = '2008r2'
+elsif node['platform_version'].to_f == 6.2
+  version = '2012'
+elsif node['platform_version'].to_f == 6.3
+  version = '2012r2'
+elsif node['platform_version'].to_f == 10.0
+  version = '2016'
+end
+
 user node["sensu"]["user"] do
   password Sensu::Helpers.random_password(20, true, true, true, true)
   not_if { Sensu::Helpers.windows_user_exists?(node["sensu"]["user"]) }
@@ -35,7 +51,7 @@ if windows["install_dotnet"]
 end
 
 package "Sensu" do
-  source "#{node['sensu']['msi_repo_url']}/sensu-#{node['sensu']['version']}.msi"
+  source "#{node['sensu']['msi_repo_url']}/#{version}/sensu-#{node['sensu']['version']}-#{kernel}.msi"
   options windows["package_options"]
   version node["sensu"]["version"].tr("-", ".")
   notifies :create, "ruby_block[sensu_service_trigger]", :immediately
