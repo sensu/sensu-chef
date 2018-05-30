@@ -25,7 +25,9 @@ else
   kernel = 'x86'
 end
 
-if node['platform_version'].to_f == 6.1
+if node['platform_version'].to_f == 6.0
+  version = '2008'
+elsif node['platform_version'].to_f == 6.1
   version = '2008r2'
 elsif node['platform_version'].to_f == 6.2
   version = '2012'
