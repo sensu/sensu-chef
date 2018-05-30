@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Fixed
+- version detection for server 2008 (@smcavallo)
+
 ## [5.1.0] - 2018-05-08
 ### Fixed
 - fixed pulling newer sensu packages on windows as the repo structure changed and needs to include the os version (@ridiculousness)
