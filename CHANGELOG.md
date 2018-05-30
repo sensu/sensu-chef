@@ -5,6 +5,7 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [5.1.1] - 2018-05-30
 ### Fixed
 - version detection for server 2008 (@smcavallo)
 
@@ -307,8 +308,9 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.0.0...HEAD
-[6.0.0]: https://github.com/sensu/sensu-chef/compare/v5.0.0...v5.1.0
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.1.1...HEAD
+[5.1.1]: https://github.com/sensu/sensu-chef/compare/v5.1.0...v5.1.1
+[5.1.0]: https://github.com/sensu/sensu-chef/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/sensu/sensu-chef/compare/v4.4.0...v5.0.0
 [4.4.0]: https://github.com/sensu/sensu-chef/compare/v4.3.1...v4.4.0
 [4.3.1]: https://github.com/sensu/sensu-chef/compare/v4.3.0...v4.3.1
