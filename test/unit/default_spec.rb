@@ -69,7 +69,7 @@ describe "sensu::default" do
         let(:chef_run) do
           ChefSpec::ServerRunner.new(:platform => "redhat", :version => "7.3") do |node, server|
             server.create_data_bag("sensu", ssl_data_bag_item)
-            node.set["sensu"]["yum_repo_releasever"] = "dory"
+            node.override["sensu"]["yum_repo_releasever"] = "dory"
           end.converge(described_recipe)
         end
 
