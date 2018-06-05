@@ -4,7 +4,7 @@ maintainer_email "support@sensuapp.com"
 license          "Apache-2.0"
 description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "5.1.1"
+version          "5.1.2"
 
 # available @ https://supermarket.chef.io/cookbooks/windows
 depends "windows", ">= 1.36"

@@ -5,6 +5,7 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [5.1.2] - 2018-06-05
 ### Fixed
 - metadata now properly requires chef client to be `>= 13.3` this is a follow up to the v5.0.0 release which locked it at `>= 12.14` but after digging into it the change requires a newer version. As chef 12 is EOL we are gonna roll forward rather than backwards (@majormoses)
 
@@ -311,7 +312,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.1.1...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.1.2...HEAD
+[5.1.2]: https://github.com/sensu/sensu-chef/compare/v5.1.1...5.1.2
 [5.1.1]: https://github.com/sensu/sensu-chef/compare/v5.1.0...v5.1.1
 [5.1.0]: https://github.com/sensu/sensu-chef/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/sensu/sensu-chef/compare/v4.4.0...v5.0.0
