@@ -29,8 +29,15 @@ action :create do
       timeout
       ttl
       type
+      interval
+      cron
     ]
-  ).merge("interval" => new_resource.interval).merge(new_resource.additional)
+  ).merge(new_resource.additional).tap do |helper|
+    if helper.key?("interval") && helper.key?("cron")
+      Chef::Log.warn("sensu_check[#{new_resource.name}]: cron and interval don't wrok together.")
+    end
+  end 
+    
 
   definition = {
     "checks" => {
