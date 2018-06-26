@@ -25,6 +25,7 @@ end
 
 
 sensu_check "valid_cron_check" do
+  interval false
   cron '* * * * *'
   command 'true'
   subscribers ['all']

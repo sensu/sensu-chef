@@ -8,11 +8,13 @@ describe 'sensu-test::good_checks' do
   }
 
   it "creates valid_check_with_default_interval" do
-    expect(chef_run).to create_sensu_check("valid_check_with_default_interval").with(:interval => 60)
+    expect(chef_run).to create_sensu_check("valid_check_with_default_interval").with(:interval => 60).with(:cron => nil)
   end
 
   it "creates valid_cron_check" do
-    expect(chef_run).to create_sensu_check("valid_cron_check").with(:cron => "* * * * *").with(:interval => nil)
+    expect(chef_run).to create_sensu_check("valid_cron_check").with(
+      :cron => "* * * * *",
+      :interval => nil)
   end
 
   
@@ -70,3 +72,26 @@ describe 'sensu-test::bad_cron_and_interval' do
   end
 end
 
+describe 'sensu-test::bad_check_no_interval_or_cron' do
+  let(:chef_run) {
+    ChefSpec::SoloRunner.new(:platform => 'ubuntu', :version => '16.04').converge(
+      described_recipe
+    )
+  }
+
+  it "raises an exception when in check both cron and interval are false" do
+    expect { chef_run }.to raise_error(Chef::Exceptions::ValidationFailed)
+  end
+end
+
+describe 'sensu-test::bad_check_invalid_interval' do
+  let(:chef_run) {
+    ChefSpec::SoloRunner.new(:platform => 'ubuntu', :version => '16.04').converge(
+      described_recipe
+    )
+  }
+
+  it "raises an exception when in check interval is equal or less than 0" do
+    expect { chef_run }.to raise_error(Chef::Exceptions::ValidationFailed)
+  end
+end
