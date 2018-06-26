@@ -33,9 +33,8 @@ action :create do
       cron
     ]
   ).merge(new_resource.additional).tap do |helper|
-    if helper.key?("interval") && helper.key?("cron")
-      Chef::Log.warn("sensu_check[#{new_resource.name}]: cron and interval don't wrok together.")
-    end
+    helper.delete(:interval) unless helper[:interval]
+    helper.delete(:cron) unless helper[:cron]
   end 
     
 
