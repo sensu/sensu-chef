@@ -8,13 +8,13 @@ describe 'sensu-test::good_checks' do
   }
 
   it "creates valid_check_with_default_interval" do
-    expect(chef_run).to create_sensu_check("valid_check_with_default_interval").with(:interval => 60).with(:cron => nil)
+    expect(chef_run).to create_sensu_check("valid_check_with_default_interval").with(:interval => 60)
   end
 
   it "creates valid_cron_check" do
     expect(chef_run).to create_sensu_check("valid_cron_check").with(
       :cron => "* * * * *",
-      :interval => nil)
+      :interval => false)
   end
 
   
