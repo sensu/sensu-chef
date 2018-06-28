@@ -5,6 +5,10 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [5.1.2] - 2018-06-05
+### Fixed
+- metadata now properly requires chef client to be `>= 13.3` this is a follow up to the v5.0.0 release which locked it at `>= 12.14` but after digging into it the change requires a newer version. As chef 12 is EOL we are gonna roll forward rather than backwards (@majormoses)
+
 ## [5.1.1] - 2018-05-30
 ### Fixed
 - version detection for server 2008 (@smcavallo)
