@@ -1,0 +1,54 @@
+---
+driver:
+  name: dokken
+  chef_version: latest
+  privileged: true # because Docker and SystemD/Upstart
+  customize:
+    memory: '512'
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+      # image: ubuntu:16.04
+      image: dokken/ubuntu-16.04
+      pid_one_command: /bin/systemd
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+      intermediate_instructions: # make systemd work as process 1
+        # install addtional packages that can't be installed by cookbook
+        - ENV container docker
+        - RUN rm -rf /var/lib/apt/lists/*
+        - RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done)
+        - RUN rm -f /lib/systemd/system/multi-user.target.wants/*
+        - RUN rm -f /etc/systemd/system/*.wants/*
+        - RUN rm -f /lib/systemd/system/local-fs.target.wants/*
+        - RUN rm -f /lib/systemd/system/sockets.target.wants/*udev*
+        - RUN rm -f /lib/systemd/system/sockets.target.wants/*initctl*
+        - RUN rm -f /lib/systemd/system/basic.target.wants/*
+        - RUN rm -f /lib/systemd/system/anaconda.target.wants/*
+        - RUN apt-get -y update
+        - RUN apt-get install -y apt-transport-https build-essential zlib1g-dev python-pip sudo net-tools
+        - RUN pip install PyYAML && pip install awscli
+    attributes:
+      apt:
+        compile_time_update: true
+suites:
+  - name: minimal
+    run_list:
+      - recipe[sensu-test::ensure_group]
+      - recipe[sensu::default]
+      - recipe[sensu-test::good_checks]
+      - recipe[sensu::server_service]
+    excludes:
+      - windows-2008-r2
+      - windows-2012-r2
+      - centos-5.11
