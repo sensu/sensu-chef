@@ -95,7 +95,7 @@ when "amazon"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
     # Use the platform version numbering scheme to determine the release version
     # 20XX.XX vs 2.X
-    releasever_string = node["sensu"]["yum_repo_releasever"] || /^20\d\d/.match(node["platform_version"]) ? "6" : "7"
+    releasever_string = node["sensu"]["yum_repo_releasever"] || Sensu::Helpers.amazon_linux_2_rhel_version(node["platform_version"])
     baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/#{releasever_string}/$basearch/"
     gpgkey node['sensu']['yum_key_url']
     action :add
@@ -107,9 +107,9 @@ when "amazon"
   # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
   # attribute.
   yum_package "sensu" do
-    version lazy { Sensu::Helpers.redhat_version_string(
+    version lazy { Sensu::Helpers.amazon_linux_2_version_string(
         node["sensu"]["version"],
-        /^20\d\d/.match(node["platform_version"]) ? 6 : 7,
+        node["sensu"]["yum_repo_releasever"] || Sensu::Helpers.amazon_linux_2_rhel_version(node["platform_version"]),
         node["sensu"]["version_suffix"]
     )}
     allow_downgrade true
