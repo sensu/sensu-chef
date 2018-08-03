@@ -13,10 +13,10 @@ depends "windows", ">= 1.36"
 depends "ms_dotnet", ">= 2.6.1"
 
 # available @ https://supermarket.chef.io/cookbooks/rabbitmq
-depends "rabbitmq", ">= 2.0.0"
+suggests "rabbitmq", ">= 2.0.0"
 
 # available @ https://supermarket.chef.io/cookbooks/redisio
-depends "redisio", ">= 2.7.0"
+suggests "redisio", ">= 2.7.0"
 
 # available @ https://supermarket.chef.io/cookbooks/chef-vault
 suggests "chef-vault", ">= 1.3.1"
