@@ -32,7 +32,7 @@ See CODE_OF_CONDUCT.md, CONTRIBUTING.md and TESTING.md documents.
 
 ### Chef
 
-* Chef 12.14+
+* Chef 13.3+ please check the `metadata.rb` file for the latest released version for [example](https://github.com/sensu/sensu-chef/blob/v5.1.2/metadata.rb#L45)
 
 ### Cookbooks
 
