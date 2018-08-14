@@ -22,7 +22,7 @@ describe 'sensu::_linux' do
       expect(chef_run).to install_yum_package('sensu').with(version: '1.2.0-1.el7')
     end
 
-    # TODO: once we no longer support chef versions < 14 we should remove the below test(s)
+    # TODO: once we no longer support chef versions < 14.3.0 we should remove the below test(s)
     ['4.14.55-68.37.amzn2.x86_64',
      'version.amzn2.platform'].each do |older_ohai_platform_version|
       it 'works with older ohai' do
