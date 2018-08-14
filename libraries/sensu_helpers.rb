@@ -152,7 +152,8 @@ module Sensu
       # @param platform_version [String] The platform version, as reported by ohai
       def amazon_linux_2_rhel_version(platform_version)
         return "6" if /201\d/.match?(platform_version)
-        return "7" if platform_version == "2"
+        # TODO: once we no longer support chef versions < 14 we should remove the check for amzon2 and remove this comment
+        return "7" if platform_version == "2" || platform_version.include?("amzn2")
         raise "Unsupported Linux platform version #{platform_version} - rhel version unknown"
       end
 

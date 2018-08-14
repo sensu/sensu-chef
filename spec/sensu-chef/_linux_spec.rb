@@ -21,6 +21,17 @@ describe 'sensu::_linux' do
       expect(chef_run).to add_yum_repository('sensu').with(baseurl: 'http://repositories.sensuapp.org/yum/7/$basearch/')
       expect(chef_run).to install_yum_package('sensu').with(version: '1.2.0-1.el7')
     end
+
+    # TODO: once we no longer support chef versions < 14 we should remove the below test(s)
+    ['4.14.55-68.37.amzn2.x86_64',
+     'version.amzn2.platform'].each do |older_ohai_platform_version|
+      it 'works with older ohai' do
+        actual = Sensu::Helpers.amazon_linux_2_rhel_version(older_ohai_platform_version)
+
+        # Assert
+        expect(actual).to eq('7')
+      end
+    end
   end
 
   ['2018.03',
