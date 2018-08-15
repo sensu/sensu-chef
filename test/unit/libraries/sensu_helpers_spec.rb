@@ -139,4 +139,82 @@ describe Sensu::Helpers do
       end
     end
   end
+
+  describe ".amazon_linux_2_rhel_version" do
+    ["2018.03",
+     "2017.09",
+     "2017.03",
+     "2016.09",
+     "2016.03",
+     "2015.09",
+     "2015.03",
+     "2014.09",
+     "2014.03",
+     "2013.09",
+     "2013.03",
+     "2012.09",
+     "2012.03",
+     "2011.09"].each do | platform_version |
+      it "returns the rhel version 6" do
+        actual_rhel_version = Sensu::Helpers.amazon_linux_2_rhel_version(platform_version)
+        expect(actual_rhel_version).to eq("6")
+      end
+
+    end
+    ["2"].each do | platform_version |
+      it "returns the rhel version 7" do
+        actual_rhel_version = Sensu::Helpers.amazon_linux_2_rhel_version(platform_version)
+        expect(actual_rhel_version).to eq("7")
+      end
+    end
+
+    ["2.5", "3", "4"].each do | platform_version |
+      it "throws an exception" do
+        expect { Sensu::Helpers.amazon_linux_2_rhel_version(platform_version) }.to raise_error(/platform/)
+      end
+    end
+  end
+
+  describe ".amazon_linux_2_version_string" do
+    let(:platform_version) { "6.8" }
+    let(:platform_major_version) { "6" }
+    let(:suffix_override) { nil }
+
+    context "the desired version is prior to 0.27" do
+      let(:sensu_version) { "0.26.5-2" }
+      it "returns the version string unaltered" do
+        version = Sensu::Helpers.amazon_linux_2_version_string(
+            sensu_version,
+            platform_version,
+            suffix_override
+        )
+        expect(version).to eq(sensu_version)
+      end
+    end
+
+    context "the desired version is 0.27.0 or newer" do
+      let(:sensu_version) { "0.27.0-1" }
+      it "returns the version string with the Redhat platform major version suffix" do
+        version = Sensu::Helpers.amazon_linux_2_version_string(
+            sensu_version,
+            platform_version,
+            suffix_override
+        )
+        expect(version).to eq("#{sensu_version}.el#{platform_major_version}")
+      end
+
+      context "when a suffix override is provided" do
+        let(:suffix_override) { ".lol" }
+        it "returns the version string with the custom suffix" do
+          version = Sensu::Helpers.amazon_linux_2_version_string(
+              sensu_version,
+              platform_version,
+              suffix_override
+          )
+          expect(version).to eq([sensu_version, suffix_override].join)
+        end
+      end
+    end
+  end
+
 end

@@ -146,6 +146,34 @@ module Sensu
         end
       end
 
+      # We need a helper to determine whether to use rhel 6 or 7
+      # Due to the change in amazon linux 2 versioning
+      #
+      # @param platform_version [String] The platform version, as reported by ohai
+      def amazon_linux_2_rhel_version(platform_version)
+        return "6" if /201\d/.match?(platform_version)
+        # TODO: once we no longer support chef versions < 14.3.0 we should remove the check for amzon2 and remove this comment
+        return "7" if platform_version == "2" || platform_version.include?("amzn2")
+        raise "Unsupported Linux platform version #{platform_version} - rhel version unknown"
+      end
+
+      # Derives Sensu package version strings for Amazon Linux 2 platforms.
+      # When the desired Sensu version is '0.27.0' or later, the package
+      # requires a '.elX' suffix.
+      #
+      # @param sensu_version [String] Sensu version string
+      # @param platform_version [String] Platform version
+      # @param suffix_override [String,NilClass] Suffix to override default '.elX'
+      def amazon_linux_2_version_string(sensu_version, platform_version, suffix_override = nil)
+        bare_version = sensu_version.split('-').first
+        if Gem::Version.new(bare_version) < Gem::Version.new('0.27.0')
+          sensu_version
+        else
+          platform_major = Gem::Version.new(platform_version).segments.first
+          suffix = suffix_override || ".el#{platform_major}"
+          [sensu_version, suffix].join
+        end
+      end
     end
   end
 end

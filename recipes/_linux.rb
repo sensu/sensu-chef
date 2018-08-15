@@ -64,7 +64,7 @@ when "suse"
     )}
     notifies :create, "ruby_block[sensu_service_trigger]"
   end
-when "rhel", "fedora", "amazon"
+when "rhel", "fedora"
   repo = yum_repository "sensu" do
     description "sensu monitoring"
     repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
@@ -84,6 +84,33 @@ when "rhel", "fedora", "amazon"
       node["sensu"]["version"],
       node["platform_version"],
       node["sensu"]["version_suffix"]
+    )}
+    allow_downgrade true
+    flush_cache node['sensu']['yum_flush_cache'] unless node['sensu']['yum_flush_cache'].nil?
+    notifies :create, "ruby_block[sensu_service_trigger]"
+  end
+when "amazon"
+  repo = yum_repository "sensu" do
+    description "sensu monitoring"
+    repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
+    # Use the platform version numbering scheme to determine the release version
+    # 20XX.XX vs 2.X
+    releasever_string = node["sensu"]["yum_repo_releasever"] || Sensu::Helpers.amazon_linux_2_rhel_version(node["platform_version"])
+    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/#{releasever_string}/$basearch/"
+    gpgkey node['sensu']['yum_key_url']
+    action :add
+    only_if { node["sensu"]["add_repo"] }
+  end
+  repo.gpgcheck(true) if repo.respond_to?(:gpgcheck)
+
+  # As of 0.27 we need to suffix the version string with the platform major
+  # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
+  # attribute.
+  yum_package "sensu" do
+    version lazy { Sensu::Helpers.amazon_linux_2_version_string(
+        node["sensu"]["version"],
+        node["sensu"]["yum_repo_releasever"] || Sensu::Helpers.amazon_linux_2_rhel_version(node["platform_version"]),
+        node["sensu"]["version_suffix"]
     )}
     allow_downgrade true
     flush_cache node['sensu']['yum_flush_cache'] unless node['sensu']['yum_flush_cache'].nil?
