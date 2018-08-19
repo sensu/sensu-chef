@@ -325,9 +325,11 @@ The `sensu_check` provider supports the following attributes:
 * aggregate
 * aggregates
 * command
+* cron
 * handle
 * handlers
 * high_flap_threshold
+* interval
 * low_flap_threshold
 * publish
 * source

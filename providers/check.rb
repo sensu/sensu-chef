@@ -17,9 +17,11 @@ action :create do
       aggregate
       aggregates
       command
+      cron
       handle
       handlers
       high_flap_threshold
+      interval
       low_flap_threshold
       publish
       standalone
@@ -29,14 +31,12 @@ action :create do
       timeout
       ttl
       type
-      interval
-      cron
     ]
   ).merge(new_resource.additional).tap do |helper|
     helper.delete(:interval) unless helper[:interval]
     helper.delete(:cron) unless helper[:cron]
-  end 
-    
+  end
+
 
   definition = {
     "checks" => {

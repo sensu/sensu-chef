@@ -5,6 +5,10 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [5.3.0] - 2018-08-19
+### Added
+- First class support for defining checks via cron syntax (@vbichov)
+
 ## [5.2.0] - 2018-08-14
 ### Added
 - Amazon2 Linux support (@mcavallo)
@@ -316,7 +320,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.2.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.3.0...HEAD
+[5.3.0]: https://github.com/sensu/sensu-chef/compare/v5.2.0...v5.3.0
 [5.2.0]: https://github.com/sensu/sensu-chef/compare/v5.1.2...v5.2.0
 [5.1.2]: https://github.com/sensu/sensu-chef/compare/v5.1.1...v5.1.2
 [5.1.1]: https://github.com/sensu/sensu-chef/compare/v5.1.0...v5.1.1
