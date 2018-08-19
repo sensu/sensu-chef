@@ -29,8 +29,14 @@ action :create do
       timeout
       ttl
       type
+      interval
+      cron
     ]
-  ).merge("interval" => new_resource.interval).merge(new_resource.additional)
+  ).merge(new_resource.additional).tap do |helper|
+    helper.delete(:interval) unless helper[:interval]
+    helper.delete(:cron) unless helper[:cron]
+  end 
+    
 
   definition = {
     "checks" => {
