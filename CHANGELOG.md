@@ -5,6 +5,9 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Added
+- exposed `package_name` as an optional parameter to the `sensu_gem` resource in case you need to install multiple versions of a gem. (@majormoses)
+
 ## [5.3.0] - 2018-08-19
 ### Added
 - First class support for defining checks via cron syntax (@vbichov)

@@ -31,6 +31,13 @@ sensu_gem 'sensu-plugins-memory-checks' do
   action :install
 end
 
+# for testing the package proprty
+sensu_gem 'sensu-plugins-disk-checks-newer' do
+  action :install
+  version '3.1.0'
+  package_name 'sensu-plugins-disk-checks'
+end
+
 # for testing upgrade action with source
 sensu_gem 'sensu-plugins-memory-checks' do
   source mem_checks

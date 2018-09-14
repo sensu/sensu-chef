@@ -44,6 +44,7 @@ suites:
     run_list:
       - recipe[sensu-test::ensure_group]
       - recipe[sensu::default]
+      - recipe[sensu-test::gem_lwrp]
       - recipe[sensu-test::good_checks]
     attributes:
       sensu:
