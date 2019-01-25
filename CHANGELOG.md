@@ -5,6 +5,7 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [6.0.0] - 2018-01-25
 ### Breaking Changes
 - require at least chef `12.14` (@majormoses)
 - default snippets and json files as sensitive (@majormoses)
@@ -334,7 +335,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.4.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/sensu/sensu-chef/compare/v5.4.0...v6.0.0
 [5.4.0]: https://github.com/sensu/sensu-chef/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/sensu/sensu-chef/compare/v5.2.0...v5.3.0
 [5.2.0]: https://github.com/sensu/sensu-chef/compare/v5.1.2...v5.2.0

@@ -6,7 +6,7 @@ description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 # needed for sensitive resources in custom resources while we dont use these yet I think supporting a super old version of chef is not in the best interest of the community and they can always pin on ~> 5.x to support ancient chefs
 chef_version '>= 12.14'
-version          "5.4.0"
+version          "6.0.0"
 
 # available @ https://supermarket.chef.io/cookbooks/windows
 depends "windows", ">= 1.36"
