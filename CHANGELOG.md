@@ -5,6 +5,16 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Breaking Changes
+- require at least chef `12.14` (@majormoses)
+- default snippets and json files as sensitive (@majormoses)
+
+### Fixed
+- use lazy when rendering the content to allow it to be passed by an upstream resource (@majormoses)
+
+### Added
+- allow passing `sensitive` to a snippet or `json_file` resource (@majormoses)
+
 ## [5.4.0] - 2018-09-14
 ### Added
 - exposed `package_name` as an optional parameter to the `sensu_gem` resource in case you need to install multiple versions of a gem. (@majormoses)

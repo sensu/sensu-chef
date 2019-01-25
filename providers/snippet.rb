@@ -9,7 +9,8 @@ action :create do
   }
 
   f = sensu_json_file @definition_path do
-    content definition
+    content lazy { definition }
+    sensitive true unless new_resource.sensitive
   end
 
   new_resource.updated_by_last_action(f.updated_by_last_action?)

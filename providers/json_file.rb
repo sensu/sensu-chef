@@ -15,7 +15,8 @@ action :create do
     owner lazy { new_resource.owner || node["sensu"]["admin_user"] }
     group lazy { new_resource.group || node["sensu"]["group"] }
     mode new_resource.mode
-    content Sensu::JSONFile.dump_json(new_resource.content)
+    content lazy { Sensu::JSONFile.dump_json(new_resource.content) }
+    sensitive true unless new_resource.sensitive
     notifies :create, "ruby_block[sensu_service_trigger]", :delayed if sensu_service_trigger
   end
 
