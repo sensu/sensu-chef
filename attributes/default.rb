@@ -69,3 +69,7 @@ default["sensu"]["data_bag"]["name"] = "sensu"
 default["sensu"]["data_bag"]["ssl_item"] = "ssl"
 default["sensu"]["data_bag"]["config_item"] = "config"
 default["sensu"]["data_bag"]["enterprise_item"] = "enterprise"
+
+# inject arbitrary env vars into the sensu process
+default['sensu']['env_vars'] = nil
+default['sensu']['etc_default_sensu']['cookbook'] = 'sensu'
