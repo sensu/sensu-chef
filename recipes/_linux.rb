@@ -122,5 +122,9 @@ end
 
 template "/etc/default/sensu" do
   source "sensu.default.erb"
+  cookbook node['sensu']['etc_default_sensu']['cookbook']
+  mode '400'
+  user 'root'
+  group 'root'
   notifies :create, "ruby_block[sensu_service_trigger]"
 end

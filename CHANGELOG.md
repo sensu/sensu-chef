@@ -5,6 +5,12 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+### Security
+- locked down permissions of `/etc/default/sensu` to be owned and grouped by `root` and to only be readable or writable by its owner (@majormoses)
+
+### Added
+- support for injecting arbitrary env vars into `/etc/default/sensu` (@majormoses)
+
 ## [5.4.0] - 2018-09-14
 ### Added
 - exposed `package_name` as an optional parameter to the `sensu_gem` resource in case you need to install multiple versions of a gem. (@majormoses)

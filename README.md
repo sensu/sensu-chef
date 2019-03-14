@@ -211,6 +211,10 @@ for Sensu to start/stop.
 
 `node["sensu"]["loaded_tempfile_dir"]` - Where Sensu stores temporary files. Set a persistent directory if you use hardened system that cleans temporary directory regularly.
 
+`node['sensu']['env_vars]` - A hash of key value pairs that will be written to `/etc/default/sensu` which will be passed to the sensu proces as ENV vars. This defaults to `nil` and only triggers when it is not `nil`.
+
+`node['sensu']['etc_default_sensu']['cookbook']` - A string that allows you to choose the cookbook that you wish to pull the template for writing `/etc/default/sensu` from, this is useful in the case of wanting to write your own template in your wrapper cookbook. This defaults to `'sensu'` which is this cookbook.
+
 ### Windows
 
 Sensu requires Microsoft's .Net Framework to run on Windows. The following attributes influence the installation of .Net via this cookbook:
