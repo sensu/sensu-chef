@@ -18,7 +18,7 @@ describe 'sensu::_linux' do
       end
     end
     it 'runs the _linux recipe' do
-      expect(chef_run).to add_yum_repository('sensu').with(baseurl: 'http://repositories.sensuapp.org/yum/7/$basearch/')
+      expect(chef_run).to add_yum_repository('sensu').with(baseurl: 'http://eol-repositories.sensuapp.org/yum/7/$basearch/')
       expect(chef_run).to install_yum_package('sensu').with(version: '1.2.0-1.el7')
     end
 
@@ -56,7 +56,7 @@ describe 'sensu::_linux' do
         end
       end
       it 'runs the _linux recipe' do
-        expect(chef_run).to add_yum_repository('sensu').with(baseurl: 'http://repositories.sensuapp.org/yum/6/$basearch/')
+        expect(chef_run).to add_yum_repository('sensu').with(baseurl: 'http://eol-repositories.sensuapp.org/yum/6/$basearch/')
         expect(chef_run).to install_yum_package('sensu').with(version: '1.2.0-1.el6')
       end
     end
