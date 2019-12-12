@@ -16,6 +16,7 @@ before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
 
 script:
+  - export CHEF_LICENSE="accept-silent"
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/cookstyle --version
   - /opt/chefdk/embedded/bin/foodcritic --version
