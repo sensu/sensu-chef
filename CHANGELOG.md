@@ -5,6 +5,10 @@ cookbook. Please see HISTORY.md for changes from older versions of this project.
 
 ## [Unreleased]
 
+## [6.0.0] - 2019-12-17
+### Breaking Changes
+- changed the `apt`, `yum`, and `msi` repo paths to use the [EOL urls](http://eol-repositories.sensuapp.org/) which was announced [here](https://blog.sensu.io/announcing-the-sensu-archives). This is only breaking if you have specific whitelisted URLs for the old repos in an `http(s)` proxy. See [#632](https://github.com/sensu/sensu-chef/pull/632) for more details. (@duncaan)
+
 ## [5.4.0] - 2018-09-14
 ### Added
 - exposed `package_name` as an optional parameter to the `sensu_gem` resource in case you need to install multiple versions of a gem. (@majormoses)
@@ -324,7 +328,8 @@ Added helpers for storing key/value pairs which persist for duration of the Chef
 
 Allow "standard" as a value of type attribute on `sensu_check` resources, [as described in Sensu documentation](https://sensuapp.org/docs/0.21/checks).
 
-[Unreleased]: https://github.com/sensu/sensu-chef/compare/v5.4.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-chef/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/sensu/sensu-chef/compare/v5.4.0...v6.0.0
 [5.4.0]: https://github.com/sensu/sensu-chef/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/sensu/sensu-chef/compare/v5.2.0...v5.3.0
 [5.2.0]: https://github.com/sensu/sensu-chef/compare/v5.1.2...v5.2.0
