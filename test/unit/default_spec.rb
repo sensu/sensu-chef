@@ -60,7 +60,7 @@ describe "sensu::default" do
       end
 
       it "configures the yum repo definition" do
-        expect(chef_run).to add_yum_repository("sensu").with(:baseurl => "http://repositories.sensuapp.org/yum/$releasever/$basearch/")
+        expect(chef_run).to add_yum_repository("sensu").with(:baseurl => "http://eol-repositories.sensuapp.org/yum/$releasever/$basearch/")
       end
 
       it_behaves_like('sensu default recipe')
@@ -74,7 +74,7 @@ describe "sensu::default" do
         end
 
         it "configures the yum repo definition with the provided releasever" do
-          expect(chef_run).to add_yum_repository("sensu").with(:baseurl => "http://repositories.sensuapp.org/yum/dory/$basearch/")
+          expect(chef_run).to add_yum_repository("sensu").with(:baseurl => "http://eol-repositories.sensuapp.org/yum/dory/$basearch/")
         end
       end
     end
