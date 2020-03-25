@@ -4,7 +4,7 @@ maintainer_email "support@sensuapp.com"
 license          "Apache-2.0"
 description      "Installs/Configures Sensu"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "6.0.1"
+version          "6.0.0"
 
 # available @ https://supermarket.chef.io/cookbooks/windows
 depends "windows", ">= 1.36"
@@ -40,6 +40,6 @@ suggests "zypper", ">= 0.4.0"
   supports os
 end
 
-source_url 'https://github.com/sensu/sensu-chef'
-issues_url 'https://github.com/sensu/sensu-chef/issues'
+#source_url 'https://github.com/sensu/sensu-chef'
+#issues_url 'https://github.com/sensu/sensu-chef/issues'
 chef_version '>= 12.3'
