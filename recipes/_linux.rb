@@ -17,107 +17,18 @@
 # limitations under the License.
 #
 
-platform_family = node["platform_family"]
+remote_file '/tmp/sensu_1.4.2-4_amd64.deb' do
+  source 'https://ds-sensu-core-pkgs.s3-us-west-2.amazonaws.com/sensu_1.4.2-4_amd64.deb'
+  owner 'root'
+  group 'root'
+  mode '0744'
+  action :create
+end
 
-case platform_family
-when "debian"
-  package "apt-transport-https"
-
-  apt_repository "sensu" do
-    uri node["sensu"]['apt_repo_url']
-    key node['sensu']['apt_key_url']
-    distribution node["sensu"]["apt_repo_codename"] || node["lsb"]["codename"]
-    components node["sensu"]["use_unstable_repo"] ? ["unstable"] : ["main"]
-    action :add
-    only_if { node["sensu"]["add_repo"] }
-  end
-
-  apt_preference "sensu" do
-    pin "version #{node['sensu']['version']}"
-    pin_priority "700"
-  end
-
-  package_options = '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"'
-
-  package "sensu" do
-    version node["sensu"]["version"]
-    options package_options
-    notifies :create, "ruby_block[sensu_service_trigger]"
-  end
-when "suse"
-  repo = zypper_repo 'sensu' do
-    repo_name 'sensu'
-    repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    uri "#{node['sensu']['yum_repo_url']}/#{repo}/7/x86_64/"
-    gpgkey node['sensu']['yum_key_url']
-  end
-  repo.gpgcheck(true) if repo.respond_to?(:gpgcheck)
-
-  # As of 0.27 we need to suffix the version string with the platform major
-  # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
-  # attribute.
-  zypper_package "sensu" do
-    version lazy { "1:" + Sensu::Helpers.redhat_version_string(
-      node["sensu"]["version"],
-      7,
-      node["sensu"]["version_suffix"]
-    )}
-    notifies :create, "ruby_block[sensu_service_trigger]"
-  end
-when "rhel", "fedora"
-  repo = yum_repository "sensu" do
-    description "sensu monitoring"
-    repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    releasever_string = node["sensu"]["yum_repo_releasever"] || "$releasever"
-    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/#{releasever_string}/$basearch/"
-    gpgkey node['sensu']['yum_key_url']
-    action :add
-    only_if { node["sensu"]["add_repo"] }
-  end
-  repo.gpgcheck(true) if repo.respond_to?(:gpgcheck)
-
-  # As of 0.27 we need to suffix the version string with the platform major
-  # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
-  # attribute.
-  yum_package "sensu" do
-    version lazy { Sensu::Helpers.redhat_version_string(
-      node["sensu"]["version"],
-      node["platform_version"],
-      node["sensu"]["version_suffix"]
-    )}
-    allow_downgrade true
-    flush_cache node['sensu']['yum_flush_cache'] unless node['sensu']['yum_flush_cache'].nil?
-    notifies :create, "ruby_block[sensu_service_trigger]"
-  end
-when "amazon"
-  repo = yum_repository "sensu" do
-    description "sensu monitoring"
-    repo = node["sensu"]["use_unstable_repo"] ? "yum-unstable" : "yum"
-    # Use the platform version numbering scheme to determine the release version
-    # 20XX.XX vs 2.X
-    releasever_string = node["sensu"]["yum_repo_releasever"] || Sensu::Helpers.amazon_linux_2_rhel_version(node["platform_version"])
-    baseurl "#{node['sensu']['yum_repo_url']}/#{repo}/#{releasever_string}/$basearch/"
-    gpgkey node['sensu']['yum_key_url']
-    action :add
-    only_if { node["sensu"]["add_repo"] }
-  end
-  repo.gpgcheck(true) if repo.respond_to?(:gpgcheck)
-
-  # As of 0.27 we need to suffix the version string with the platform major
-  # version, e.g. ".el7". Override default via node["sensu"]["version_suffix"]
-  # attribute.
-  yum_package "sensu" do
-    version lazy { Sensu::Helpers.amazon_linux_2_version_string(
-        node["sensu"]["version"],
-        node["sensu"]["yum_repo_releasever"] || Sensu::Helpers.amazon_linux_2_rhel_version(node["platform_version"]),
-        node["sensu"]["version_suffix"]
-    )}
-    allow_downgrade true
-    flush_cache node['sensu']['yum_flush_cache'] unless node['sensu']['yum_flush_cache'].nil?
-    notifies :create, "ruby_block[sensu_service_trigger]"
-  end
-else
-  raise "Unsupported Linux platform family #{platform_family}"
+dpkg_package 'sensu-client' do
+  source '/tmp/sensu_1.4.2-4_amd64.deb'
+  action :install
+  not_if { ::File.exist?('/opt/sensu/bin/sensu-client') }
 end
 
 template "/etc/default/sensu" do
